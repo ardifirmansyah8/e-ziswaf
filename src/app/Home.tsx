@@ -1,11 +1,10 @@
 "use client";
 
-import clsx from "clsx";
 import Image from "next/image";
 import Slider from "react-slick";
 
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Sidebar from "@/components/Sidebar";
 import Infographic from "@/features/Home/components/Infographic";
 import Transactions from "@/features/Home/components/Transactions";
 
@@ -33,7 +32,7 @@ const settings2 = {
 export default function Home() {
   return (
     <div className="relative">
-      <Sidebar />
+      <Header />
 
       <main className="flex flex-col pt-16">
         <section className="flex flex-col justify-center p-4 w-full gap-4">
@@ -49,7 +48,6 @@ export default function Home() {
 
           <Infographic />
 
-          {/* Transaksi Terakhir */}
           <Transactions />
 
           {/* Lembaga Zakat */}

@@ -41,7 +41,7 @@ const menu = {
   ],
 };
 
-export default function Sidebar() {
+export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -75,7 +75,7 @@ export default function Sidebar() {
               onClick={() => setOpen(!open)}
             />
           </div>
-          <div className="px-5 py-4 flex flex-col justify-between flex-1">
+          <div className="px-5 py-4 flex flex-col justify-between h-[calc(100vh-64.5px)]">
             <div className="flex flex-col gap-2.5">
               {menu.ziswaf.map((item) => (
                 <div
