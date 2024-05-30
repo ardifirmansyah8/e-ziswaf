@@ -20,7 +20,8 @@ export default function Home() {
   const data = useFetchLandingData();
   console.log(data);
 
-  const mobile = window.innerWidth < 768;
+  const mobile =
+    typeof window !== "undefined" ? window.innerWidth < 768 : false;
 
   const settings = {
     dots: false,
@@ -35,7 +36,7 @@ export default function Home() {
         width={40}
         height={40}
       />
-    ) : null,
+    ) : undefined,
     nextArrow: !mobile ? (
       <Image
         src={"/icon/icon-arrow-right.svg"}
@@ -43,7 +44,7 @@ export default function Home() {
         width={40}
         height={40}
       />
-    ) : null,
+    ) : undefined,
   };
 
   const settings2 = {
@@ -59,7 +60,7 @@ export default function Home() {
         width={40}
         height={40}
       />
-    ) : null,
+    ) : undefined,
     nextArrow: !mobile ? (
       <Image
         src={"/icon/icon-arrow-right.svg"}
@@ -67,7 +68,7 @@ export default function Home() {
         width={40}
         height={40}
       />
-    ) : null,
+    ) : undefined,
   };
 
   return (
