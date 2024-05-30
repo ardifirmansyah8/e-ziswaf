@@ -1,47 +1,11 @@
 "use client";
 
+import { MENU } from "@/utils/constants";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
-const menu = {
-  ziswaf: [
-    {
-      icon: "/icon/icon-home",
-      title: "Beranda",
-      isActive: true,
-    },
-    {
-      icon: "/icon/icon-wallet",
-      title: "Zakat",
-    },
-    {
-      icon: "/icon/icon-gift",
-      title: "Wakaf",
-    },
-    {
-      icon: "/icon/icon-masjid",
-      title: "Masjid",
-    },
-    {
-      icon: "/icon/icon-book-check",
-      title: "Program",
-    },
-  ],
-  others: [
-    {
-      icon: "/icon/icon-thumb-up",
-      title: "Tentang Kami",
-      isActive: false,
-    },
-    {
-      icon: "/icon/icon-info",
-      title: "Informasi",
-    },
-  ],
-};
-
-export default function Header() {
+export default function HeaderMobile() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -77,7 +41,7 @@ export default function Header() {
           </div>
           <div className="px-5 py-4 flex flex-col justify-between h-[calc(100vh-64.5px)]">
             <div className="flex flex-col gap-2.5">
-              {menu.ziswaf.map((item) => (
+              {MENU.ziswaf.map((item) => (
                 <div
                   key={item.title}
                   className={clsx({
@@ -104,7 +68,7 @@ export default function Header() {
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              {menu.others.map((item) => (
+              {MENU.others.map((item) => (
                 <div
                   key={item.title}
                   className={clsx({

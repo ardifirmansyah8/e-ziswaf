@@ -102,17 +102,17 @@ const data = {
 
 export default function Infographic() {
   return (
-    <div className="flex flex-col gap-2.5 mb-3">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 mb-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 md:w-2/3 gap-4">
         {grafikData.map((el) => (
           <div
             key={el.title}
-            className={`rounded-[10px] p-2 flex items-center gap-2.5 ${el.color}`}
+            className={`rounded-[10px] p-2 md:p-5 flex items-center gap-2.5 md:gap-5 ${el.color}`}
           >
             <Image src={el.icon} alt="icon" width={24} height={24} />
             <div className="flex flex-col gap-1">
               <span className="text-[10px] text-grey-2">{el.title}</span>
-              <span className="font-bold text-grey-2 text-xs">{`${
+              <span className="font-bold text-grey-2 text-xs md:text-sm">{`${
                 el.type === "price" ? "Rp " : ""
               }${delimiter(el.value)}`}</span>
             </div>
@@ -120,7 +120,7 @@ export default function Infographic() {
         ))}
       </div>
 
-      <div className="w-full p-3.5 border rounded-[10px] border-grey-1">
+      <div className="p-3.5 w-full md:w-1/3 border rounded-[10px] border-grey-1">
         <Chart
           type="line"
           data={data}

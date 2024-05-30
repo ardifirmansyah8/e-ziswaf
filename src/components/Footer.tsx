@@ -4,8 +4,9 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="px-4 py-5 bg-grey-3 w-full flex flex-col gap-7">
-      <div className="flex flex-col gap-4">
+    <footer className="px-4 py-5 md:py-[30px] bg-grey-3 w-full flex flex-col md:flex-row gap-7 md:gap-5">
+      <div className="hidden md:block w-[300px]" />
+      <div className="flex flex-col gap-4 md:w-[304px]">
         <Image
           src="/logo-e-ziswaf.png"
           alt="logo e-ziswaf"
