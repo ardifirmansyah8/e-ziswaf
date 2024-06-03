@@ -1,7 +1,15 @@
+import { LastTrxType } from "@/api/useLandingPage";
+import { Skeleton } from "@/components/ui/skeleton";
+import { delimiter } from "@/utils/string";
 import clsx from "clsx";
 import Image from "next/image";
 
-export default function Transactions() {
+type Props = {
+  isLoading: boolean;
+  trx: LastTrxType[];
+};
+
+export default function Transactions({ isLoading, trx }: Props) {
   return (
     <div className="mb-3">
       <div className="flex justify-between items-center mb-2.5">
@@ -9,12 +17,17 @@ export default function Transactions() {
           Transaksi terakhir di E-Ziswaf
         </label>
 
-        <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
-          Lihat Semua
-        </a>
+        {!isLoading && (
+          <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
+            Lihat Semua
+          </a>
+        )}
       </div>
+
+      {isLoading && <Skeleton className="h-12 w-full" />}
+
       <div className="sm:block md:hidden">
-        {[...Array(5)].map((_, i) => (
+        {trx.map((data, i) => (
           <div
             key={i}
             className={clsx({
@@ -30,20 +43,22 @@ export default function Transactions() {
               height={24}
             />
             <div className="flex flex-col gap-1 flex-1">
-              <label className="text-xs font-semibold">TRX 1234567890</label>
-              <label className="text-xs">
-                dari <b>ID</b> kepada <b>Dompet</b>
+              <label className="text-xs font-semibold">
+                TRX {data.trx_no.slice(0, 8)}
               </label>
-              <label className="text-xs">1 detik lalu</label>
+              <label className="text-xs">
+                dari <b>{data.from}</b> kepada <b>{data.to}</b>
+              </label>
+              <label className="text-xs">{data.time}</label>
             </div>
             <label className="text-xs text-green-1 font-semibold">
-              Rp50.000.000
+              {data.amount}
             </label>
           </div>
         ))}
       </div>
       <div className="hidden md:block">
-        {[...Array(7)].map((_, i) => (
+        {trx.map((data, i) => (
           <div
             key={i}
             className={clsx({
@@ -60,16 +75,16 @@ export default function Transactions() {
                 height={24}
               />
               <label className="ml-4 text-sm font-semibold">
-                TRX 1234567890
+                TRX {data.trx_no.slice(0, 8)}
               </label>
-              <label className="text-sm">1 detik lalu</label>
+              <label className="text-sm">{data.time}</label>
               <label className="text-sm flex-1">
-                dari <b>ID</b> kepada <b>Dompet</b>
+                dari <b>{data.from}</b> kepada <b>{data.to}</b>
               </label>
             </div>
             <div className="w-1/3 flex justify-end">
               <label className="text-sm text-green-1 font-semibold">
-                Rp50.000.000
+                {data.amount}
               </label>
             </div>
           </div>

@@ -6,6 +6,8 @@ import Image from "next/image";
 import { delimiter } from "@/utils/string";
 
 import "chart.js/auto";
+import type { ChartType, DashboardType } from "@/api/useLandingPage";
+import { useMemo } from "react";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -14,97 +16,122 @@ const Chart = dynamic(
   }
 );
 
-const grafikData = [
+type dashboardType =
+  | "ledger"
+  | "total_trx"
+  | "total_user"
+  | "zakat"
+  | "wakaf"
+  | "infak";
+
+const dashboardData = [
   {
     title: "Total Himpunan",
-    value: 400000000,
     icon: "/icon/icon-basket.svg",
     color: "bg-green-2",
-    type: "price",
+    type: "ledger",
   },
   {
     title: "Total Transaksi",
-    value: 100000,
     icon: "/icon/icon-paper.svg",
     color: "bg-[#ECD5EE]",
-    type: "quantity",
+    type: "total_trx",
   },
   {
     title: "Total Donatur",
-    value: 100000,
     icon: "/icon/icon-scan.svg",
     color: "bg-[#BDE9F3]",
-    type: "quantity",
+    type: "total_user",
   },
   {
     title: "Total Zakat",
-    value: 200000000,
     icon: "/icon/icon-wallet.svg",
     color: "bg-[#DEEFFC]",
-    type: "price",
+    type: "zakat",
   },
   {
     title: "Total Wakaf",
-    value: 100000000,
     icon: "/icon/icon-gift.svg",
     color: "bg-[#FCE3DE]",
-    type: "price",
+    type: "wakaf",
   },
   {
     title: "Total Infaq",
-    value: 100000000,
     icon: "/icon/icon-archive.svg",
     color: "bg-[#F5F2B1]",
-    type: "price",
+    type: "infak",
   },
 ];
 
-const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-  datasets: [
-    {
-      label: "Semua",
-      data: [0.6, 0.7, 0.8, 1, 1.5],
-      fill: false,
-      backgroundColor: "#45AF63",
-      borderColor: "#45AF63",
-      borderRadius: "50%",
-      tension: 0.1,
-    },
-    {
-      label: "Zakat",
-      data: [0.6, 0.9, 1.1, 1.3, 1.5],
-      fill: false,
-      backgroundColor: "#4169E1",
-      borderColor: "#4169E1",
-      borderRadius: "50%",
-      tension: 0.1,
-    },
-    {
-      label: "Infaq",
-      data: [0.6, 0.9, 1.1, 1.3, 1.4],
-      fill: false,
-      backgroundColor: "#FF4F79",
-      borderColor: "#FF4F79",
-      borderRadius: "50%",
-      tension: 0.1,
-    },
-    {
-      label: "Wakaf",
-      data: [0.6, 0.8, 1, 2, 3],
-      fill: false,
-      backgroundColor: "#FFBE0A",
-      borderColor: "#FFBE0A",
-      tension: 0.1,
-    },
-  ],
+type Props = {
+  dashboard: DashboardType;
+  chart: ChartType[];
 };
 
-export default function Infographic() {
+export default function Infographic({ dashboard, chart }: Props) {
+  const chartData = useMemo(() => {
+    const data = {
+      zakat: [] as number[],
+      infak: [] as number[],
+      total: [] as number[],
+      mnth: [] as string[],
+      wakaf: [] as number[],
+    };
+    if (chart?.length > 0) {
+      chart.forEach((item) => {
+        data.mnth.push(item.mnth);
+        data.total.push(item.total);
+        data.zakat.push(item.zakat);
+        data.wakaf.push(item.wakaf);
+        data.infak.push(item.infak);
+      });
+    }
+    return {
+      labels: data.mnth,
+      datasets: [
+        {
+          label: "Semua",
+          data: data.total,
+          fill: false,
+          backgroundColor: "#45AF63",
+          borderColor: "#45AF63",
+          borderRadius: "50%",
+          tension: 0.1,
+        },
+        {
+          label: "Zakat",
+          data: data.zakat,
+          fill: false,
+          backgroundColor: "#4169E1",
+          borderColor: "#4169E1",
+          borderRadius: "50%",
+          tension: 0.1,
+        },
+        {
+          label: "Infaq",
+          data: data.infak,
+          fill: false,
+          backgroundColor: "#FF4F79",
+          borderColor: "#FF4F79",
+          borderRadius: "50%",
+          tension: 0.1,
+        },
+        {
+          label: "Wakaf",
+          data: data.wakaf,
+          fill: false,
+          backgroundColor: "#FFBE0A",
+          borderColor: "#FFBE0A",
+          tension: 0.1,
+        },
+      ],
+    };
+  }, [chart]);
+
   return (
     <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 mb-3">
       <div className="grid grid-cols-2 md:grid-cols-3 md:w-2/3 gap-4">
-        {grafikData.map((el) => (
+        {dashboardData.map((el) => (
           <div
             key={el.title}
             className={`rounded-[10px] p-2 md:p-5 flex items-center gap-2.5 md:gap-5 ${el.color}`}
@@ -112,9 +139,15 @@ export default function Infographic() {
             <Image src={el.icon} alt="icon" width={24} height={24} />
             <div className="flex flex-col gap-1">
               <span className="text-[10px] text-grey-2">{el.title}</span>
-              <span className="font-bold text-grey-2 text-xs md:text-sm">{`${
-                el.type === "price" ? "Rp " : ""
-              }${delimiter(el.value)}`}</span>
+              <span className="font-bold text-grey-2 text-xs md:text-sm">
+                {dashboard
+                  ? `${
+                      el.type === "ledger" || el.type === "total_user"
+                        ? ""
+                        : "Rp "
+                    }${delimiter(dashboard[el.type as dashboardType])}`
+                  : ""}
+              </span>
             </div>
           </div>
         ))}
@@ -123,7 +156,7 @@ export default function Infographic() {
       <div className="p-3.5 w-full md:w-1/3 border rounded-[10px] border-grey-1">
         <Chart
           type="line"
-          data={data}
+          data={chartData}
           width="100%"
           options={{
             maintainAspectRatio: false,

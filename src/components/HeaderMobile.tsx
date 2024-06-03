@@ -12,7 +12,7 @@ export default function HeaderMobile() {
     <div>
       <div
         className={clsx({
-          "w-screen h-screen bg-black bg-opacity-50 fixed z-20": open,
+          "w-screen h-screen bg-black bg-opacity-50 fixed z-50": open,
         })}
       >
         <div
