@@ -1,8 +1,8 @@
-import { LastTrxType } from "@/api/useLandingPage";
-import { Skeleton } from "@/components/ui/skeleton";
-import { delimiter } from "@/utils/string";
 import clsx from "clsx";
 import Image from "next/image";
+
+import type { LastTrxType } from "@/api/useLandingPage";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   isLoading: boolean;
@@ -62,12 +62,12 @@ export default function Transactions({ isLoading, trx }: Props) {
           <div
             key={i}
             className={clsx({
-              "py-2.5 px-4 flex": true,
+              "py-2.5 px-4 flex justify-between": true,
               "bg-grey-3": i % 2 === 0,
               "bg-white": i % 2 !== 0,
             })}
           >
-            <div className="flex items-center gap-4 w-2/3">
+            <div className="flex items-center gap-4">
               <Image
                 src="/icon/icon-wallet.svg"
                 alt="icon-wallet"
@@ -82,7 +82,7 @@ export default function Transactions({ isLoading, trx }: Props) {
                 dari <b>{data.from}</b> kepada <b>{data.to}</b>
               </label>
             </div>
-            <div className="w-1/3 flex justify-end">
+            <div className="flex justify-end">
               <label className="text-sm text-green-1 font-semibold">
                 {data.amount}
               </label>
