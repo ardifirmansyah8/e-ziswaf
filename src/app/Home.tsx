@@ -20,7 +20,7 @@ import UserDataDialog from "@/features/Register/components/UserDataDialog";
 import SuccessRegisterDialog from "@/features/Register/components/SuccessRegisterDialog";
 
 export default function Home() {
-  const jwt = window.localStorage.getItem("jwt");
+  const jwt = window?.localStorage.getItem("jwt");
   console.log(jwt);
 
   const [isOpen, setIsOpen] = useState(true);
