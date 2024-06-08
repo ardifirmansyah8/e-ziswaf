@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import Image from "next/image";
 
-import type { LastTrxType } from "@/api/useLandingPage";
+import type { ILastTrx } from "@/api/useLandingPage";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   isLoading: boolean;
-  trx: LastTrxType[];
+  trx: ILastTrx[];
 };
 
 export default function Transactions({ isLoading, trx }: Props) {
