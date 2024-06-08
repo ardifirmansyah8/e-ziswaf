@@ -104,12 +104,18 @@ export interface UserPayload {
 }
 
 export const useUpdateUser = () => {
+  const jwt =
+    typeof window !== "undefined" ? window.localStorage.getItem("jwt") : "";
+
   return useMutation({
     mutationKey: ["update-user"],
     mutationFn: (payload: UserPayload) =>
       axios({
         method: "post",
         url: `${BASE_API_URL}/app/user/update`,
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
         data: payload,
       }).catch((error: any) => {
         throw new Error(error?.response.data.message);
