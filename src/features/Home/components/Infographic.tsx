@@ -6,7 +6,7 @@ import Image from "next/image";
 import { delimiter } from "@/utils/string";
 
 import "chart.js/auto";
-import type { ChartType, DashboardType } from "@/api/useLandingPage";
+import type { IChart, IDashboard } from "@/api/useLandingPage";
 import { useMemo } from "react";
 
 const Chart = dynamic(
@@ -64,8 +64,8 @@ const dashboardData = [
 ];
 
 type Props = {
-  dashboard: DashboardType;
-  chart: ChartType[];
+  dashboard: IDashboard;
+  chart: IChart[];
 };
 
 export default function Infographic({ dashboard, chart }: Props) {
