@@ -1,8 +1,18 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 function makeQueryClient() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { toast } = useToast();
+
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -11,6 +21,44 @@ function makeQueryClient() {
         staleTime: 60 * 1000,
       },
     },
+    queryCache: new QueryCache({
+      onError: (error) => {
+        if (error?.message) {
+          toast({
+            duration: 1000,
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        } else {
+          toast({
+            duration: 1000,
+            variant: "destructive",
+            title: "Error",
+            description: "Something went wrong",
+          });
+        }
+      },
+    }),
+    mutationCache: new MutationCache({
+      onError: (error) => {
+        if (error?.message) {
+          toast({
+            duration: 1000,
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        } else {
+          toast({
+            duration: 1000,
+            variant: "destructive",
+            title: "Error",
+            description: "Something went wrong",
+          });
+        }
+      },
+    }),
   });
 }
 

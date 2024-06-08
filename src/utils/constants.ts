@@ -15,14 +15,14 @@ export const MENU = {
       icon: "/icon/icon-gift",
       title: "Wakaf",
     },
-    {
-      icon: "/icon/icon-masjid",
-      title: "Masjid",
-    },
-    {
-      icon: "/icon/icon-book-check",
-      title: "Program",
-    },
+    // {
+    //   icon: "/icon/icon-masjid",
+    //   title: "Masjid",
+    // },
+    // {
+    //   icon: "/icon/icon-book-check",
+    //   title: "Program",
+    // },
   ],
   others: [
     {

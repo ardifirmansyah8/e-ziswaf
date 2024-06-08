@@ -51,7 +51,6 @@ const settings = {
 export default function LembagaWakaf() {
   const { data } = useFetchLembagaWakaf();
 
-  console.log(data);
   if (data?.length === 0) return null;
 
   return (
@@ -73,7 +72,7 @@ export default function LembagaWakaf() {
           >
             <div className="rounded-tl-[10px] rounded-tr-[10px] h-[137px] flex flex-col items-center justify-center gap-2.5 bg-grey-3">
               <Image
-                src="/icon-dompet-dhuafa.svg"
+                src="/icon/icon-placeholder-lembaga.svg"
                 alt="icon-dompet-dhuafa"
                 width={70}
                 height={70}

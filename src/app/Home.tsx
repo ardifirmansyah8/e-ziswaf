@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -9,14 +8,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import HeaderMobile from "@/components/HeaderMobile";
 import Footer from "@/components/Footer";
+import OtpDialog from "@/components/OtpDialog";
+import Sidebar from "@/components/Sidebar";
 import Infographic from "@/features/Home/components/Infographic";
 import LembagaZakat from "@/features/Home/components/LembagaZakat";
 import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
 import Transactions from "@/features/Home/components/Transactions";
-import { MENU } from "@/utils/constants";
+import LoginDialog from "@/features/Login/components/LoginDialog";
+import RegisterDialog from "@/features/Register/components/RegisterDialog";
+import UserDataDialog from "@/features/Register/components/UserDataDialog";
+import SuccessRegisterDialog from "@/features/Register/components/SuccessRegisterDialog";
 
 export default function Home() {
+  const jwt = window.localStorage.getItem("jwt");
+  console.log(jwt);
+
   const [isOpen, setIsOpen] = useState(true);
+  const [dialogType, setDialogType] = useState("");
+  const [backTo, setBackTo] = useState("");
+  const [phone, setPhone] = useState("");
 
   const { data, isLoading } = useFetchLandingData();
 
@@ -57,105 +67,7 @@ export default function Home() {
         </div>
 
         <main className="flex flex-col md:flex-row md:gap-5 pt-16 md:pt-0 w-full">
-          <div
-            className={clsx({
-              "transition-all duration-1000 h-[800px] hidden bg-white w-[300px] p-5 md:flex flex-col":
-                true,
-              "w-[84px]": !isOpen,
-              "w-[300px]": isOpen,
-            })}
-            style={{ boxShadow: "8px 0px 34px 0px #0000001A" }}
-          >
-            <div className="flex pb-5 justify-between border-b border-grey-1">
-              {isOpen ? (
-                <Image
-                  src="/logo-e-ziswaf.png"
-                  alt="logo e-ziswaf"
-                  width={153}
-                  height={40}
-                />
-              ) : (
-                <Image
-                  src="/icon-e-ziswaf.svg"
-                  alt="icon e-ziswaf"
-                  width={40}
-                  height={40}
-                />
-              )}
-            </div>
-            <div className="pt-4 flex flex-col justify-between h-[calc(800px-60.5px)]">
-              <div className="flex flex-col gap-2.5">
-                {MENU.ziswaf.map((item) => (
-                  <div
-                    key={item.title}
-                    className={clsx({
-                      "p-2.5 flex gap-2 items-center": true,
-                      "rounded-[10px] bg-green-2": item.isActive,
-                    })}
-                  >
-                    <Image
-                      src={`${item.icon}.svg`}
-                      alt={item.title}
-                      width={24}
-                      height={24}
-                    />
-                    {isOpen && (
-                      <span
-                        className={clsx({
-                          "font-medium": true,
-                          "text-green-1": item.isActive,
-                          "text-grey-2": !item.isActive,
-                        })}
-                      >
-                        {item.title}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col gap-2.5">
-                {MENU.others.map((item) => (
-                  <div
-                    key={item.title}
-                    className={clsx({
-                      "p-2.5 flex gap-2 items-center": true,
-                      "rounded-[10px] bg-green-2": item.isActive,
-                    })}
-                  >
-                    <Image
-                      src={`${item.icon}.svg`}
-                      alt={item.title}
-                      width={24}
-                      height={24}
-                    />
-                    {isOpen && (
-                      <span
-                        className={clsx({
-                          "font-medium": true,
-                          "text-green-1": item.isActive,
-                          "text-grey-2": !item.isActive,
-                        })}
-                      >
-                        {item.title}
-                      </span>
-                    )}
-                  </div>
-                ))}
-                <Image
-                  src={
-                    isOpen
-                      ? "/icon/icon-arrow-left.svg"
-                      : "/icon/icon-arrow-right.svg"
-                  }
-                  alt={"icon-arrow-left"}
-                  width={44}
-                  height={44}
-                  className="cursor-pointer"
-                  onClick={() => setIsOpen(!isOpen)}
-                />
-              </div>
-            </div>
-          </div>
+          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
           <section className="min-w-0 flex flex-col p-4 flex-1 gap-4 md:gap-5">
             <div className="pt-1 pb-5 hidden md:flex justify-between border-b border-grey-1">
@@ -172,10 +84,17 @@ export default function Home() {
                   />
                 }
               />
-              <div className="flex gap-2.5">
-                <Button>Masuk</Button>
-                <Button variant={"outline"}>Daftar</Button>
-              </div>
+              {!jwt && (
+                <div className="flex gap-2.5">
+                  <Button onClick={() => setDialogType("login")}>Masuk</Button>
+                  <Button
+                    variant={"outline"}
+                    onClick={() => setDialogType("register")}
+                  >
+                    Daftar
+                  </Button>
+                </div>
+              )}
             </div>
 
             {/* Banner */}
@@ -207,6 +126,7 @@ export default function Home() {
             <LembagaZakat isOpen={isOpen} />
 
             <LembagaWakaf />
+
             {/* Masjid */}
             {/* <div className="mb-3 min-w-0">
               <div className="flex justify-between items-center mb-2.5">
@@ -342,6 +262,50 @@ export default function Home() {
         </main>
       </div>
       <Footer isOpen={isOpen} />
+
+      <LoginDialog
+        isOpen={dialogType === "login"}
+        onClose={(type) => setDialogType(type || "")}
+        onSubmit={(type: string) => {
+          setBackTo("login");
+          setDialogType(type);
+        }}
+      />
+
+      <RegisterDialog
+        isOpen={dialogType === "register"}
+        onClose={(type) => setDialogType(type || "")}
+        onSubmit={(type: string, phone: string) => {
+          setBackTo("register");
+          setPhone(phone);
+          setDialogType(type);
+        }}
+      />
+
+      <OtpDialog
+        isOpen={dialogType === "otp"}
+        backTo={backTo}
+        phone={phone}
+        onClose={(type: string) => setDialogType(type)}
+        onSubmit={() => {
+          if (backTo === "login") {
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          } else {
+            setDialogType("user-data");
+          }
+        }}
+      />
+
+      <UserDataDialog
+        isOpen={dialogType === "user-data"}
+        onSubmit={() => {
+          setDialogType("success-register");
+        }}
+      />
+
+      <SuccessRegisterDialog isOpen={dialogType === "success-register"} />
     </div>
   );
 }
