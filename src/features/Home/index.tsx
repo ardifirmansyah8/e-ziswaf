@@ -1,32 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 import { useFetchLandingData } from "@/api/useLandingPage";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import HeaderMobile from "@/components/HeaderMobile";
-import Footer from "@/components/Footer";
-import OtpDialog from "@/components/OtpDialog";
-import Sidebar from "@/components/Sidebar";
 import Infographic from "@/features/Home/components/Infographic";
 import LembagaZakat from "@/features/Home/components/LembagaZakat";
 import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
 import Transactions from "@/features/Home/components/Transactions";
-import LoginDialog from "@/features/Login/components/LoginDialog";
-import RegisterDialog from "@/features/Register/components/RegisterDialog";
-import UserDataDialog from "@/features/Register/components/UserDataDialog";
-import SuccessRegisterDialog from "@/features/Register/components/SuccessRegisterDialog";
+import useAppContext from "@/utils/context";
 
 export default function Home() {
-  const jwt =
-    typeof window !== "undefined" ? window.localStorage.getItem("jwt") : "";
-
-  const [isOpen, setIsOpen] = useState(true);
-  const [dialogType, setDialogType] = useState("");
-  const [backTo, setBackTo] = useState("");
-  const [phone, setPhone] = useState("");
+  const { isOpen } = useAppContext();
 
   const { data, isLoading } = useFetchLandingData();
 
@@ -60,75 +44,39 @@ export default function Home() {
   // };
 
   return (
-    <div className="bg-white md:flex md:flex-col md:items-center">
-      <div className="md:w-[1280px]">
-        <div className="md:hidden block">
-          <HeaderMobile />
-        </div>
+    <>
+      {/* Banner */}
+      <Image
+        src="/banner.png"
+        alt="banner"
+        width="0"
+        height={250}
+        sizes="100%"
+        className="w-full rounded-[10px]"
+      />
 
-        <main className="flex flex-col md:flex-row md:gap-5 pt-16 md:pt-0 w-full">
-          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Infographic
+        dashboard={
+          data?.dashboard || {
+            ledger: 0,
+            infak: 0,
+            total_trx: 0,
+            total_user: 0,
+            wakaf: 0,
+            zakat: 0,
+          }
+        }
+        chart={data?.chart || []}
+      />
 
-          <section className="min-w-0 flex flex-col p-4 flex-1 gap-4 md:gap-5">
-            <div className="pt-1 pb-5 hidden md:flex justify-between border-b border-grey-1">
-              <Input
-                className="w-2/3"
-                placeholder="Cari di Ziswaf"
-                leftIcon={
-                  <Image
-                    src="/icon/icon-search.svg"
-                    alt="icon-search"
-                    width={24}
-                    height={24}
-                    className="absolute left-3 top-2"
-                  />
-                }
-              />
-              {!jwt && (
-                <div className="flex gap-2.5">
-                  <Button onClick={() => setDialogType("login")}>Masuk</Button>
-                  <Button
-                    variant={"outline"}
-                    onClick={() => setDialogType("register")}
-                  >
-                    Daftar
-                  </Button>
-                </div>
-              )}
-            </div>
+      <Transactions isLoading={isLoading} trx={data?.lastTrx || []} />
 
-            {/* Banner */}
-            <Image
-              src="/banner.png"
-              alt="banner"
-              width="0"
-              height={250}
-              sizes="100%"
-              className="w-full rounded-[10px]"
-            />
+      <LembagaZakat isOpen={isOpen} />
 
-            <Infographic
-              dashboard={
-                data?.dashboard || {
-                  ledger: 0,
-                  infak: 0,
-                  total_trx: 0,
-                  total_user: 0,
-                  wakaf: 0,
-                  zakat: 0,
-                }
-              }
-              chart={data?.chart || []}
-            />
+      <LembagaWakaf />
 
-            <Transactions isLoading={isLoading} trx={data?.lastTrx || []} />
-
-            <LembagaZakat isOpen={isOpen} />
-
-            <LembagaWakaf />
-
-            {/* Masjid */}
-            {/* <div className="mb-3 min-w-0">
+      {/* Masjid */}
+      {/* <div className="mb-3 min-w-0">
               <div className="flex justify-between items-center mb-2.5">
                 <label className="text-sm md:text-base font-semibold text-grey-2">
                   Masjid
@@ -194,8 +142,8 @@ export default function Home() {
               </Slider>
             </div> */}
 
-            {/* Program */}
-            {/* <div className="mb-3 min-w-0">
+      {/* Program */}
+      {/* <div className="mb-3 min-w-0">
               <div className="flex justify-between items-center mb-2.5">
                 <label className="text-sm md:text-base font-semibold text-grey-2">
                   Program
@@ -258,54 +206,6 @@ export default function Home() {
                 ))}
               </Slider>
             </div> */}
-          </section>
-        </main>
-      </div>
-      <Footer isOpen={isOpen} />
-
-      <LoginDialog
-        isOpen={dialogType === "login"}
-        onClose={(type) => setDialogType(type || "")}
-        onSubmit={(type: string) => {
-          setBackTo("login");
-          setDialogType(type);
-        }}
-      />
-
-      <RegisterDialog
-        isOpen={dialogType === "register"}
-        onClose={(type) => setDialogType(type || "")}
-        onSubmit={(type: string, phone: string) => {
-          setBackTo("register");
-          setPhone(phone);
-          setDialogType(type);
-        }}
-      />
-
-      <OtpDialog
-        isOpen={dialogType === "otp"}
-        backTo={backTo}
-        phone={phone}
-        onClose={(type: string) => setDialogType(type)}
-        onSubmit={() => {
-          if (backTo === "login") {
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
-          } else {
-            setDialogType("user-data");
-          }
-        }}
-      />
-
-      <UserDataDialog
-        isOpen={dialogType === "user-data"}
-        onSubmit={() => {
-          setDialogType("success-register");
-        }}
-      />
-
-      <SuccessRegisterDialog isOpen={dialogType === "success-register"} />
-    </div>
+    </>
   );
 }

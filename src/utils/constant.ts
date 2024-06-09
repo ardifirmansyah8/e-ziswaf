@@ -36,3 +36,6 @@ export const MENU = {
     },
   ],
 };
+
+export const jwt =
+  typeof window !== "undefined" ? window.localStorage.getItem("jwt") : "";

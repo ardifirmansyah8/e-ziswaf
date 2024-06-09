@@ -1,6 +1,6 @@
 "use client";
 
-import { MENU } from "@/utils/constants";
+import { MENU } from "@/utils/constant";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";

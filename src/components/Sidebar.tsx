@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
-import { MENU } from "@/utils/constants";
+import { MENU } from "@/utils/constant";
 
 type Props = {
   isOpen: boolean;

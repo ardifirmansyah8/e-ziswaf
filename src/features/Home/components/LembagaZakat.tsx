@@ -76,7 +76,7 @@ export default function LembagaZakat({ isOpen }: Props) {
             >
               <div className="rounded-tl-[10px] rounded-tr-[10px] h-[137px] flex flex-col items-center justify-center gap-2.5 bg-grey-3 p-4">
                 <Image
-                  src="/icon/icon-placeholder-lembaga.svg"
+                  src={`https://api.eziswaf.net/v1/app/logo/${item.image}`}
                   alt={item.nama}
                   width={70}
                   height={70}

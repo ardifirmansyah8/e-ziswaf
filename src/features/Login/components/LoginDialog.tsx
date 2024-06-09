@@ -11,7 +11,7 @@ import { useReqOtpLogin } from "../hooks/useLogin";
 type Props = {
   isOpen: boolean;
   onClose: (type?: string) => void;
-  onSubmit: (type: string) => void;
+  onSubmit: (type: string, phone: string) => void;
 };
 
 export default function LoginDialog({ isOpen, onClose, onSubmit }: Props) {
@@ -77,7 +77,7 @@ export default function LoginDialog({ isOpen, onClose, onSubmit }: Props) {
                       duration: 1000,
                       description: resp.data.message,
                     });
-                    onSubmit("otp");
+                    onSubmit("otp", phone);
                     setPhone("");
                   } else {
                     throw new Error(resp.data.message);

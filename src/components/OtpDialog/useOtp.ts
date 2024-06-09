@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { BASE_API_URL } from "@/utils/constants";
+import { BASE_API_URL } from "@/utils/constant";
 
 export const useVerifyOtp = () => {
   return useMutation({

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 import type { ILastTrx } from "@/api/useLandingPage";
+import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
@@ -43,17 +44,17 @@ export default function Transactions({ isLoading, trx }: Props) {
               height={24}
             />
             <div className="flex flex-col gap-1 flex-1">
-              <label className="text-xs font-semibold">
+              <Label className="text-xs font-semibold">
                 TRX {data.trx_no.slice(0, 8)}
-              </label>
-              <label className="text-xs">
+              </Label>
+              <Label className="text-xs">
                 dari <b>{data.from}</b> kepada <b>{data.to}</b>
-              </label>
-              <label className="text-xs">{data.time}</label>
+              </Label>
+              <Label className="text-xs">{data.time}</Label>
             </div>
-            <label className="text-xs text-green-1 font-semibold">
+            <Label className="text-xs text-green-1 font-semibold">
               {data.amount}
-            </label>
+            </Label>
           </div>
         ))}
       </div>
@@ -62,30 +63,30 @@ export default function Transactions({ isLoading, trx }: Props) {
           <div
             key={i}
             className={clsx({
-              "py-2.5 px-4 flex justify-between": true,
+              "py-2.5 px-4 flex": true,
               "bg-grey-3": i % 2 === 0,
               "bg-white": i % 2 !== 0,
             })}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 w-3/4">
               <Image
                 src="/icon/icon-wallet.svg"
                 alt="icon-wallet"
                 width={24}
                 height={24}
               />
-              <label className="ml-4 text-sm font-semibold">
+              <Label className="ml-4 text-sm font-semibold w-1/6">
                 TRX {data.trx_no.slice(0, 8)}
-              </label>
-              <label className="text-sm">{data.time}</label>
-              <label className="text-sm flex-1">
+              </Label>
+              <Label className="text-sm w-[100px]">{data.time}</Label>
+              <Label className="text-sm flex-1">
                 dari <b>{data.from}</b> kepada <b>{data.to}</b>
-              </label>
+              </Label>
             </div>
-            <div className="flex justify-end">
-              <label className="text-sm text-green-1 font-semibold">
+            <div className="flex justify-enNd w-1/4">
+              <Label className="text-sm text-green-1 font-semibold">
                 {data.amount}
-              </label>
+              </Label>
             </div>
           </div>
         ))}

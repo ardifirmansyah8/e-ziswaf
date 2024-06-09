@@ -1,6 +1,11 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { BASE_API_URL } from "@/utils/constants";
+
+import { BASE_API_URL } from "@/utils/constant";
+import type {
+  UserPayload,
+  UserProfile,
+} from "@/features/Profile/types/Profile";
 
 export interface IDashboard {
   ledger: number;
@@ -91,34 +96,5 @@ export const useFetchLembagaWakaf = () => {
         throw new Error(error?.response.data.message);
       }
     },
-  });
-};
-
-export type UserType = "PERSONAL" | "INSTITUSI";
-
-export interface UserPayload {
-  name: string;
-  type: UserType;
-  nik?: string;
-  npwp?: string;
-}
-
-export const useUpdateUser = () => {
-  const jwt =
-    typeof window !== "undefined" ? window.localStorage.getItem("jwt") : "";
-
-  return useMutation({
-    mutationKey: ["update-user"],
-    mutationFn: (payload: UserPayload) =>
-      axios({
-        method: "post",
-        url: `${BASE_API_URL}/app/user/update`,
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-        data: payload,
-      }).catch((error: any) => {
-        throw new Error(error?.response.data.message);
-      }),
   });
 };

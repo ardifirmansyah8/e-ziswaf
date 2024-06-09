@@ -1,10 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import {
-  UserPayload,
-  useUpdateUser,
-  type UserType,
-} from "@/api/useLandingPage";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -14,12 +9,22 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import { isValidNIK, isValidNPWP } from "@/utils/validation";
 
+import { useUpdateUser } from "../hooks/useProfile";
+import type { UserProfile, UserType } from "../types/Profile";
+
 type Props = {
   isOpen: boolean;
-  onSubmit: () => void;
+  isProfile?: boolean;
+  onClose: () => void;
+  profile?: UserProfile;
 };
 
-export default function UserDataDialog({ isOpen, onSubmit }: Props) {
+export default function UserDataDialog({
+  isOpen,
+  isProfile = false,
+  onClose,
+  profile,
+}: Props) {
   const { toast } = useToast();
 
   const [name, setName] = useState("");
@@ -33,6 +38,19 @@ export default function UserDataDialog({ isOpen, onSubmit }: Props) {
   const npwpValid = isValidNPWP(npwp);
 
   const updateUser = useUpdateUser();
+
+  useEffect(() => {
+    if (profile) {
+      setUserType(profile.type);
+      if (profile.type === "PERSONAL") {
+        setName(profile.name || "");
+        setNik(profile.nik || "");
+      } else {
+        setCompanyName(profile.name || "");
+        setNpwp(profile.npwp || "");
+      }
+    }
+  }, [profile]);
 
   return (
     <Dialog open={isOpen}>
@@ -155,9 +173,9 @@ export default function UserDataDialog({ isOpen, onSubmit }: Props) {
             <Button
               variant={"outline"}
               className="flex-1"
-              onClick={() => window.location.reload()}
+              onClick={() => (isProfile ? onClose() : window.location.reload())}
             >
-              Lewati
+              {isProfile ? "Batal" : "Lewati"}
             </Button>
             <Button
               disabled={
@@ -176,12 +194,13 @@ export default function UserDataDialog({ isOpen, onSubmit }: Props) {
                 };
                 updateUser.mutate(payload, {
                   onSuccess: (resp) => {
-                    if (resp.data.message === "Otp sent successfully") {
+                    if (resp.status === 200) {
                       toast({
                         duration: 500,
                         title: "Berhasil",
                         description: "Data berhasil disimpan",
                       });
+                      window.location.reload();
                     } else {
                       throw new Error(resp.data.message);
                     }

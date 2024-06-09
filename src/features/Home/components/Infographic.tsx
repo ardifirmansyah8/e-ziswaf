@@ -2,12 +2,12 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useMemo } from "react";
 
+import type { IChart, IDashboard } from "@/api/useLandingPage";
 import { delimiter } from "@/utils/string";
 
 import "chart.js/auto";
-import type { IChart, IDashboard } from "@/api/useLandingPage";
-import { useMemo } from "react";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -56,7 +56,7 @@ const dashboardData = [
     type: "wakaf",
   },
   {
-    title: "Total Infaq",
+    title: "Total Infak",
     icon: "/icon/icon-archive.svg",
     color: "bg-[#F5F2B1]",
     type: "infak",
