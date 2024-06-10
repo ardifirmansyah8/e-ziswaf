@@ -3,12 +3,17 @@ import axios from "axios";
 
 import { BASE_API_URL, jwt } from "@/utils/constant";
 
-import type { UserDashboard, UserPayload, UserProfile } from "../types/Profile";
+import type {
+  IUserDashboard,
+  IUserPayload,
+  IUserProfile,
+  IUserTrxResponse,
+} from "../types/Profile";
 
 export const useUpdateUser = () => {
   return useMutation({
     mutationKey: ["update-user"],
-    mutationFn: (payload: UserPayload) =>
+    mutationFn: (payload: IUserPayload) =>
       axios({
         method: "post",
         url: `${BASE_API_URL}/app/user/update`,
@@ -25,7 +30,7 @@ export const useUpdateUser = () => {
 export const useFetchUserProfile = () => {
   return useQuery({
     queryKey: ["profile-user"],
-    queryFn: async (): Promise<UserProfile> => {
+    queryFn: async (): Promise<IUserProfile> => {
       try {
         const resp = await axios({
           method: "get",
@@ -39,17 +44,38 @@ export const useFetchUserProfile = () => {
         throw new Error(error?.response.data.message);
       }
     },
+    enabled: !!jwt,
   });
 };
 
 export const useFetchUserDashboard = () => {
   return useQuery({
     queryKey: ["user-dashboard"],
-    queryFn: async (): Promise<UserDashboard> => {
+    queryFn: async (): Promise<IUserDashboard> => {
       try {
         const resp = await axios({
           method: "get",
           url: `${BASE_API_URL}/app/user/dashboard`,
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+        return resp.data;
+      } catch (error: any) {
+        throw new Error(error?.response.data.message);
+      }
+    },
+  });
+};
+
+export const useFetchUserTrx = (page: number) => {
+  return useQuery({
+    queryKey: ["user-trx"],
+    queryFn: async (): Promise<IUserTrxResponse> => {
+      try {
+        const resp = await axios({
+          method: "get",
+          url: `${BASE_API_URL}/app/user/trx/${page}`,
           headers: {
             Authorization: `Bearer ${jwt}`,
           },

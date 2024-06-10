@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { useFetchUserProfile } from "@/features/Profile/hooks/useProfile";
 import { AppContext } from "@/utils/context";

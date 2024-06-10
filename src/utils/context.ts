@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
-import type { UserProfile } from "@/features/Profile/types/Profile";
+import type { IUserProfile } from "@/features/Profile/types/Profile";
 
 interface IAppContext {
   isOpen: boolean;
   dialogType: string;
   backTo: string;
   phone: string;
-  profile?: UserProfile;
+  profile?: IUserProfile;
 
   setIsOpen: (isOpen: boolean) => void;
   setDialogType: (dialogType: string) => void;

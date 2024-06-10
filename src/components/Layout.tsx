@@ -83,7 +83,7 @@ export default function Layout({ children }: Props) {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>
                         <div className="flex items-center gap-1">
-                          {profile.name || "User"}
+                          {profile.name || "Hamba Allah"}
                           <Avatar>
                             {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
                             <AvatarFallback>
@@ -95,8 +95,8 @@ export default function Layout({ children }: Props) {
                       <NavigationMenuContent>
                         <ul className="flex flex-col gap-2 w-[185px]">
                           <li className="p-4 cursor-pointer hover:bg-accent">
-                            <NavigationMenuLink asChild>
-                              <a>Profile</a>
+                            <NavigationMenuLink asChild href="/profile">
+                              <a>Profil</a>
                             </NavigationMenuLink>
                           </li>
                           <li className="p-4 cursor-pointer hover:bg-accent">
@@ -104,7 +104,7 @@ export default function Layout({ children }: Props) {
                               <a
                                 onClick={() => {
                                   window.localStorage.removeItem("jwt");
-                                  window.location.reload();
+                                  window.location.replace("/");
                                 }}
                               >
                                 Logout

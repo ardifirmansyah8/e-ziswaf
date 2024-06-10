@@ -1,3 +1,5 @@
+import path from "path";
+
 export const BASE_API_URL = "https://api.eziswaf.net/v1";
 
 export const MENU = {
@@ -5,15 +7,17 @@ export const MENU = {
     {
       icon: "/icon/icon-home",
       title: "Beranda",
-      isActive: true,
+      path: "/",
     },
     {
       icon: "/icon/icon-wallet",
       title: "Zakat",
+      path: "/zakat",
     },
     {
       icon: "/icon/icon-gift",
       title: "Wakaf",
+      path: "/wakaf",
     },
     // {
     //   icon: "/icon/icon-masjid",
@@ -28,11 +32,12 @@ export const MENU = {
     {
       icon: "/icon/icon-thumb-up",
       title: "Tentang Kami",
-      isActive: false,
+      path: "/tentang-kami",
     },
     {
       icon: "/icon/icon-info",
       title: "Informasi",
+      path: "/informasi",
     },
   ],
 };

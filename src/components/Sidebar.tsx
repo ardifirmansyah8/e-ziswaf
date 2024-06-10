@@ -2,7 +2,8 @@
 
 import clsx from "clsx";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { MENU } from "@/utils/constant";
 
@@ -12,6 +13,10 @@ type Props = {
 };
 
 export default function Sidebar({ isOpen, setIsOpen }: Props) {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
+
   return (
     <div
       className={clsx({
@@ -42,15 +47,19 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
       <div className="pt-4 flex flex-col justify-between h-[calc(800px-60.5px)]">
         <div className="flex flex-col gap-2.5">
           {MENU.ziswaf.map((item) => (
-            <div
+            <Link
               key={item.title}
               className={clsx({
-                "p-2.5 flex gap-2 items-center": true,
-                "rounded-[10px] bg-green-2": item.isActive,
+                "p-2.5 flex gap-2 items-center cursor-pointer hover:bg-accent":
+                  true,
+                "rounded-[10px] bg-green-2": isActive(item.path),
               })}
+              href={item.path}
             >
               <Image
-                src={`${item.icon}.svg`}
+                src={`${
+                  isActive(item.path) ? `${item.icon}-light` : item.icon
+                }.svg`}
                 alt={item.title}
                 width={24}
                 height={24}
@@ -59,27 +68,30 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                 <span
                   className={clsx({
                     "font-medium": true,
-                    "text-green-1": item.isActive,
-                    "text-grey-2": !item.isActive,
+                    "text-green-1": isActive(item.path),
+                    "text-grey-2": !isActive(item.path),
                   })}
                 >
                   {item.title}
                 </span>
               )}
-            </div>
+            </Link>
           ))}
         </div>
         <div className="flex flex-col gap-2.5">
           {MENU.others.map((item) => (
-            <div
+            <Link
               key={item.title}
               className={clsx({
-                "p-2.5 flex gap-2 items-center": true,
-                "rounded-[10px] bg-green-2": item.isActive,
+                "p-2.5 flex gap-2 items-center cursor-pointer": true,
+                "rounded-[10px] bg-green-2": isActive(item.path),
               })}
+              href={item.path}
             >
               <Image
-                src={`${item.icon}.svg`}
+                src={`${
+                  isActive(item.path) ? `${item.icon}-light` : item.icon
+                }.svg`}
                 alt={item.title}
                 width={24}
                 height={24}
@@ -88,14 +100,14 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                 <span
                   className={clsx({
                     "font-medium": true,
-                    "text-green-1": item.isActive,
-                    "text-grey-2": !item.isActive,
+                    "text-green-1": isActive(item.path),
+                    "text-grey-2": !isActive(item.path),
                   })}
                 >
                   {item.title}
                 </span>
               )}
-            </div>
+            </Link>
           ))}
           <Image
             src={

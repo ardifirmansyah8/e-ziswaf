@@ -17,7 +17,7 @@ type Props = {
 export default function LoginDialog({ isOpen, onClose, onSubmit }: Props) {
   const { toast } = useToast();
 
-  const [phone, setPhone] = useState<string>("");
+  const [phone, setPhone] = useState("");
 
   const reqOtp = useReqOtpLogin();
 
@@ -60,7 +60,7 @@ export default function LoginDialog({ isOpen, onClose, onSubmit }: Props) {
                 </div>
               }
               type="tel"
-              pattern="[1-9][0-9]{9,}"
+              pattern={"^[2-9]\\d{7,11}$"}
               value={phone}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPhone(e.target.value)

@@ -10,13 +10,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { isValidNIK, isValidNPWP } from "@/utils/validation";
 
 import { useUpdateUser } from "../hooks/useProfile";
-import type { UserProfile, UserType } from "../types/Profile";
+import type { IUserProfile, UserType } from "../types/Profile";
 
 type Props = {
   isOpen: boolean;
   isProfile?: boolean;
   onClose: () => void;
-  profile?: UserProfile;
+  profile?: IUserProfile;
 };
 
 export default function UserDataDialog({

@@ -1,5 +1,5 @@
 export const isValidPhone = (phone: string) =>
-  new RegExp("^[1-9][0-9]{9,}$").test(phone);
+  new RegExp("^[2-9]\\d{7,11}$").test(phone);
 
 export const isValidNIK = (nik: string) => new RegExp("^\\d{16}$").test(nik);
 

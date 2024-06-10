@@ -3,10 +3,12 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -15,14 +17,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { jwt } from "@/utils/constant";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 
 import UserDataDialog from "./components/UserDataDialog";
-import { useFetchUserDashboard } from "./hooks/useProfile";
+import { useFetchUserDashboard, useFetchUserTrx } from "./hooks/useProfile";
 
 import "chart.js/auto";
-import { Input } from "@/components/ui/input";
+import Pagination from "@/components/Pagination";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -32,10 +35,14 @@ const Chart = dynamic(
 );
 
 export default function Profile() {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [page, setPage] = useState(0);
 
   const { profile } = useAppContext();
   const { data: userDashboard } = useFetchUserDashboard();
+  const { data: userTrx, refetch } = useFetchUserTrx(page);
 
   const chartData = useMemo(() => {
     const data = {
@@ -95,6 +102,15 @@ export default function Profile() {
       ],
     };
   }, [userDashboard]);
+
+  if (!jwt) {
+    router.push("/");
+  }
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <div className="px-[76px] flex flex-col gap-7">
@@ -244,56 +260,90 @@ export default function Profile() {
             <Label className="text-grey-2 font-semibold text-base">
               Transaksi Anda
             </Label>
-            <div className="flex items-center gap-2.5">
-              <Input
-                placeholder="No. transaksi"
-                className="placeholder:grey-4"
-                rightIcon={
-                  <Image
-                    src="/icon/icon-search.svg"
-                    alt="icon-search"
-                    width={24}
-                    height={24}
-                    className="absolute right-3 top-2"
-                  />
-                }
-              />
-            </div>
+            {userTrx && userTrx?.data.length > 0 && (
+              <div>
+                <Input
+                  placeholder="No. transaksi"
+                  className="placeholder:grey-4"
+                  rightIcon={
+                    <Image
+                      src="/icon/icon-search.svg"
+                      alt="icon-search"
+                      width={24}
+                      height={24}
+                      className="absolute right-3 top-2"
+                    />
+                  }
+                />
+              </div>
+            )}
           </div>
 
-          <div>
-            {[...Array(6)].map((data, i) => (
-              <div
-                key={i}
-                className={clsx({
-                  "py-2.5 px-4 flex": true,
-                  "bg-grey-3": i % 2 === 0,
-                  "bg-white": i % 2 !== 0,
-                })}
-              >
-                <div className="flex-1 flex items-center gap-4">
-                  <Image
-                    src="/icon/icon-wallet.svg"
-                    alt="icon-wallet"
-                    width={24}
-                    height={24}
-                  />
-                  <Label className="text-sm font-semibold w-1/4">
-                    TRX {"123456789".slice(0, 8)}
-                  </Label>
-                  <Label className="text-sm flex-1">Dompet Dhuafa</Label>
-                </div>
-                <div className="flex items-center justify-end gap-6">
-                  <Label className="text-sm text-green-1 font-semibold">
-                    Rp1.000
-                  </Label>
-
-                  <Button variant={"outline"}>Bukti Setor</Button>
-                </div>
+          <div className="mb-2">
+            {userTrx && userTrx?.data.length === 0 && (
+              <div className="text-center pt-4">
+                <Label className="text-grey-2">Belum ada data transaksi</Label>
               </div>
-            ))}
+            )}
+            {userTrx &&
+              userTrx?.data.length > 0 &&
+              userTrx.data.map((data, i) => (
+                <div
+                  key={i}
+                  className={clsx({
+                    "py-2.5 px-4 flex justify-between": true,
+                    "bg-grey-3": i % 2 === 0,
+                    "bg-white": i % 2 !== 0,
+                  })}
+                >
+                  <div className="flex-1 flex justify-between items-center gap-4">
+                    <Image
+                      src="/icon/icon-wallet.svg"
+                      alt="icon-wallet"
+                      width={24}
+                      height={24}
+                    />
+                    <Label className="text-sm font-semibold">
+                      TRX {data.trx_no.slice(0, 8)}
+                    </Label>
+                    <Label className="text-sm flex-1">{data.to}</Label>
+                  </div>
+                  <div className="flex items-center justify-end gap-4">
+                    <Label className="text-sm text-green-1 font-semibold">
+                      {data?.amount}
+                    </Label>
+
+                    <Button
+                      variant={"outline"}
+                      className="flex items-center justify-between"
+                      onClick={() =>
+                        window.open(
+                          `https://api.eziswaf.net/v1/app/download/${data.trx_no}.pdf`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      <Label>Bukti Setor</Label>
+                      <Image
+                        src="/icon/icon-download.svg"
+                        alt="icon-download"
+                        width={24}
+                        height={24}
+                      />
+                    </Button>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
+
+        {userTrx && userTrx?.data.length > 0 && (
+          <Pagination
+            page={page}
+            totalPage={userTrx.metadata.totalPage}
+            onPageChange={(page) => setPage(page)}
+          />
+        )}
       </Card>
 
       <UserDataDialog

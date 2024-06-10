@@ -2,10 +2,6 @@ import axios, { Axios, AxiosError } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { BASE_API_URL } from "@/utils/constant";
-import type {
-  UserPayload,
-  UserProfile,
-} from "@/features/Profile/types/Profile";
 
 export interface IDashboard {
   ledger: number;
