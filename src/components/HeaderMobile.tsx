@@ -1,12 +1,18 @@
 "use client";
 
-import { MENU } from "@/utils/constant";
 import clsx from "clsx";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { MENU } from "@/utils/constant";
+
 export default function HeaderMobile() {
+  const pathname = usePathname();
+
   const [open, setOpen] = useState(false);
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <div>
@@ -46,7 +52,7 @@ export default function HeaderMobile() {
                   key={item.title}
                   className={clsx({
                     "p-2.5 flex gap-2 items-center": true,
-                    "rounded-[10px] bg-green-2": item.isActive,
+                    "rounded-[10px] bg-green-2": isActive(item.path),
                   })}
                 >
                   <Image
@@ -58,8 +64,8 @@ export default function HeaderMobile() {
                   <span
                     className={clsx({
                       "font-medium": true,
-                      "text-green-1": item.isActive,
-                      "text-grey-2": !item.isActive,
+                      "text-green-1": isActive(item.path),
+                      "text-grey-2": !isActive(item.path),
                     })}
                   >
                     {item.title}
@@ -73,7 +79,7 @@ export default function HeaderMobile() {
                   key={item.title}
                   className={clsx({
                     "p-2.5 flex gap-2 items-center": true,
-                    "rounded-[10px] bg-green-2": item.isActive,
+                    "rounded-[10px] bg-green-2": isActive(item.path),
                   })}
                 >
                   <Image
@@ -85,8 +91,8 @@ export default function HeaderMobile() {
                   <span
                     className={clsx({
                       "font-medium": true,
-                      "text-green-1": item.isActive,
-                      "text-grey-2": !item.isActive,
+                      "text-green-1": isActive(item.path),
+                      "text-grey-2": !isActive(item.path),
                     })}
                   >
                     {item.title}
