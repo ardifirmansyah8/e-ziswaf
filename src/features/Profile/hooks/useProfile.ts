@@ -1,12 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { BASE_API_URL, jwt } from "@/utils/constant";
+import { BASE_API_URL, JWT } from "@/utils/constant";
 
 import type {
   IUserDashboard,
   IUserPayload,
   IUserProfile,
+  IUserTrxDetail,
   IUserTrxResponse,
 } from "../types/Profile";
 
@@ -18,11 +19,13 @@ export const useUpdateUser = () => {
         method: "post",
         url: `${BASE_API_URL}/app/user/update`,
         headers: {
-          Authorization: `Bearer ${jwt}`,
+          Authorization: `Bearer ${JWT}`,
         },
         data: payload,
       }).catch((error: any) => {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }),
   });
 };
@@ -36,15 +39,17 @@ export const useFetchUserProfile = () => {
           method: "get",
           url: `${BASE_API_URL}/app/user/profile`,
           headers: {
-            Authorization: `Bearer ${jwt}`,
+            Authorization: `Bearer ${JWT}`,
           },
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
-    enabled: !!jwt,
+    enabled: !!JWT,
   });
 };
 
@@ -57,14 +62,17 @@ export const useFetchUserDashboard = () => {
           method: "get",
           url: `${BASE_API_URL}/app/user/dashboard`,
           headers: {
-            Authorization: `Bearer ${jwt}`,
+            Authorization: `Bearer ${JWT}`,
           },
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
+    enabled: !!JWT,
   });
 };
 
@@ -77,13 +85,39 @@ export const useFetchUserTrx = (page: number) => {
           method: "get",
           url: `${BASE_API_URL}/app/user/trx/${page}`,
           headers: {
-            Authorization: `Bearer ${jwt}`,
+            Authorization: `Bearer ${JWT}`,
           },
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
+    enabled: !!JWT,
+  });
+};
+
+export const useFetchTrxDetail = (trxNo: string) => {
+  return useQuery({
+    queryKey: ["user-trx-detail"],
+    queryFn: async (): Promise<IUserTrxDetail> => {
+      try {
+        const resp = await axios({
+          method: "get",
+          url: `${BASE_API_URL}/app/trxDetail/${trxNo}`,
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+          },
+        });
+        return resp.data;
+      } catch (error: any) {
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
+      }
+    },
+    enabled: !!JWT && !!trxNo,
   });
 };

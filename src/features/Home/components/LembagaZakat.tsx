@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Slider from "react-slick";
 
 import { useFetchLembagaZakat } from "@/api/useLandingPage";
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export default function LembagaZakat({ isOpen }: Props) {
+  const router = useRouter();
   const { data } = useFetchLembagaZakat();
 
   const settings = {
@@ -82,9 +84,12 @@ export default function LembagaZakat({ isOpen }: Props) {
                   height={70}
                   className="rounded-full border border-grey-1"
                 />
-                <label className="text-sm font-semibold text-grey-2 text-center">
+                <a
+                  className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
+                  onClick={() => router.push(`/lembaga-zakat/${item.kode}`)}
+                >
                   {item.nama}
-                </label>
+                </a>
               </div>
               <div className="px-4 py-5 flex flex-col gap-5 rounded-bl-[10px] rounded-br-[10px]">
                 <div className="flex gap-2 items-start">

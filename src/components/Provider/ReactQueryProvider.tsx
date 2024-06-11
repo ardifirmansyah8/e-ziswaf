@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   MutationCache,
   QueryCache,
@@ -12,6 +13,8 @@ import { useToast } from "@/components/ui/use-toast";
 function makeQueryClient() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { toast } = useToast();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useRouter();
 
   return new QueryClient({
     defaultOptions: {
@@ -24,6 +27,11 @@ function makeQueryClient() {
     },
     queryCache: new QueryCache({
       onError: (error) => {
+        if ((error?.cause as any)?.response.status === 401) {
+          window.localStorage.removeItem("jwt");
+          router.push("/");
+        }
+
         if (error?.message) {
           toast({
             duration: 1000,

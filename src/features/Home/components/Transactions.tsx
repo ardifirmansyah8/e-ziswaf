@@ -83,7 +83,7 @@ export default function Transactions({ isLoading, trx }: Props) {
                 dari <b>{data.from}</b> kepada <b>{data.to}</b>
               </Label>
             </div>
-            <div className="flex justify-enNd w-1/4">
+            <div className="flex justify-end w-1/4">
               <Label className="text-sm text-green-1 font-semibold">
                 {data.amount}
               </Label>

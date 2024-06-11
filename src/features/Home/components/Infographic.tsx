@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useMemo } from "react";
 
 import type { IChart, IDashboard } from "@/api/useLandingPage";
+import { DASHBOARD_DATA } from "@/utils/constant";
 import { delimiter } from "@/utils/string";
 
 import "chart.js/auto";
@@ -16,52 +17,13 @@ const Chart = dynamic(
   }
 );
 
-type dashboardType =
+export type DashboardType =
   | "ledger"
   | "total_trx"
   | "total_user"
   | "zakat"
   | "wakaf"
   | "infak";
-
-const dashboardData = [
-  {
-    title: "Total Himpunan",
-    icon: "/icon/icon-basket.svg",
-    color: "bg-green-2",
-    type: "ledger",
-  },
-  {
-    title: "Total Transaksi",
-    icon: "/icon/icon-paper.svg",
-    color: "bg-[#ECD5EE]",
-    type: "total_trx",
-  },
-  {
-    title: "Total Donatur",
-    icon: "/icon/icon-scan.svg",
-    color: "bg-[#BDE9F3]",
-    type: "total_user",
-  },
-  {
-    title: "Total Zakat",
-    icon: "/icon/icon-wallet.svg",
-    color: "bg-[#DEEFFC]",
-    type: "zakat",
-  },
-  {
-    title: "Total Wakaf",
-    icon: "/icon/icon-gift.svg",
-    color: "bg-[#FCE3DE]",
-    type: "wakaf",
-  },
-  {
-    title: "Total Infak",
-    icon: "/icon/icon-archive.svg",
-    color: "bg-[#F5F2B1]",
-    type: "infak",
-  },
-];
 
 type Props = {
   dashboard: IDashboard;
@@ -131,7 +93,7 @@ export default function Infographic({ dashboard, chart }: Props) {
   return (
     <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 mb-3">
       <div className="grid grid-cols-2 md:grid-cols-3 md:w-2/3 gap-4">
-        {dashboardData.map((el) => (
+        {DASHBOARD_DATA.map((el) => (
           <div
             key={el.title}
             className={`rounded-[10px] p-2 md:p-5 flex items-center gap-2.5 md:gap-5 ${el.color}`}
@@ -145,7 +107,7 @@ export default function Infographic({ dashboard, chart }: Props) {
                       el.type === "ledger" || el.type === "total_user"
                         ? ""
                         : "Rp "
-                    }${delimiter(dashboard[el.type as dashboardType])}`
+                    }${delimiter(dashboard[el.type as DashboardType])}`
                   : ""}
               </span>
             </div>

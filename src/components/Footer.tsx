@@ -132,37 +132,37 @@ export default function Footer({ isOpen }: Props) {
             </label>
             <div className="flex gap-1">
               <Image
-                src="/footer/icon-twitter.svg"
+                src="/icon/icon-twitter.svg"
                 alt="icon-twitter"
                 width={30}
                 height={30}
               />
               <Image
-                src="/footer/icon-fb.svg"
+                src="/icon/icon-fb.svg"
                 alt="icon-fb"
                 width={30}
                 height={30}
               />
               <Image
-                src="/footer/icon-ig.svg"
+                src="/icon/icon-ig.svg"
                 alt="icon-ig"
                 width={30}
                 height={30}
               />
               <Image
-                src="/footer/icon-wa.svg"
+                src="/icon/icon-wa.svg"
                 alt="icon-wa"
                 width={30}
                 height={30}
               />
               <Image
-                src="/footer/icon-linkedin.svg"
+                src="/icon/icon-linkedin.svg"
                 alt="icon-linkedin"
                 width={30}
                 height={30}
               />
               <Image
-                src="/footer/icon-youtube.svg"
+                src="/icon/icon-youtube.svg"
                 alt="icon-youtube"
                 width={30}
                 height={30}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,8 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
+  const router = useRouter();
+
   const {
     isOpen,
     dialogType,
@@ -43,7 +45,7 @@ export default function Layout({ children }: Props) {
   } = useAppContext();
 
   return (
-    <div className="bg-white md:flex md:flex-col md:items-center gap-2">
+    <div className="bg-white md:flex md:flex-col md:items-center gap-5">
       <div className="md:w-[1280px]">
         <div className="md:hidden block">
           <HeaderMobile />
@@ -104,7 +106,7 @@ export default function Layout({ children }: Props) {
                               <a
                                 onClick={() => {
                                   window.localStorage.removeItem("jwt");
-                                  window.location.replace("/");
+                                  router.push("/");
                                 }}
                               >
                                 Logout

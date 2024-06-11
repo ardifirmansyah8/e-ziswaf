@@ -28,7 +28,7 @@ export interface ILastTrx {
   to: string;
 }
 
-interface ILandingData {
+export interface ILandingData {
   dashboard: IDashboard;
   chart: IChart[];
   lastTrx: ILastTrx[];
@@ -45,7 +45,9 @@ export const useFetchLandingData = () => {
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
   });
@@ -72,7 +74,9 @@ export const useFetchLembagaZakat = () => {
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
   });
@@ -89,7 +93,9 @@ export const useFetchLembagaWakaf = () => {
         });
         return resp.data;
       } catch (error: any) {
-        throw new Error(error?.response.data.message);
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
       }
     },
   });

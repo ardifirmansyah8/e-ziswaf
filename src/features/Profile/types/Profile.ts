@@ -41,3 +41,13 @@ export interface IUserTrxResponse {
     totalPage: number;
   };
 }
+
+export interface IUserTrxDetail {
+  tanggal: string;
+  amount: number;
+  image: string;
+  ca: string;
+  trx_no: string;
+  lembaga: string;
+  tipe_donasi: String;
+}

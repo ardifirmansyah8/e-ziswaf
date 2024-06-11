@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { jwt } from "@/utils/constant";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 
@@ -26,6 +25,7 @@ import { useFetchUserDashboard, useFetchUserTrx } from "./hooks/useProfile";
 
 import "chart.js/auto";
 import Pagination from "@/components/Pagination";
+import TrxDetailDialog from "./components/TrxDetailDialog";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -35,9 +35,8 @@ const Chart = dynamic(
 );
 
 export default function Profile() {
-  const router = useRouter();
-
-  const [isOpen, setIsOpen] = useState(false);
+  const [dialog, setDialog] = useState("");
+  const [trxNo, setTrxNo] = useState("");
   const [page, setPage] = useState(0);
 
   const { profile } = useAppContext();
@@ -103,10 +102,6 @@ export default function Profile() {
     };
   }, [userDashboard]);
 
-  if (!jwt) {
-    router.push("/");
-  }
-
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,7 +136,7 @@ export default function Profile() {
             variant={"outline"}
             size={"sm"}
             className="text-xs"
-            onClick={() => setIsOpen(true)}
+            onClick={() => setDialog("user-data")}
           >
             Ubah Data
           </Button>
@@ -291,10 +286,15 @@ export default function Profile() {
                 <div
                   key={i}
                   className={clsx({
-                    "py-2.5 px-4 flex justify-between": true,
+                    "py-2.5 px-4 flex justify-between hover:bg-grey-1 cursor-pointer":
+                      true,
                     "bg-grey-3": i % 2 === 0,
                     "bg-white": i % 2 !== 0,
                   })}
+                  onClick={() => {
+                    setDialog("trx-detail");
+                    setTrxNo(data.trx_no);
+                  }}
                 >
                   <div className="flex-1 flex justify-between items-center gap-4">
                     <Image
@@ -347,12 +347,20 @@ export default function Profile() {
       </Card>
 
       <UserDataDialog
-        isOpen={isOpen}
+        isOpen={dialog === "user-data"}
         onClose={() => {
-          setIsOpen(false);
+          setDialog("");
         }}
         isProfile
         profile={profile}
+      />
+
+      <TrxDetailDialog
+        isOpen={dialog === "trx-detail"}
+        trxNo={trxNo}
+        onClose={() => {
+          setDialog("");
+        }}
       />
     </div>
   );
