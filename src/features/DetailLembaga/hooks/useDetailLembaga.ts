@@ -25,7 +25,7 @@ export const useFetchProfileLembaga = (code: string) => {
         });
       }
     },
-    enabled: !!JWT && !!code,
+    enabled: !!code,
   });
 };
 
@@ -50,7 +50,7 @@ export const useFetchDashboardLembaga = (code: string) => {
         });
       }
     },
-    enabled: !!JWT && !!code,
+    enabled: !!code,
   });
 };
 
