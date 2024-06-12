@@ -30,16 +30,15 @@ export default function Footer({ isOpen }: Props) {
             />
 
             <div className="flex gap-2 items-start">
-              <Image
+              {/* <Image
                 src="/icon/icon-pin-light.svg"
                 alt="icon-pin-light"
                 width={24}
                 height={24}
-              />
+              /> */}
 
               <label className="text-xs text-grey-2">
-                Jl. Gandaria Tengah VII GD 15, Jl. Metland Transyogi No.56,
-                Cipenjo, Kec. Cileungsi, Kabupaten Bogor, Jawa Barat 16820
+                DIGITALISASI & DATABASE TERINTEGRASI KEUANGAN SOSIAL SYARIAH NASIONAL
               </label>
             </div>
           </div>
@@ -49,15 +48,15 @@ export default function Footer({ isOpen }: Props) {
                 Berkolaborasi Dengan:
               </label>
               <div className="flex gap-4">
-                <Image
-                  src="/footer/icon-artajasa.svg"
-                  alt="icon-artajasa"
+              <Image
+                  src="/footer/icon-masjed.svg"
+                  alt="icon-masjed"
                   width={30}
                   height={30}
                 />
                 <Image
-                  src="/footer/icon-masjed.svg"
-                  alt="icon-masjed"
+                  src="/footer/icon-artajasa.svg"
+                  alt="icon-artajasa"
                   width={30}
                   height={30}
                 />
@@ -65,7 +64,7 @@ export default function Footer({ isOpen }: Props) {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-medium text-grey-2">
-                Supported By:
+                Regulasi Keuangan Sosial Syariah:
               </label>
               <div className="flex gap-4">
                 <Image
@@ -96,7 +95,7 @@ export default function Footer({ isOpen }: Props) {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-medium text-grey-2">
-                Rekan Komunitas:
+                Organisasi Islam Nasional :
               </label>
               <div className="flex gap-4">
                 <Image

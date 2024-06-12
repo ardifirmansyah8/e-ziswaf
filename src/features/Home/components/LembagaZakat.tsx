@@ -86,7 +86,7 @@ export default function LembagaZakat({ isOpen }: Props) {
                 />
                 <a
                   className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
-                  onClick={() => router.push(`/lembaga-zakat/${item.kode}`)}
+                  onClick={() => router.push(`/lembaga/${item.kode}`)}
                 >
                   {item.nama}
                 </a>

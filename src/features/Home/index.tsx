@@ -73,7 +73,7 @@ export default function Home() {
 
       <LembagaZakat isOpen={isOpen} />
 
-      <LembagaWakaf />
+      <LembagaWakaf isOpen={isOpen}/>
 
       {/* Masjid */}
       {/* <div className="mb-3 min-w-0">

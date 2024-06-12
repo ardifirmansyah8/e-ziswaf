@@ -11,8 +11,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "E-Ziswaf",
-  description: "Donate your zakat, infaq, and wakaf easily with E-Ziswaf",
+  title: "E-ZISWAF",
+  description: "Database Terintegrasi Keuangan Sosial Syariah",
 };
 
 export default function RootLayout({
