@@ -47,13 +47,13 @@ export const DASHBOARD_DATA = [
     title: "Total Himpunan",
     icon: "/icon/icon-basket.svg",
     color: "bg-green-2",
-    type: "ledger",
+    type: "total_trx",
   },
   {
     title: "Total Transaksi",
     icon: "/icon/icon-paper.svg",
     color: "bg-[#ECD5EE]",
-    type: "total_trx",
+    type: "ledger",
   },
   {
     title: "Total Donatur",

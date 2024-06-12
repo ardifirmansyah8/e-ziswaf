@@ -117,7 +117,7 @@ export default function LembagaWakaf({ isOpen }: Props) {
                   />
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-grey-2">
-                      Total Program
+                      Total Transaksi
                     </label>
                     <label className="text-xs md:text-sm font-semibold text-grey-2">
                       {item.trx}
