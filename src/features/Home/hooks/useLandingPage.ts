@@ -2,6 +2,7 @@ import axios, { Axios, AxiosError } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { BASE_API_URL } from "@/utils/constant";
+import { ILembaga } from "@/features/Lembaga/types";
 
 export interface IDashboard {
   ledger: number;
@@ -53,17 +54,7 @@ export const useFetchLandingData = () => {
   });
 };
 
-interface ILembaga {
-  total: number;
-  kode: number;
-  nama: string;
-  trx: number;
-  image: string;
-  tgl_lahir: string;
-  is_verified: 0 | 1;
-}
-
-export const useFetchLembagaZakat = () => {
+export const useFetchLembagaZakat = (type: string) => {
   return useQuery({
     queryKey: ["lembaga-zakat"],
     queryFn: async (): Promise<ILembaga[]> => {
@@ -79,10 +70,11 @@ export const useFetchLembagaZakat = () => {
         });
       }
     },
+    enabled: type === "zakat",
   });
 };
 
-export const useFetchLembagaWakaf = () => {
+export const useFetchLembagaWakaf = (type: string) => {
   return useQuery({
     queryKey: ["lembaga-wakaf"],
     queryFn: async (): Promise<ILembaga[]> => {
@@ -98,5 +90,6 @@ export const useFetchLembagaWakaf = () => {
         });
       }
     },
+    enabled: type === "wakaf",
   });
 };

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 
-import type { ILastTrx } from "@/api/useLandingPage";
+import type { ILastTrx } from "@/features/Home/hooks/useLandingPage";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 

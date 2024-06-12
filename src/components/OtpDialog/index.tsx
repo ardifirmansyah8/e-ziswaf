@@ -16,7 +16,7 @@ type Props = {
   backTo: string;
   phone: string;
   onClose: (type: string) => void;
-  onSubmit: () => void;
+  onSubmit: (jwt: string) => void;
 };
 
 export default function OtpDialog({
@@ -76,8 +76,8 @@ export default function OtpDialog({
                         duration: 1000,
                         description: resp.data.message,
                       });
-                      window.localStorage.setItem("jwt", resp.data.jwt);
-                      onSubmit();
+                      localStorage.setItem("jwt", resp.data.jwt);
+                      onSubmit(resp.data.jwt);
                     } else {
                       throw new Error(resp.data.message);
                     }

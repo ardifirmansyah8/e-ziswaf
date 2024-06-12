@@ -201,7 +201,10 @@ export default function DetailLembaga({ code }: Props) {
         </Card>
 
         {profile?.id && (
-          <Card className="w-1/3 bg-green-1 p-11">
+          <Card
+            className="w-1/3 bg-green-1 p-11 bg-cover"
+            style={{ backgroundImage: "url('/bg-portofolio.png')" }}
+          >
             <div className="flex flex-col justify-center gap-7">
               <div className="text-white font-semibold text-xl w-32">
                 Total donasi Anda disini

@@ -18,3 +18,22 @@ export interface IProfileLembaga {
   verified: boolean;
   website: string;
 }
+
+export interface ILembaga {
+  image: string;
+  is_verified: string;
+  kode: number;
+  nama: string;
+  tgl_lahir: string;
+  total: number;
+  trx: number;
+}
+
+export interface ILembagaResp {
+  data: ILembaga[];
+  metadata: {
+    page: number;
+    totalCount: number;
+    totalPage: number;
+  };
+}

@@ -4,20 +4,28 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Slider from "react-slick";
 
-import { useFetchLembagaZakat } from "@/api/useLandingPage";
+import {
+  useFetchLembagaWakaf,
+  useFetchLembagaZakat,
+} from "@/features/Home/hooks/useLandingPage";
 import WrapperArrow from "@/components/WrapperArrow";
+import { delimiter } from "@/utils/string";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { delimiter } from "@/utils/string";
 
 type Props = {
   isOpen: boolean;
+  type: "zakat" | "wakaf";
 };
 
-export default function LembagaZakat({ isOpen }: Props) {
+export default function LembagaSlider({ isOpen, type }: Props) {
   const router = useRouter();
-  const { data } = useFetchLembagaZakat();
+
+  const { data: lembagaZakat } = useFetchLembagaZakat(type);
+  const { data: lembagaWakaf } = useFetchLembagaWakaf(type);
+
+  const dataLembaga = type === "zakat" ? lembagaZakat : lembagaWakaf;
 
   const settings = {
     dots: false,
@@ -62,23 +70,30 @@ export default function LembagaZakat({ isOpen }: Props) {
     <div className="mb-3 min-w-0">
       <div className="flex justify-between items-center mb-2.5">
         <label className="text-sm md:text-base font-semibold text-grey-2">
-          Lembaga Zakat Pilihan
+          Lembaga {type.toUpperCase()} Pilihan
         </label>
 
-        <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
+        <a
+          className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer"
+          onClick={() => router.push(`/lembaga-${type}`)}
+        >
           Lihat Semua
         </a>
       </div>
       <div className="min-w-0">
         <Slider {...settings}>
-          {data?.map((item, i) => (
+          {dataLembaga?.map((item, i) => (
             <div
               key={i}
               className="border border-grey-1 flex flex-col rounded-[10px] mb-1"
             >
               <div className="rounded-tl-[10px] rounded-tr-[10px] h-[137px] flex flex-col items-center justify-center gap-2.5 bg-grey-3 p-4">
                 <Image
-                  src={`https://api.eziswaf.net/v1/app/logo/${item.image}`}
+                  src={
+                    item.image
+                      ? `https://api.eziswaf.net/v1/app/logo/${item.image}`
+                      : "/icon/icon-placeholder-lembaga.svg"
+                  }
                   alt={item.nama}
                   width={70}
                   height={70}
@@ -86,7 +101,7 @@ export default function LembagaZakat({ isOpen }: Props) {
                 />
                 <a
                   className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
-                  onClick={() => router.push(`/lembaga/${item.kode}`)}
+                  onClick={() => router.push(`/lembaga-${type}/${item.kode}`)}
                 >
                   {item.nama}
                 </a>

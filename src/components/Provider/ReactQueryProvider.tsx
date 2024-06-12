@@ -28,8 +28,8 @@ function makeQueryClient() {
     queryCache: new QueryCache({
       onError: (error) => {
         if ((error?.cause as any)?.response.status === 401) {
-          window.localStorage.removeItem("jwt");
-          router.push("/");
+          localStorage.removeItem("jwt");
+          window.location.reload();
         }
 
         if (error?.message) {

@@ -82,4 +82,4 @@ export const DASHBOARD_DATA = [
 ];
 
 export const JWT =
-  typeof window !== "undefined" ? window.localStorage.getItem("jwt") : "";
+  typeof window !== "undefined" ? localStorage.getItem("jwt") : "";

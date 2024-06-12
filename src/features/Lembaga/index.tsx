@@ -2,83 +2,47 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Slider from "react-slick";
+import { useState } from "react";
 
-import { useFetchLembagaWakaf } from "@/api/useLandingPage";
-import WrapperArrow from "@/components/WrapperArrow";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { delimiter } from "@/utils/string";
 
+import {
+  useFetchAllLembagaWakaf,
+  useFetchAllLembagaZakat,
+} from "./hooks/useLembaga";
+import Pagination from "@/components/Pagination";
+
 type Props = {
-  isOpen: boolean;
+  type: "zakat" | "wakaf";
 };
 
-export default function LembagaWakaf({ isOpen }: Props) {
+export default function Lembaga({ type }: Props) {
   const router = useRouter();
-  const { data } = useFetchLembagaWakaf();
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: isOpen ? 4 : 5,
-    slidesToScroll: isOpen ? 4 : 5,
-    arrows: true,
-    prevArrow: (
-      <WrapperArrow>
-        <Image
-          src={"/icon/icon-arrow-left.svg"}
-          alt={"icon-arrow-left"}
-          width={40}
-          height={40}
-        />
-      </WrapperArrow>
-    ),
-    nextArrow: (
-      <WrapperArrow>
-        <Image
-          src={"/icon/icon-arrow-right.svg"}
-          alt={"icon-arrow-right"}
-          width={40}
-          height={40}
-        />
-      </WrapperArrow>
-    ),
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1.7,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-    ],
-  };
+  const [page, setPage] = useState(0);
+
+  const { data: lembagaZakat } = useFetchAllLembagaZakat(page, type);
+  const { data: lembagaWakaf } = useFetchAllLembagaWakaf(page, type);
+
+  const listLembaga = type === "zakat" ? lembagaZakat : lembagaWakaf;
 
   return (
-    <div className="mb-3 min-w-0">
-      <div className="flex justify-between items-center mb-2.5">
-        <label className="text-sm md:text-base font-semibold text-grey-2">
-          Lembaga Wakaf Pilihan
-        </label>
-
-        <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
-          Lihat Semua
-        </a>
-      </div>
-      <div className="min-w-0">
-        <Slider {...settings}>
-          {data?.map((item, i) => (
+    <div className="flex flex-col gap-5">
+      <div className="grid grid-cols-4 gap-5">
+        {listLembaga &&
+          listLembaga.data.length > 0 &&
+          listLembaga.data.map((item) => (
             <div
-              key={i}
+              key={item.kode}
               className="border border-grey-1 flex flex-col rounded-[10px] mb-1"
             >
               <div className="rounded-tl-[10px] rounded-tr-[10px] h-[137px] flex flex-col items-center justify-center gap-2.5 bg-grey-3 p-4">
                 <Image
-                  src={`https://api.eziswaf.net/v1/app/logo/${item.image}`}
+                  src={
+                    item.image
+                      ? `https://api.eziswaf.net/v1/app/logo/${item.image}`
+                      : "/icon/icon-placeholder-lembaga.svg"
+                  }
                   alt={item.nama}
                   width={70}
                   height={70}
@@ -86,7 +50,7 @@ export default function LembagaWakaf({ isOpen }: Props) {
                 />
                 <a
                   className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
-                  onClick={() => router.push(`/lembaga/${item.kode}`)}
+                  onClick={() => router.push(`/lembaga-${type}/${item.kode}`)}
                 >
                   {item.nama}
                 </a>
@@ -127,8 +91,15 @@ export default function LembagaWakaf({ isOpen }: Props) {
               </div>
             </div>
           ))}
-        </Slider>
       </div>
+
+      {listLembaga && listLembaga?.data.length > 0 && (
+        <Pagination
+          page={page}
+          totalPage={listLembaga.metadata.totalPage || 1}
+          onPageChange={(page) => setPage(page)}
+        />
+      )}
     </div>
   );
 }
