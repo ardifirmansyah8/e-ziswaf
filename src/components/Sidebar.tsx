@@ -15,7 +15,9 @@ type Props = {
 export default function Sidebar({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    return path === "/" ? pathname === path : pathname.includes(path);
+  };
 
   return (
     <div
@@ -37,7 +39,7 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
           />
         ) : (
           <Image
-            src="/icon-e-ziswaf.svg"
+            src="/icon/icon-e-ziswaf.svg"
             alt="icon e-ziswaf"
             width={40}
             height={40}

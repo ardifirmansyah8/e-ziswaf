@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 
-import { useFetchLandingData } from "@/api/useLandingPage";
+import { useFetchLandingData } from "@/features/Home/hooks/useLandingPage";
 import Infographic from "@/features/Home/components/Infographic";
 import LembagaZakat from "@/features/Home/components/LembagaZakat";
 import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
 import Transactions from "@/features/Home/components/Transactions";
 import useAppContext from "@/utils/context";
+import LembagaSlider from "./components/LembagaSlider";
 
 export default function Home() {
   const { isOpen } = useAppContext();
@@ -71,9 +72,9 @@ export default function Home() {
 
       <Transactions isLoading={isLoading} trx={data?.lastTrx || []} />
 
-      <LembagaZakat isOpen={isOpen} />
+      <LembagaSlider isOpen={isOpen} type="zakat" />
 
-      <LembagaWakaf isOpen={isOpen}/>
+      <LembagaSlider isOpen={isOpen} type="wakaf" />
 
       {/* Masjid */}
       {/* <div className="mb-3 min-w-0">

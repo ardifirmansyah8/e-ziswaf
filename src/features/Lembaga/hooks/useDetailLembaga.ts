@@ -4,11 +4,11 @@ import axios from "axios";
 import { BASE_API_URL, JWT } from "@/utils/constant";
 
 import { IProfileLembaga } from "../types";
-import { ILandingData } from "@/api/useLandingPage";
+import { ILandingData } from "@/features/Home/hooks/useLandingPage";
 
 export const useFetchProfileLembaga = (code: string) => {
   return useQuery({
-    queryKey: ["profile-lembaga"],
+    queryKey: ["profile-lembaga", code],
     queryFn: async (): Promise<IProfileLembaga> => {
       try {
         const resp = await axios({
@@ -31,7 +31,7 @@ export const useFetchProfileLembaga = (code: string) => {
 
 export const useFetchDashboardLembaga = (code: string) => {
   return useQuery({
-    queryKey: ["dashboard-lembaga"],
+    queryKey: ["dashboard-lembaga", code],
     queryFn: async (): Promise<ILandingData> => {
       try {
         const resp = await axios({
@@ -56,7 +56,7 @@ export const useFetchDashboardLembaga = (code: string) => {
 
 export const useFetchUserPortofolio = (code: string, id: string) => {
   return useQuery({
-    queryKey: ["user-portofolio"],
+    queryKey: ["user-portofolio", code, id],
     queryFn: async (): Promise<
       { infak: number; zakat: number; wakaf: number }[]
     > => {

@@ -24,6 +24,7 @@ import SuccessRegisterDialog from "@/features/Register/components/SuccessRegiste
 import OtpDialog from "./OtpDialog";
 import useAppContext from "@/utils/context";
 import { getInitials } from "@/utils/string";
+import { useState } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -31,6 +32,8 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   const router = useRouter();
+
+  const [jwt, setJwt] = useState("");
 
   const {
     isOpen,
@@ -105,8 +108,8 @@ export default function Layout({ children }: Props) {
                             <NavigationMenuLink asChild>
                               <a
                                 onClick={() => {
-                                  window.localStorage.removeItem("jwt");
-                                  router.push("/");
+                                  localStorage.removeItem("jwt");
+                                  window.location.reload();
                                 }}
                               >
                                 Logout
@@ -152,13 +155,14 @@ export default function Layout({ children }: Props) {
         backTo={backTo}
         phone={phone}
         onClose={(type: string) => setDialogType(type)}
-        onSubmit={() => {
+        onSubmit={(jwt: string) => {
           if (backTo === "login") {
             setTimeout(() => {
               window.location.reload();
             }, 2000);
           } else {
             setDialogType("user-data");
+            setJwt(jwt);
           }
         }}
       />
@@ -168,6 +172,7 @@ export default function Layout({ children }: Props) {
         onClose={() => {
           setDialogType("success-register");
         }}
+        jwt={jwt}
       />
 
       <SuccessRegisterDialog isOpen={dialogType === "success-register"} />

@@ -18,6 +18,7 @@ type Props = {
   isProfile?: boolean;
   onClose: () => void;
   profile?: IUserProfile;
+  jwt?: string;
 };
 
 export default function UserDataDialog({
@@ -25,6 +26,7 @@ export default function UserDataDialog({
   isProfile = false,
   onClose,
   profile,
+  jwt,
 }: Props) {
   const { toast } = useToast();
 
@@ -38,7 +40,7 @@ export default function UserDataDialog({
   const nikValid = isValidNIK(nik);
   const npwpValid = isValidNPWP(npwp);
 
-  const updateUser = useUpdateUser();
+  const updateUser = useUpdateUser(jwt);
 
   useEffect(() => {
     if (profile) {

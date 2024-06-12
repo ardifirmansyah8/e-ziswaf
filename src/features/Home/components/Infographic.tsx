@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useMemo } from "react";
 
-import type { IChart, IDashboard } from "@/api/useLandingPage";
+import type { IChart, IDashboard } from "@/features/Home/hooks/useLandingPage";
 import { DASHBOARD_DATA } from "@/utils/constant";
 import { delimiter } from "@/utils/string";
 

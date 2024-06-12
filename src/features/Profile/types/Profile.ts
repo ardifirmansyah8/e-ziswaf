@@ -1,4 +1,8 @@
-import { IChart, IDashboard, ILastTrx } from "@/api/useLandingPage";
+import {
+  IChart,
+  IDashboard,
+  ILastTrx,
+} from "@/features/Home/hooks/useLandingPage";
 
 export interface IUserProfile {
   id: string;

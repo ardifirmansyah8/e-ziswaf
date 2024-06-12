@@ -11,7 +11,7 @@ import type {
   IUserTrxResponse,
 } from "../types/Profile";
 
-export const useUpdateUser = () => {
+export const useUpdateUser = (token?: string) => {
   return useMutation({
     mutationKey: ["update-user"],
     mutationFn: (payload: IUserPayload) =>
@@ -19,7 +19,7 @@ export const useUpdateUser = () => {
         method: "post",
         url: `${BASE_API_URL}/app/user/update`,
         headers: {
-          Authorization: `Bearer ${JWT}`,
+          Authorization: `Bearer ${token || JWT}`,
         },
         data: payload,
       }).catch((error: any) => {
@@ -78,7 +78,7 @@ export const useFetchUserDashboard = () => {
 
 export const useFetchUserTrx = (page: number) => {
   return useQuery({
-    queryKey: ["user-trx"],
+    queryKey: ["user-trx", page],
     queryFn: async (): Promise<IUserTrxResponse> => {
       try {
         const resp = await axios({
@@ -101,7 +101,7 @@ export const useFetchUserTrx = (page: number) => {
 
 export const useFetchTrxDetail = (trxNo: string) => {
   return useQuery({
-    queryKey: ["user-trx-detail"],
+    queryKey: ["user-trx-detail", trxNo],
     queryFn: async (): Promise<IUserTrxDetail> => {
       try {
         const resp = await axios({

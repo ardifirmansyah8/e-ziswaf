@@ -129,7 +129,7 @@ export default function Profile() {
             <Label className="text-grey-2 flex gap-1">
               <span className="w-6">ID</span>
               <span>:</span>
-              <span className="flex-1">{profile?.nik || "-"}</span>
+              <span className="flex-1">{profile?.id || "-"}</span>
             </Label>
           </div>
           <Button
