@@ -2,13 +2,12 @@
 
 import Image from "next/image";
 
-import { useFetchLandingData } from "@/features/Home/hooks/useLandingPage";
-import Infographic from "@/features/Home/components/Infographic";
-//import LembagaZakat from "@/features/Home/components/LembagaZakat";
-//import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
-import Transactions from "@/features/Home/components/Transactions";
 import useAppContext from "@/utils/context";
+
+import Infographic from "./components/Infographic";
 import LembagaSlider from "./components/LembagaSlider";
+import Transactions from "./components/Transactions";
+import { useFetchLandingData } from "./hooks/useLandingPage";
 
 export default function Home() {
   const { isOpen } = useAppContext();

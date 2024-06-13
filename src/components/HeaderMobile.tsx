@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -48,12 +49,13 @@ export default function HeaderMobile() {
           <div className="px-5 py-4 flex flex-col justify-between h-[calc(100vh-64.5px)]">
             <div className="flex flex-col gap-2.5">
               {MENU.ziswaf.map((item) => (
-                <div
+                <Link
                   key={item.title}
                   className={clsx({
                     "p-2.5 flex gap-2 items-center": true,
                     "rounded-[10px] bg-green-2": isActive(item.path),
                   })}
+                  href={item.path}
                 >
                   <Image
                     src={`${item.icon}.svg`}
@@ -70,35 +72,55 @@ export default function HeaderMobile() {
                   >
                     {item.title}
                   </span>
-                </div>
+                </Link>
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              {MENU.others.map((item) => (
-                <div
-                  key={item.title}
-                  className={clsx({
-                    "p-2.5 flex gap-2 items-center": true,
-                    "rounded-[10px] bg-green-2": isActive(item.path),
-                  })}
-                >
-                  <Image
-                    src={`${item.icon}.svg`}
-                    alt={item.title}
-                    width={24}
-                    height={24}
-                  />
-                  <span
-                    className={clsx({
-                      "font-medium": true,
-                      "text-green-1": isActive(item.path),
-                      "text-grey-2": !isActive(item.path),
-                    })}
+              {MENU.others.map((item) =>
+                item.title === "Tunaikan di Masjed" ? (
+                  <a
+                    key={item.title}
+                    className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-2"
+                    href={item.path}
+                    target="_blank"
                   >
-                    {item.title}
-                  </span>
-                </div>
-              ))}
+                    <Image
+                      src={`${item.icon}.svg`}
+                      alt={item.title}
+                      width={24}
+                      height={24}
+                    />
+                    <span className="font-medium text-green-1">
+                      {item.title}
+                    </span>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.title}
+                    className={clsx({
+                      "p-2.5 flex gap-2 items-center": true,
+                      "rounded-[10px] bg-green-2": isActive(item.path),
+                    })}
+                    href={item.path}
+                  >
+                    <Image
+                      src={`${item.icon}.svg`}
+                      alt={item.title}
+                      width={24}
+                      height={24}
+                    />
+                    <span
+                      className={clsx({
+                        "font-medium": true,
+                        "text-green-1": isActive(item.path),
+                        "text-grey-2": !isActive(item.path),
+                      })}
+                    >
+                      {item.title}
+                    </span>
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </div>
