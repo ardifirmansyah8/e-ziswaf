@@ -4,8 +4,8 @@ import Image from "next/image";
 
 import { useFetchLandingData } from "@/features/Home/hooks/useLandingPage";
 import Infographic from "@/features/Home/components/Infographic";
-import LembagaZakat from "@/features/Home/components/LembagaZakat";
-import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
+//import LembagaZakat from "@/features/Home/components/LembagaZakat";
+//import LembagaWakaf from "@/features/Home/components/LembagaWakaf";
 import Transactions from "@/features/Home/components/Transactions";
 import useAppContext from "@/utils/context";
 import LembagaSlider from "./components/LembagaSlider";
