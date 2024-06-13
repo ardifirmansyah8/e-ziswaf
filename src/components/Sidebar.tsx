@@ -81,36 +81,55 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
           ))}
         </div>
         <div className="flex flex-col gap-2.5">
-          {MENU.others.map((item) => (
-            <Link
-              key={item.title}
-              className={clsx({
-                "p-2.5 flex gap-2 items-center cursor-pointer": true,
-                "rounded-[10px] bg-green-2": isActive(item.path),
-              })}
-              href={item.path}
-            >
-              <Image
-                src={`${
-                  isActive(item.path) ? `${item.icon}-light` : item.icon
-                }.svg`}
-                alt={item.title}
-                width={24}
-                height={24}
-              />
-              {isOpen && (
-                <span
-                  className={clsx({
-                    "font-medium": true,
-                    "text-green-1": isActive(item.path),
-                    "text-grey-2": !isActive(item.path),
-                  })}
-                >
-                  {item.title}
-                </span>
-              )}
-            </Link>
-          ))}
+          {MENU.others.map((item) =>
+            item.title === "Tunaikan di Masjed" ? (
+              <a
+                key={item.title}
+                className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-2"
+                href={item.path}
+                target="_blank"
+              >
+                <Image
+                  src={`${item.icon}.svg`}
+                  alt={item.title}
+                  width={24}
+                  height={24}
+                />
+                {isOpen && (
+                  <span className="font-medium text-green-1">{item.title}</span>
+                )}
+              </a>
+            ) : (
+              <Link
+                key={item.title}
+                className={clsx({
+                  "p-2.5 flex gap-2 items-center cursor-pointer": true,
+                  "rounded-[10px] bg-green-2": isActive(item.path),
+                })}
+                href={item.path}
+              >
+                <Image
+                  src={`${
+                    isActive(item.path) ? `${item.icon}-light` : item.icon
+                  }.svg`}
+                  alt={item.title}
+                  width={24}
+                  height={24}
+                />
+                {isOpen && (
+                  <span
+                    className={clsx({
+                      "font-medium": true,
+                      "text-green-1": isActive(item.path),
+                      "text-grey-2": !isActive(item.path),
+                    })}
+                  >
+                    {item.title}
+                  </span>
+                )}
+              </Link>
+            )
+          )}
           <Image
             src={
               isOpen

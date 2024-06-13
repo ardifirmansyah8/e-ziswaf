@@ -30,9 +30,9 @@ export const MENU = {
   ],
   others: [
     {
-      icon: "/icon/icon-thumb-up",
-      title: "Tentang Kami",
-      path: "/tentang-kami",
+      icon: "/footer/icon-masjed",
+      title: "Tunaikan di Masjed",
+      path: "https://ziswaf.masjed.id/",
     },
     {
       icon: "/icon/icon-info",
