@@ -58,7 +58,7 @@ export default function UserDataDialog({
   return (
     <Dialog open={isOpen}>
       <DialogContent className="px-2 py-7 w-[430px]" close={false}>
-        <ScrollArea className="h-[550px]">
+        <ScrollArea className="h-full md:h-[550px]">
           <div className="px-8 pb-1">
             <Label className="text-2xl text-grey-2 font-semibold">
               Kelengkapan Data
@@ -206,7 +206,7 @@ export default function UserDataDialog({
                           title: "Berhasil",
                           description: "Data berhasil disimpan",
                         });
-                        window.location.reload();
+                        onClose();
                       } else {
                         throw new Error(resp.data.message);
                       }
