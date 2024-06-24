@@ -108,16 +108,24 @@ export default function Profile() {
   }, [page]);
 
   return (
-    <div className="px-[76px] flex flex-col gap-7">
+    <div className="md:px-[76px] flex flex-col gap-4 md:gap-7">
       <Card>
-        <div className="flex gap-5">
+        <div className="flex items-start gap-5">
           <Image
-            width={90}
-            height={90}
+            width={70}
+            height={70}
+            className="md:hidden"
             src={"/icon/icon-placeholder-profile.svg"}
             alt="icon-placeholder-profile"
           />
-          <div className="flex flex-col flex-1 gap-2.5">
+          <Image
+            width={90}
+            height={90}
+            className="hidden md:block"
+            src={"/icon/icon-placeholder-profile.svg"}
+            alt="icon-placeholder-profile"
+          />
+          <div className="flex flex-col md:flex-1 gap-2.5">
             <Label className="text-grey-2 font-bold text-xl">
               {profile?.name || "Hamba Allah"}
             </Label>
@@ -129,13 +137,23 @@ export default function Profile() {
             <Label className="text-grey-2 flex gap-1">
               <span className="w-6">ID</span>
               <span>:</span>
-              <span className="flex-1">{profile?.id || "-"}</span>
+              <span className="flex-1 leading-relaxed">
+                {profile?.id || "-"}
+              </span>
             </Label>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              className="text-xs md:hidden w-fit"
+              onClick={() => setDialog("user-data")}
+            >
+              Ubah Data
+            </Button>
           </div>
           <Button
             variant={"outline"}
             size={"sm"}
-            className="text-xs"
+            className="text-xs hidden md:block"
             onClick={() => setDialog("user-data")}
           >
             Ubah Data
@@ -144,7 +162,7 @@ export default function Profile() {
       </Card>
 
       <Card>
-        <div className="flex flex-col gap-7 w-full">
+        <div className="flex flex-col gap-4 md:gap-7 w-full">
           <div className="flex items-center justify-between">
             <Label className="text-grey-2 font-semibold text-base">
               Donasi Anda
@@ -162,7 +180,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col md:flex-row gap-4">
             <div
               className={`rounded-[10px] p-2 flex-1 flex items-center gap-2.5 bg-[#DEEFFC]`}
             >
@@ -251,7 +269,7 @@ export default function Profile() {
 
       <Card>
         <div className="flex flex-col gap-4 w-full">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center md:justify-between">
             <Label className="text-grey-2 font-semibold text-base">
               Transaksi Anda
             </Label>
@@ -283,54 +301,101 @@ export default function Profile() {
             {userTrx &&
               userTrx?.data.length > 0 &&
               userTrx.data.map((data, i) => (
-                <div
-                  key={i}
-                  className={clsx({
-                    "py-2.5 px-4 flex justify-between hover:bg-grey-1 cursor-pointer":
-                      true,
-                    "bg-grey-3": i % 2 === 0,
-                    "bg-white": i % 2 !== 0,
-                  })}
-                  onClick={() => {
-                    setDialog("trx-detail");
-                    setTrxNo(data.trx_no);
-                  }}
-                >
-                  <div className="flex-1 flex justify-between items-center gap-4">
+                <div key={i}>
+                  <div
+                    className={clsx({
+                      "py-2.5 px-4 justify-between hover:bg-grey-1 cursor-pointer hidden md:flex":
+                        true,
+                      "bg-grey-3": i % 2 === 0,
+                      "bg-white": i % 2 !== 0,
+                    })}
+                    onClick={() => {
+                      setDialog("trx-detail");
+                      setTrxNo(data.trx_no);
+                    }}
+                  >
+                    <div className="flex-1 flex justify-between items-center gap-4">
+                      <Image
+                        src="/icon/icon-wallet.svg"
+                        alt="icon-wallet"
+                        width={24}
+                        height={24}
+                      />
+                      <Label className="text-sm font-semibold">
+                        TRX {data.trx_no.slice(0, 8)}
+                      </Label>
+                      <Label className="text-sm flex-1">{data.to}</Label>
+                    </div>
+                    <div className="flex items-center justify-end gap-4">
+                      <Label className="text-sm text-green-1 font-semibold">
+                        {data?.amount}
+                      </Label>
+
+                      <Button
+                        variant={"outline"}
+                        className="flex items-center justify-between"
+                        onClick={() =>
+                          window.open(
+                            `https://api.eziswaf.net/v1/app/download/${data.trx_no}.pdf`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        <Label>Bukti Setor</Label>
+                        <Image
+                          src="/icon/icon-download.svg"
+                          alt="icon-download"
+                          width={24}
+                          height={24}
+                        />
+                      </Button>
+                    </div>
+                  </div>
+                  <div
+                    className={clsx({
+                      "py-2.5 px-4 hover:bg-grey-1 cursor-pointer flex gap-2.5 md:hidden":
+                        true,
+                      "bg-grey-3": i % 2 === 0,
+                      "bg-white": i % 2 !== 0,
+                    })}
+                    onClick={() => {
+                      setDialog("trx-detail");
+                      setTrxNo(data.trx_no);
+                    }}
+                  >
                     <Image
                       src="/icon/icon-wallet.svg"
                       alt="icon-wallet"
                       width={24}
                       height={24}
                     />
-                    <Label className="text-sm font-semibold">
-                      TRX {data.trx_no.slice(0, 8)}
-                    </Label>
-                    <Label className="text-sm flex-1">{data.to}</Label>
-                  </div>
-                  <div className="flex items-center justify-end gap-4">
-                    <Label className="text-sm text-green-1 font-semibold">
-                      {data?.amount}
-                    </Label>
-
-                    <Button
-                      variant={"outline"}
-                      className="flex items-center justify-between"
-                      onClick={() =>
-                        window.open(
-                          `https://api.eziswaf.net/v1/app/download/${data.trx_no}.pdf`,
-                          "_blank"
-                        )
-                      }
-                    >
-                      <Label>Bukti Setor</Label>
-                      <Image
-                        src="/icon/icon-download.svg"
-                        alt="icon-download"
-                        width={24}
-                        height={24}
-                      />
-                    </Button>
+                    <div className="flex flex-col gap-2.5">
+                      <Label className="text-sm font-semibold">
+                        TRX {data.trx_no.slice(0, 8)}
+                      </Label>
+                      <Label className="text-sm">{data.to}</Label>
+                      <Label className="text-sm text-green-1 font-semibold">
+                        {data?.amount}
+                      </Label>
+                      <Button
+                        variant={"outline"}
+                        className="flex items-center justify-between w-fit gap-2.5"
+                        onClick={() =>
+                          window.open(
+                            `https://api.eziswaf.net/v1/app/download/${data.trx_no}.pdf`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        <Label>Bukti Setor</Label>
+                        <Image
+                          src="/icon/icon-download.svg"
+                          alt="icon-download"
+                          width={24}
+                          height={24}
+                        />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}

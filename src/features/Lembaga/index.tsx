@@ -4,13 +4,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { Label } from "@/components/ui/label";
+import Pagination from "@/components/Pagination";
 import { delimiter } from "@/utils/string";
 
 import {
   useFetchAllLembagaWakaf,
   useFetchAllLembagaZakat,
 } from "./hooks/useLembaga";
-import Pagination from "@/components/Pagination";
 
 type Props = {
   type: "zakat" | "wakaf";
@@ -28,7 +29,10 @@ export default function Lembaga({ type }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid grid-cols-4 gap-5">
+      <Label className="text-grey-2 md:text-2xl text-xl font-bold">
+        Lembaga {type === "zakat" ? "Zakat" : "Wakaf"}
+      </Label>
+      <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
         {listLembaga &&
           listLembaga.data.length > 0 &&
           listLembaga.data.map((item) => (
@@ -36,7 +40,7 @@ export default function Lembaga({ type }: Props) {
               key={item.kode}
               className="border border-grey-1 flex flex-col rounded-[10px] mb-1"
             >
-              <div className="rounded-tl-[10px] rounded-tr-[10px] h-[137px] flex flex-col items-center justify-center gap-2.5 bg-grey-3 p-4">
+              <div className="rounded-tl-[10px] rounded-tr-[10px] flex-1 flex flex-col items-center justify-center gap-2.5 bg-grey-3 p-4">
                 <Image
                   src={
                     item.image

@@ -29,7 +29,7 @@ function makeQueryClient() {
       onError: (error) => {
         if ((error?.cause as any)?.response.status === 401) {
           localStorage.removeItem("jwt");
-          window.location.reload();
+          window.location.href = "/";
         }
 
         if (error?.message) {

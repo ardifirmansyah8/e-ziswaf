@@ -11,7 +11,7 @@ export default function SuccessRegisterDialog({ isOpen }: Props) {
   return (
     <Dialog open={isOpen}>
       <DialogContent className="px-24 py-7 w-[430px]" close={false}>
-        <div className="flex flex-col items-center gap-7">
+        <div className="flex flex-col items-center justify-center gap-7">
           <Image
             width={100}
             height={100}
@@ -27,11 +27,7 @@ export default function SuccessRegisterDialog({ isOpen }: Props) {
             src={"/logo-e-ziswaf.png"}
             alt="logo-check"
           />
-          <Button
-            className="flex-1"
-            variant={"outline"}
-            onClick={() => window.location.reload()}
-          >
+          <Button variant={"outline"} onClick={() => window.location.reload()}>
             Dashboard
           </Button>
         </div>

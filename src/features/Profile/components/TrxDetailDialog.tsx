@@ -26,8 +26,8 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
             <Label className="text-base text-grey-2">Detail Transaksi</Label>
             <X className="h-6 w-6 cursor-pointer" onClick={() => onClose()} />
           </div>
-          <div className="p-7 flex flex-col gap-5">
-            <div className="flex justify-between">
+          <div className="p-4 md:p-7 flex flex-col gap-5">
+            <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-0">
               <div className="flex flex-col gap-1">
                 <Label className="text-base text-grey-2">
                   NO TRX:{" "}
@@ -41,7 +41,7 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
               </div>
               <Button
                 variant={"outline"}
-                className="flex items-center justify-between gap-2"
+                className="flex items-center justify-between gap-2 w-fit"
                 onClick={() =>
                   window.open(
                     `https://api.eziswaf.net/v1/app/download/${data?.trx_no}.pdf`,
@@ -72,11 +72,9 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
                 </Label>
               </div>
             </div>
-            <div>
-              <Label className="text-grey-2">
-                Metode Pembayaran:{" "}
-                <span className="font-semibold">{data?.ca}</span>
-              </Label>
+            <div className="flex flex-col md:flex-row gap-1.5 md:gap-1">
+              <Label className="text-grey-2">Metode Pembayaran:</Label>
+              <Label className="font-semibold">{data?.ca}</Label>
             </div>
           </div>
         </div>

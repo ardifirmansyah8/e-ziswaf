@@ -100,10 +100,10 @@ export default function DetailLembaga({ code }: Props) {
   }, [dashboardLembaga]);
 
   return (
-    <div className="pt-2.5 pb-6 flex flex-col gap-7">
-      <div className="flex justify-between gap-5">
-        <Card className="flex-1">
-          <div className="flex gap-5 items-start">
+    <div className="pt-2.5 md:pb-6 flex flex-col gap-7">
+      <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-5">
+        <Card className="md:flex-1">
+          <div className="flex md:flex-row flex-col gap-5 items-start">
             <Image
               width={120}
               height={120}
@@ -202,7 +202,7 @@ export default function DetailLembaga({ code }: Props) {
 
         {profile?.id && (
           <Card
-            className="w-1/3 bg-green-1 p-11 bg-cover"
+            className="md:w-1/3 bg-green-1 p-11 bg-cover"
             style={{ backgroundImage: "url('/bg-portofolio.png')" }}
           >
             <div className="flex flex-col justify-center gap-7">
@@ -261,7 +261,7 @@ export default function DetailLembaga({ code }: Props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 mb-3">
-        <div className="grid grid-cols-3 flex-1 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-2 flex-1 gap-4">
           {DASHBOARD_DATA.map((el) => (
             <div
               key={el.title}

@@ -4,19 +4,36 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MENU } from "@/utils/constant";
+import useAppContext from "@/utils/context";
+import { getInitials } from "@/utils/string";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
 
 export default function HeaderMobile() {
   const pathname = usePathname();
+
+  const { profile, setDialogType } = useAppContext();
 
   const [open, setOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
-    <div>
+    <>
       <div
         className={clsx({
           "w-screen h-screen bg-black bg-opacity-50 fixed z-50": open,
@@ -149,14 +166,53 @@ export default function HeaderMobile() {
             width={24}
             height={24}
           />
-          <Image
-            src="/icon/icon-user.svg"
-            alt="icon-user"
-            width={24}
-            height={24}
-          />
+          {profile?.id ? (
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <Avatar>
+                      {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+                      <AvatarFallback>
+                        {getInitials(profile.name || "Hamba Allah")}
+                      </AvatarFallback>
+                    </Avatar>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="flex flex-col gap-2">
+                      <li className="p-4 cursor-pointer hover:bg-accent">
+                        <NavigationMenuLink asChild href="/profile">
+                          <a>Profil</a>
+                        </NavigationMenuLink>
+                      </li>
+                      <li className="p-4 cursor-pointer hover:bg-accent">
+                        <NavigationMenuLink asChild>
+                          <a
+                            onClick={() => {
+                              localStorage.removeItem("jwt");
+                              window.location.reload();
+                            }}
+                          >
+                            Logout
+                          </a>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          ) : (
+            <Image
+              src="/icon/icon-user.svg"
+              alt="icon-user"
+              width={24}
+              height={24}
+              onClick={() => setDialogType("login")}
+            />
+          )}
         </div>
       </header>
-    </div>
+    </>
   );
 }
