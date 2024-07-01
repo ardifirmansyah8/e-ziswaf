@@ -76,8 +76,9 @@ export default function DetailDonation({
           Doa {DonationType[Number(payload?.donationType)]}
         </Label>
         <Label className="font-semibold leading-5">
-          Nawaitu an ukhrija zakaatal fithri 'anni wa 'an jamii'i ma yalzamunii
-          nafaqaatuhum syar'an fardhan lillaahi ta'aalaa
+          {
+            "Nawaitu an ukhrija zakaatal fithri 'anni wa 'an jamii'i ma yalzamunii nafaqaatuhum syar'an fardhan lillaahi ta'aalaa"
+          }
         </Label>
       </div>
 
