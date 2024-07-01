@@ -189,7 +189,7 @@ export default function Profile() {
                 height={24}
               />
               <div className="flex flex-col gap-1">
-                <spal>Total Zakat Anda</spal>
+                <Label>Total Zakat Anda</Label>
                 <Label className="font-bold text-lg">
                   Rp {delimiter(userDashboard?.dashboard?.zakat || 0)}
                 </Label>
