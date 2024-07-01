@@ -18,7 +18,7 @@ export default function SuccessRegisterDialog({ isOpen }: Props) {
             src={"/logo-check.png"}
             alt="logo-check"
           />
-          <Label className="text-base text-grey-2 text-center">
+          <Label className="text-base text-center">
             Akun Anda berhasil dibuat selamat datang di
           </Label>
           <Image

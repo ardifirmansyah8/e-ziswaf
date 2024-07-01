@@ -10,6 +10,7 @@ import { MENU } from "@/utils/constant";
 import useAppContext from "@/utils/context";
 import { getInitials } from "@/utils/string";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Label } from "./ui/label";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -80,24 +81,23 @@ export default function HeaderMobile() {
                     width={24}
                     height={24}
                   />
-                  <span
+                  <Label
                     className={clsx({
                       "font-medium": true,
                       "text-green-1": isActive(item.path),
-                      "text-grey-2": !isActive(item.path),
                     })}
                   >
                     {item.title}
-                  </span>
+                  </Label>
                 </Link>
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
               {MENU.others.map((item) =>
-                item.title === "Tunaikan di Masjed" ? (
+                item.title === "Tunaikan" ? (
                   <a
                     key={item.title}
-                    className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-2"
+                    className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-1"
                     href={item.path}
                     target="_blank"
                   >
@@ -107,9 +107,9 @@ export default function HeaderMobile() {
                       width={24}
                       height={24}
                     />
-                    <span className="font-medium text-green-1">
+                    <Label className="font-medium text-white">
                       {item.title}
-                    </span>
+                    </Label>
                   </a>
                 ) : (
                   <Link
@@ -126,15 +126,14 @@ export default function HeaderMobile() {
                       width={24}
                       height={24}
                     />
-                    <span
+                    <Label
                       className={clsx({
                         "font-medium": true,
                         "text-green-1": isActive(item.path),
-                        "text-grey-2": !isActive(item.path),
                       })}
                     >
                       {item.title}
-                    </span>
+                    </Label>
                   </Link>
                 )
               )}

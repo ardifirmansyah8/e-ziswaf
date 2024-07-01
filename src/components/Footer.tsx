@@ -3,6 +3,8 @@
 import clsx from "clsx";
 import Image from "next/image";
 
+import { Label } from "./ui/label";
+
 type Props = { isOpen: boolean };
 
 export default function Footer({ isOpen }: Props) {
@@ -37,18 +39,19 @@ export default function Footer({ isOpen }: Props) {
                 height={24}
               /> */}
 
-              <label className="text-xs text-grey-2">
-                DIGITALISASI & DATABASE TERINTEGRASI KEUANGAN SOSIAL SYARIAH NASIONAL
-              </label>
+              <Label className="text-xs">
+                DIGITALISASI & DATABASE TERINTEGRASI KEUANGAN SOSIAL SYARIAH
+                NASIONAL
+              </Label>
             </div>
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-grey-2">
+              <Label className="text-xs font-medium">
                 Berkolaborasi Dengan:
-              </label>
+              </Label>
               <div className="flex gap-4">
-              <Image
+                <Image
                   src="/footer/icon-masjed.svg"
                   alt="icon-masjed"
                   width={30}
@@ -63,9 +66,9 @@ export default function Footer({ isOpen }: Props) {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-grey-2">
+              <Label className="text-xs font-medium">
                 Regulasi Keuangan Sosial Syariah:
-              </label>
+              </Label>
               <div className="flex gap-4">
                 <Image
                   src="/footer/icon-bi.svg"
@@ -94,9 +97,9 @@ export default function Footer({ isOpen }: Props) {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-grey-2">
+              <Label className="text-xs font-medium">
                 Organisasi Islam Nasional :
-              </label>
+              </Label>
               <div className="flex gap-4">
                 <Image
                   src="/footer/icon-nu.svg"
@@ -126,9 +129,7 @@ export default function Footer({ isOpen }: Props) {
             </div>
           </div>
           <div className="flex flex-col gap-2.5 md:mr-4">
-            <label className="text-xs font-medium text-grey-2">
-              Ikuti kami di:
-            </label>
+            <Label className="text-xs font-medium">Ikuti kami di:</Label>
             <div className="flex gap-1">
               <Image
                 src="/icon/icon-twitter.svg"

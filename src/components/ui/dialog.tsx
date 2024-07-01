@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X, ArrowLeft } from "lucide-react";
 
 import { cn } from "@/utils/tailwind";
+import { Label } from "./label";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -66,7 +67,7 @@ const DialogContent = React.forwardRef<
             onClick={() => onBack && onBack()}
           >
             <ArrowLeft className="h-6 w-6" />
-            <span className="sr-only">Back</span>
+            <Label className="sr-only">Back</Label>
           </div>
         )}
         {children}
@@ -76,7 +77,7 @@ const DialogContent = React.forwardRef<
             onClick={() => onClose && onClose()}
           >
             <X className="h-6 w-6" />
-            <span className="sr-only">Close</span>
+            <Label className="sr-only">Close</Label>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>

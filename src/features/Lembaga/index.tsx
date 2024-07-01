@@ -29,7 +29,7 @@ export default function Lembaga({ type }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-      <Label className="text-grey-2 md:text-2xl text-xl font-bold">
+      <Label className="md:text-2xl text-xl font-bold">
         Lembaga {type === "zakat" ? "Zakat" : "Wakaf"}
       </Label>
       <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
@@ -53,7 +53,7 @@ export default function Lembaga({ type }: Props) {
                   className="rounded-full border border-grey-1"
                 />
                 <a
-                  className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
+                  className="text-sm font-semibold text-center cursor-pointer hover:text-blue-1"
                   onClick={() => router.push(`/lembaga-${type}/${item.kode}`)}
                 >
                   {item.nama}
@@ -68,12 +68,10 @@ export default function Lembaga({ type }: Props) {
                     height={24}
                   />
                   <div className="flex flex-col gap-1">
-                    <label className="text-[10px] text-grey-2">
-                      Total Himpunan
-                    </label>
-                    <label className="text-xs md:text-sm font-semibold text-green-1">
+                    <Label className="text-[10px]">Total Himpunan</Label>
+                    <Label className="text-xs md:text-sm font-semibold text-green-1">
                       Rp{delimiter(item.total)}
-                    </label>
+                    </Label>
                   </div>
                 </div>
                 <div className="flex gap-2 items-start">
@@ -84,12 +82,10 @@ export default function Lembaga({ type }: Props) {
                     height={24}
                   />
                   <div className="flex flex-col gap-1">
-                    <label className="text-[10px] text-grey-2">
-                      Total Program
-                    </label>
-                    <label className="text-xs md:text-sm font-semibold text-grey-2">
+                    <Label className="text-[10px]">Total Program</Label>
+                    <Label className="text-xs md:text-sm font-semibold">
                       {item.trx}
-                    </label>
+                    </Label>
                   </div>
                 </div>
               </div>

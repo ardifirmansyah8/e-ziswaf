@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -8,6 +8,12 @@ const nextConfig = {
         hostname: "api.eziswaf.net",
         port: "",
         pathname: "/v1/app/logo/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.duitku.com",
+        port: "",
+        pathname: "/hotlink-ok/**",
       },
     ],
   },

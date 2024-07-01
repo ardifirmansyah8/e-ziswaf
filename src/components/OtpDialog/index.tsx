@@ -8,6 +8,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useVerifyOtp } from "./useOtp";
 
@@ -41,8 +42,8 @@ export default function OtpDialog({
         onBack={() => onClose(backTo)}
       >
         <div className="mt-14 flex flex-col gap-7">
-          <label className="text-2xl text-grey-2 font-semibold">Kode OTP</label>
-          <p className="text-grey-2 text-base">
+          <Label className="text-2xl font-semibold">Kode OTP</Label>
+          <p className="text-base">
             Masukkan kode OTP yang telah dikirimkan ke no +62{phone}
           </p>
           <InputOTP
@@ -89,9 +90,7 @@ export default function OtpDialog({
             Verifikasi OTP
           </Button>
           <div className="flex gap-1 justify-center">
-            <label className="text-grey-2 text-sm">
-              Belum menerima kode OTP?
-            </label>
+            <Label className="text-sm">Belum menerima kode OTP?</Label>
             <Button
               variant={"ghost"}
               className="p-0 h-auto hover:bg-transparent text-blue-1 font-bold"

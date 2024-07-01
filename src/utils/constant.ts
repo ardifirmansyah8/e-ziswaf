@@ -1,6 +1,7 @@
 import path from "path";
 
 export const BASE_API_URL = "https://api.eziswaf.net/v1";
+export const BASE_API_URL_MASJED = "https://api.masjed.id/v1";
 
 export const MENU = {
   ziswaf: [
@@ -30,9 +31,9 @@ export const MENU = {
   ],
   others: [
     {
-      icon: "/footer/icon-masjed",
-      title: "Tunaikan di Masjed",
-      path: "https://ziswaf.masjed.id/",
+      icon: "/icon/icon-donation",
+      title: "Tunaikan",
+      path: "/donation",
     },
     {
       icon: "/icon/icon-info",

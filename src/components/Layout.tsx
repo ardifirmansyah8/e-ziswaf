@@ -1,18 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import Footer from "@/components/Footer";
 import HeaderMobile from "@/components/HeaderMobile";
 import Sidebar from "@/components/Sidebar";
@@ -20,17 +25,21 @@ import LoginDialog from "@/features/Login/components/LoginDialog";
 import UserDataDialog from "@/features/Profile/components/UserDataDialog";
 import RegisterDialog from "@/features/Register/components/RegisterDialog";
 import SuccessRegisterDialog from "@/features/Register/components/SuccessRegisterDialog";
-import OtpDialog from "./OtpDialog";
 import useAppContext from "@/utils/context";
 import { getInitials } from "@/utils/string";
-import { useState } from "react";
+import OtpDialog from "./OtpDialog";
+import { ChevronDown } from "lucide-react";
+import { set } from "date-fns";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function Layout({ children }: Props) {
+  const router = useRouter();
+
   const [jwt, setJwt] = useState("");
+  const [open, setOpen] = useState(false);
 
   const {
     isOpen,
@@ -80,44 +89,48 @@ export default function Layout({ children }: Props) {
                   </Button>
                 </div>
               ) : (
-                <NavigationMenu>
-                  <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>
-                        <div className="flex items-center gap-1">
-                          {profile.name || "Hamba Allah"}
-                          <Avatar>
-                            {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-                            <AvatarFallback>
-                              {getInitials(profile.name || "Hamba Allah")}
-                            </AvatarFallback>
-                          </Avatar>
-                        </div>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="flex flex-col gap-2 w-[185px]">
-                          <li className="p-4 cursor-pointer hover:bg-accent">
-                            <NavigationMenuLink asChild href="/profile">
-                              <a>Profil</a>
-                            </NavigationMenuLink>
-                          </li>
-                          <li className="p-4 cursor-pointer hover:bg-accent">
-                            <NavigationMenuLink asChild>
-                              <a
-                                onClick={() => {
-                                  localStorage.removeItem("jwt");
-                                  window.location.reload();
-                                }}
-                              >
-                                Logout
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  </NavigationMenuList>
-                </NavigationMenu>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="flex items-center gap-1 hover:bg-white"
+                    >
+                      {profile.name || "Hamba Allah"}
+                      <Avatar>
+                        <AvatarFallback>
+                          {getInitials(profile.name || "Hamba Allah")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <ChevronDown className="h-4 w-4 shrink-0" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0 w-40">
+                    <Command>
+                      <CommandList>
+                        <CommandGroup>
+                          <CommandItem
+                            className="cursor-pointer py-4"
+                            onSelect={(_) => {
+                              router.push("/profile");
+                              setOpen(false);
+                            }}
+                          >
+                            Profil
+                          </CommandItem>
+                          <CommandItem
+                            className="cursor-pointer py-4"
+                            onSelect={(_) => {
+                              localStorage.removeItem("jwt");
+                              window.location.reload();
+                            }}
+                          >
+                            Logout
+                          </CommandItem>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               )}
             </div>
 
