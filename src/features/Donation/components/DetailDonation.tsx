@@ -8,20 +8,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 import { DonationType } from "..";
+import { usePayment } from "../hooks/useDonation";
 
 import type { IDonationForm, IPaymentMethod } from "../types";
-import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const PaymentType: { [key: string]: string } = {
   va: "Transfer Bank (Virtual Account)",
   qris: "QRIS",
   retail: "Setor Tunai",
   ewallet: "E-Wallet",
+  other: "Lainnya",
 };
 
 type Props = {
@@ -35,7 +39,42 @@ export default function DetailDonation({
   payload,
   paymentMethods,
 }: Props) {
+  const { profile } = useAppContext();
+
   const [selectedMethod, setSelectedMethod] = useState("");
+
+  const { mutateAsync } = usePayment();
+
+  const submitPayment = () => {
+    const body = {
+      paymentAmount: Number(payload?.amount || 0),
+      paymentMethod: selectedMethod,
+      productDetails: payload?.selectedLembaga?.kode.toString() || "",
+      customerVaName: profile?.name || "Hamba Allah",
+      email: "payment@eziswaf.net",
+      phoneNumber: "0" + payload?.phone || "",
+      itemDetails: [
+        {
+          name: payload?.donationType.toUpperCase() || "",
+          price: Number(payload?.amount || 0),
+          quantity: 1,
+        },
+      ],
+      customerDetail: {
+        firstName: profile?.name || "Hamba Allah",
+        lastName: null,
+        email: null,
+        phoneNumber: "0" + payload?.phone || "",
+      },
+      callbackUrl: "https://api.eziswaf.net/v1/pay/callback",
+      expiryPeriod: 60,
+    };
+    mutateAsync(body).then((resp) => {
+      if (resp.data) {
+        window.open(resp.data.paymentUrl, "_self");
+      }
+    });
+  };
 
   return (
     <Card className="w-full flex flex-col gap-7">
@@ -125,7 +164,9 @@ export default function DetailDonation({
         </div>
       </div>
 
-      <Button>Bayar</Button>
+      <Button disabled={!selectedMethod} onClick={() => submitPayment()}>
+        Bayar
+      </Button>
     </Card>
   );
 }

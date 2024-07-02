@@ -1,8 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { IProfileLembaga } from "@/features/Lembaga/types";
-import { BASE_API_URL, BASE_API_URL_MASJED, JWT } from "@/utils/constant";
+import { BASE_API_URL } from "@/utils/constant";
+
+import type { IProfileLembaga } from "@/features/Lembaga/types";
+import type { IDonationPayload } from "../types";
 
 export const useFetchLembaga = (jenis: string) => {
   return useQuery({
@@ -30,10 +32,26 @@ export const usePaymentMethods = () => {
     mutationFn: (amount: string) =>
       axios({
         method: "post",
-        url: `${BASE_API_URL_MASJED}/pay/methods`,
+        url: `${BASE_API_URL}/pay/methods`,
         data: {
           amount,
         },
+      }).catch((error: any) => {
+        throw new Error(error.response?.data?.message || error.message, {
+          cause: error,
+        });
+      }),
+  });
+};
+
+export const usePayment = () => {
+  return useMutation({
+    mutationKey: ["make-payment"],
+    mutationFn: (payload: IDonationPayload) =>
+      axios({
+        method: "post",
+        url: `${BASE_API_URL}/pay/inquiry`,
+        data: payload,
       }).catch((error: any) => {
         throw new Error(error.response?.data?.message || error.message, {
           cause: error,

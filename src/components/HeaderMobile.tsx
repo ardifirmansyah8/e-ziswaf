@@ -83,7 +83,7 @@ export default function HeaderMobile() {
                   />
                   <Label
                     className={clsx({
-                      "font-medium": true,
+                      "font-medium cursor-pointer": true,
                       "text-green-1": isActive(item.path),
                     })}
                   >
@@ -107,7 +107,7 @@ export default function HeaderMobile() {
                       width={24}
                       height={24}
                     />
-                    <Label className="font-medium text-white">
+                    <Label className="font-medium  cursor-pointer text-white">
                       {item.title}
                     </Label>
                   </a>
@@ -128,7 +128,7 @@ export default function HeaderMobile() {
                     />
                     <Label
                       className={clsx({
-                        "font-medium": true,
+                        "font-medium cursor-pointer": true,
                         "text-green-1": isActive(item.path),
                       })}
                     >

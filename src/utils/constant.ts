@@ -40,6 +40,11 @@ export const MENU = {
       title: "Informasi",
       path: "/informasi",
     },
+    {
+      icon: "/icon/icon-search-transaction",
+      title: "Cari Transaksi",
+      path: "/cari-transaksi",
+    },
   ],
 };
 

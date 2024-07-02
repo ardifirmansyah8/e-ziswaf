@@ -70,7 +70,7 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
               {isOpen && (
                 <Label
                   className={clsx({
-                    "font-medium": true,
+                    "font-medium cursor-pointer": true,
                     "text-green-1": isActive(item.path),
                   })}
                 >
@@ -95,7 +95,9 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                   height={24}
                 />
                 {isOpen && (
-                  <Label className="font-medium text-white">{item.title}</Label>
+                  <Label className="cursor-pointer font-medium text-white">
+                    {item.title}
+                  </Label>
                 )}
               </Link>
             ) : (
@@ -118,7 +120,7 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                 {isOpen && (
                   <Label
                     className={clsx({
-                      "font-medium": true,
+                      "font-medium cursor-pointer": true,
                       "text-green-1": isActive(item.path),
                     })}
                   >

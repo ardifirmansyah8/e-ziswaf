@@ -95,7 +95,7 @@ export default function InputDonation({ toDetail }: Props) {
             Wakaf
           </TabsTrigger>
           <TabsTrigger className="flex-1" value="3">
-            Infaq
+            Infak
           </TabsTrigger>
         </TabsList>
       </Tabs>

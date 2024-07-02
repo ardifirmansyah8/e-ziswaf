@@ -13,7 +13,7 @@ import DetailDonation from "./components/DetailDonation";
 export const DonationType: { [key: number]: string } = {
   1: "Zakat",
   2: "Wakaf",
-  3: "Infaq",
+  3: "Infak",
 };
 
 export default function Donation() {
@@ -27,46 +27,26 @@ export default function Donation() {
     setPayload(data);
     const resp = await mutateAsync(data.amount);
     if (resp.data.paymentFee) {
-      const parseMethods = resp.data.paymentFee.reduce(
-        (result: IPaymentMethod[], curr: IPaymentFee) => {
-          if (curr.paymentName.search(/VA/i) !== -1) {
-            const vaIndex = result.findIndex((method) => method.type === "va");
-            if (vaIndex > -1) {
-              result[vaIndex].method = [...result[vaIndex].method, curr];
-            } else {
-              result.push({ type: "va", method: [curr] });
-            }
-          } else if (curr.paymentName.search(/QRIS/i) !== -1) {
-            const qrisIndex = result.findIndex(
-              (method) => method.type === "qris"
-            );
-            if (qrisIndex > -1) {
-              result[qrisIndex].method = [...result[qrisIndex].method, curr];
-            } else {
-              result.push({ type: "qris", method: [curr] });
-            }
-          } else if (curr.paymentName === "RETAIL") {
-            result.push({ type: "retail", method: [curr] });
-          } else if (
-            curr.paymentName === "DANA" ||
-            curr.paymentName === "LINKAJA APP PCT"
-          ) {
-            const ewalletIndex = result.findIndex(
-              (method) => method.type === "ewallet"
-            );
-            if (ewalletIndex > -1) {
-              result[ewalletIndex].method = [
-                ...result[ewalletIndex].method,
-                curr,
-              ];
-            } else {
-              result.push({ type: "ewallet", method: [curr] });
-            }
-          }
-          return result;
-        },
-        []
-      );
+      const parseMethods = [
+        { type: "va", method: [] },
+        { type: "qris", method: [] },
+        { type: "ewallet", method: [] },
+        { type: "retail", method: [] },
+        { type: "other", method: [] },
+      ] as IPaymentMethod[];
+      resp.data.paymentFee.forEach((method: IPaymentFee) => {
+        if (method.type === "va") {
+          parseMethods[0].method = [...parseMethods[0].method, method];
+        } else if (method.type === "qris") {
+          parseMethods[1].method = [...parseMethods[1].method, method];
+        } else if (method.type === "ewallet") {
+          parseMethods[2].method = [...parseMethods[2].method, method];
+        } else if (method.type === "retail") {
+          parseMethods[3].method = [...parseMethods[3].method, method];
+        } else if (method.type === "other") {
+          parseMethods[4].method = [...parseMethods[4].method, method];
+        }
+      });
       setPaymentMethods(parseMethods);
       setStep(2);
     }
