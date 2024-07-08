@@ -14,9 +14,9 @@ export default function Transactions({ isLoading, trx }: Props) {
   return (
     <div className="mb-3">
       <div className="flex justify-between items-center mb-2.5">
-        <label className="text-sm md:text-base font-semibold text-grey-2">
+        <Label className="text-sm md:text-base font-semibold">
           Transaksi terakhir di E-Ziswaf
-        </label>
+        </Label>
 
         {!isLoading && (
           <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">

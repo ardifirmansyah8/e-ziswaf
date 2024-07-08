@@ -32,7 +32,7 @@ export default function RegisterDialog({ isOpen, onClose, onSubmit }: Props) {
       >
         <div className="mt-14 flex flex-col gap-7">
           <div className="flex justify-between items-end">
-            <label className="text-2xl text-grey-2 font-semibold">Daftar</label>
+            <Label className="text-2xl font-semibold">Daftar</Label>
             <Button
               className="text-base p-0 h-auto text-blue-1 hover:bg-transparent font-semibold"
               variant={"ghost"}
@@ -44,12 +44,12 @@ export default function RegisterDialog({ isOpen, onClose, onSubmit }: Props) {
               Masuk
             </Button>
           </div>
-          <p className="text-grey-2 text-base">
+          <Label className="text-base">
             Selamat Datang di E-Ziswaf
             <br />
             Silakan daftar untuk menikmati mudahnya berdonasi dan akses ke fitur
             lainnya
-          </p>
+          </Label>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="phone">No Handphone</Label>
             <Input

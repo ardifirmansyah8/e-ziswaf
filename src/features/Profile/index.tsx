@@ -126,20 +126,20 @@ export default function Profile() {
             alt="icon-placeholder-profile"
           />
           <div className="flex flex-col md:flex-1 gap-2.5">
-            <Label className="text-grey-2 font-bold text-xl">
+            <Label className="font-bold text-xl">
               {profile?.name || "Hamba Allah"}
             </Label>
-            <Label className="text-grey-2 flex gap-1">
-              <span className="w-6">NIK</span>
-              <span>:</span>
-              <span>{profile?.nik || "-"}</span>
+            <Label className="flex gap-1">
+              <Label className="w-6">NIK</Label>
+              <Label>:</Label>
+              <Label>{profile?.nik || "-"}</Label>
             </Label>
-            <Label className="text-grey-2 flex gap-1">
-              <span className="w-6">ID</span>
-              <span>:</span>
-              <span className="flex-1 leading-relaxed">
+            <Label className="flex gap-1">
+              <Label className="w-6">ID</Label>
+              <Label>:</Label>
+              <Label className="flex-1 leading-relaxed">
                 {profile?.id || "-"}
-              </span>
+              </Label>
             </Label>
             <Button
               variant={"outline"}
@@ -164,11 +164,9 @@ export default function Profile() {
       <Card>
         <div className="flex flex-col gap-4 md:gap-7 w-full">
           <div className="flex items-center justify-between">
-            <Label className="text-grey-2 font-semibold text-base">
-              Donasi Anda
-            </Label>
+            <Label className="font-semibold text-base">Donasi Anda</Label>
             <div className="flex items-center gap-2.5">
-              <Label className="text-grey-2">Tahun</Label>
+              <Label>Tahun</Label>
               <Select value="2024">
                 <SelectTrigger className="w-[100px]">
                   <SelectValue />
@@ -191,10 +189,10 @@ export default function Profile() {
                 height={24}
               />
               <div className="flex flex-col gap-1">
-                <span className="text-grey-2">Total Zakat Anda</span>
-                <span className="font-bold text-grey-2 text-lg">
+                <Label>Total Zakat Anda</Label>
+                <Label className="font-bold text-lg">
                   Rp {delimiter(userDashboard?.dashboard?.zakat || 0)}
-                </span>
+                </Label>
               </div>
             </div>
 
@@ -208,10 +206,10 @@ export default function Profile() {
                 height={24}
               />
               <div className="flex flex-col gap-1">
-                <span className="text-grey-2">Total Wakaf Anda</span>
-                <span className="font-bold text-grey-2 text-lg">
+                <Label>Total Wakaf Anda</Label>
+                <Label className="font-bold text-lg">
                   Rp {delimiter(userDashboard?.dashboard?.wakaf || 0)}
-                </span>
+                </Label>
               </div>
             </div>
 
@@ -225,16 +223,16 @@ export default function Profile() {
                 height={24}
               />
               <div className="flex flex-col gap-1">
-                <span className="text-grey-2">Total Infak Anda</span>
-                <span className="font-bold text-grey-2 text-lg">
+                <Label>Total Infak Anda</Label>
+                <Label className="font-bold text-lg">
                   Rp {delimiter(userDashboard?.dashboard?.infak || 0)}
-                </span>
+                </Label>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            <Label className="text-base font-semibold text-grey-2">
+            <Label className="text-base font-semibold">
               Grafik total donasi tahun 2024
             </Label>
 
@@ -270,9 +268,7 @@ export default function Profile() {
       <Card>
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center md:justify-between">
-            <Label className="text-grey-2 font-semibold text-base">
-              Transaksi Anda
-            </Label>
+            <Label className="font-semibold text-base">Transaksi Anda</Label>
             {userTrx && userTrx?.data.length > 0 && (
               <div>
                 <Input
@@ -295,7 +291,7 @@ export default function Profile() {
           <div className="mb-2">
             {userTrx && userTrx?.data.length === 0 && (
               <div className="text-center pt-4">
-                <Label className="text-grey-2">Belum ada data transaksi</Label>
+                <Label>Belum ada data transaksi</Label>
               </div>
             )}
             {userTrx &&

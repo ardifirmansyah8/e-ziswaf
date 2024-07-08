@@ -60,9 +60,7 @@ export default function UserDataDialog({
       <DialogContent className="px-2 py-7 w-[430px]" close={false}>
         <ScrollArea className="h-full md:h-[550px]">
           <div className="px-8 pb-1">
-            <Label className="text-2xl text-grey-2 font-semibold">
-              Kelengkapan Data
-            </Label>
+            <Label className="text-2xl font-semibold">Kelengkapan Data</Label>
 
             <RadioGroup
               onValueChange={(value: UserType) => {
@@ -81,20 +79,14 @@ export default function UserDataDialog({
               <div>
                 <div className="flex gap-2.5 items-center mb-4">
                   <RadioGroupItem value="PERSONAL" />
-                  <Label className="text-base text-grey-2 font-semibold">
-                    Personal
-                  </Label>
+                  <Label className="text-base font-semibold">Personal</Label>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <Label className="text-grey-2">
-                    Lengkapi data pribadi Anda{" "}
-                  </Label>
+                  <Label>Lengkapi data pribadi Anda </Label>
 
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="name" className="text-grey-2">
-                      Nama
-                    </Label>
+                    <Label htmlFor="name">Nama</Label>
                     <Input
                       id="name"
                       placeholder="Masukkan nama lengkap"
@@ -105,9 +97,7 @@ export default function UserDataDialog({
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="nik" className="text-grey-2">
-                      NIK *
-                    </Label>
+                    <Label htmlFor="nik">NIK *</Label>
                     <Input
                       id="nik"
                       placeholder="Masukkan NIK"
@@ -125,20 +115,16 @@ export default function UserDataDialog({
               <div>
                 <div className="flex gap-2.5 items-center mb-4">
                   <RadioGroupItem value="INSTITUSI" />
-                  <Label className="text-base text-grey-2 font-semibold">
+                  <Label className="text-base font-semibold">
                     Perusahaan / Lembaga
                   </Label>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <Label className="text-grey-2">
-                    Lengkapi data perusahaan Anda{" "}
-                  </Label>
+                  <Label>Lengkapi data perusahaan Anda </Label>
 
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="companyName" className="text-grey-2">
-                      Nama Perusahaan
-                    </Label>
+                    <Label htmlFor="companyName">Nama Perusahaan</Label>
                     <Input
                       id="companyName"
                       placeholder="Masukkan nama perusahaan / lembaga"
@@ -149,9 +135,7 @@ export default function UserDataDialog({
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="npwp" className="text-grey-2">
-                      NPWP *
-                    </Label>
+                    <Label htmlFor="npwp">NPWP *</Label>
                     <Input
                       id="npwp"
                       placeholder="Masukkan NPWP"
@@ -169,7 +153,7 @@ export default function UserDataDialog({
 
             <Separator className="mb-4" />
 
-            <Label className="text-grey-2">
+            <Label>
               (*) NIK/NPWP sebagai syarat untuk pengurangan pajak nantinya
             </Label>
 

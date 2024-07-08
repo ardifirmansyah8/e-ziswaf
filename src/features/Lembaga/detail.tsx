@@ -115,43 +115,41 @@ export default function DetailLembaga({ code }: Props) {
               alt="icon-lembaga"
             />
             <div className="flex flex-col flex-1 gap-5">
-              <Label className="text-grey-2 font-bold text-xl">
+              <Label className="font-bold text-xl">
                 {profileLembaga?.nama}
               </Label>
               <div className="flex flex-col gap-4">
-                <Label className="text-grey-2 flex gap-1">
-                  <span className="w-24 text-xs text-grey-4 font-medium">
+                <Label className="flex gap-1">
+                  <Label className="w-24 text-xs text-grey-4 font-medium">
                     Berdiri Sejak
-                  </span>
-                  <span>:</span>
-                  <span>{profileLembaga?.tglLahir || "-"}</span>
+                  </Label>
+                  <Label>:</Label>
+                  <Label>{profileLembaga?.tglLahir || "-"}</Label>
                 </Label>
-                <Label className="text-grey-2 flex gap-1">
-                  <span className="w-24 text-xs text-grey-4 font-medium">
+                <Label className="flex gap-1">
+                  <Label className="w-24 text-xs text-grey-4 font-medium">
                     Izin Laz
-                  </span>
-                  <span>:</span>
-                  <span className="flex-1">
+                  </Label>
+                  <Label>:</Label>
+                  <Label className="flex-1">
                     {profileLembaga?.noIzinLaz || "-"}
-                  </span>
+                  </Label>
                 </Label>
-                <Label className="text-grey-2 flex gap-1">
-                  <span className="w-24 text-xs text-grey-4 font-medium">
+                <Label className="flex gap-1">
+                  <Label className="w-24 text-xs text-grey-4 font-medium">
                     Izin LW
-                  </span>
-                  <span>:</span>
-                  <span className="flex-1">
+                  </Label>
+                  <Label>:</Label>
+                  <Label className="flex-1">
                     {profileLembaga?.noIzinLw || "-"}
-                  </span>
+                  </Label>
                 </Label>
               </div>
               <div className="flex flex-col gap-1">
                 <Label className="text-grey-4 text-xs font-medium">
                   Alamat:
                 </Label>
-                <Label className="text-grey-2 leading-5">
-                  {profileLembaga?.alamat}
-                </Label>
+                <Label className="leading-5">{profileLembaga?.alamat}</Label>
               </div>
               <div className="flex flex-col gap-1">
                 <Label className="text-xs text-grey-4 font-medium">
@@ -269,8 +267,8 @@ export default function DetailLembaga({ code }: Props) {
             >
               <Image src={el.icon} alt="icon" width={24} height={24} />
               <div className="flex flex-col gap-1">
-                <Label className="text-[10px] text-grey-2">{el.title}</Label>
-                <Label className="font-bold text-grey-2 text-xs md:text-sm">
+                <Label className="text-[10px]">{el.title}</Label>
+                <Label className="font-bold text-xs md:text-sm">
                   {dashboardLembaga?.dashboard
                     ? `${
                         el.type === "ledger" || el.type === "total_user"

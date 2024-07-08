@@ -78,9 +78,9 @@ export default function Home() {
       {/* Masjid */}
       {/* <div className="mb-3 min-w-0">
               <div className="flex justify-between items-center mb-2.5">
-                <label className="text-sm md:text-base font-semibold text-grey-2">
+                <Label className="text-sm md:text-base font-semibold">
                   Masjid
-                </label>
+                </Label>
 
                 <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
                   Lihat Semua
@@ -101,9 +101,9 @@ export default function Home() {
                       className="w-full rounded-tl-[10px] rounded-tr-[10px]"
                     />
                     <div className="px-4 py-5 flex flex-col gap-4 rounded-bl-[10px] rounded-br-[10px]">
-                      <label className="text-grey-2 font-bold text-sm">
+                      <Label className="font-bold text-sm">
                         Masjid Assalam
-                      </label>
+                      </Label>
 
                       <div className="flex gap-2 items-start">
                         <Image
@@ -113,10 +113,10 @@ export default function Home() {
                           height={24}
                         />
 
-                        <label className="text-[10px] text-grey-2">
+                        <Label className="text-[10px]">
                           Jl. Bukit Pamulang Indah No.A18, RW.8, Pamulang Tim.,
                           Kec. Pamulang, Kota Tangerang Selatan, Banten 15417
-                        </label>
+                        </Label>
                       </div>
 
                       <div className="flex gap-2 items-start">
@@ -128,12 +128,12 @@ export default function Home() {
                         />
 
                         <div className="flex flex-col gap-1">
-                          <label className="text-[10px] text-grey-2">
+                          <Label className="text-[10px]">
                             Total Amal
-                          </label>
-                          <label className="text-xs md:text-sm font-semibold text-green-1">
+                          </Label>
+                          <Label className="text-xs md:text-sm font-semibold text-green-1">
                             Rp50.000.000
-                          </label>
+                          </Label>
                         </div>
                       </div>
                     </div>
@@ -145,9 +145,9 @@ export default function Home() {
       {/* Program */}
       {/* <div className="mb-3 min-w-0">
               <div className="flex justify-between items-center mb-2.5">
-                <label className="text-sm md:text-base font-semibold text-grey-2">
+                <Label className="text-sm md:text-base font-semibold">
                   Program
-                </label>
+                </Label>
 
                 <a className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer">
                   Lihat Semua
@@ -169,9 +169,9 @@ export default function Home() {
                     />
                     <div className="px-4 py-5 flex flex-col border-b border-grey-1 gap-4 rounded-bl-[10px] rounded-br-[10px]">
                       <div className="flex items-center">
-                        <label className="text-grey-2 text-xs">
+                        <Label className="text-xs">
                           Dompet Dhuafa
-                        </label>
+                        </Label>
                         <Image
                           src="/icon/icon-check-ring.svg"
                           alt="icon-check-ring"
@@ -180,12 +180,12 @@ export default function Home() {
                         />
                       </div>
                       <div className="flex flex-col gap-2.5">
-                        <label className="text-grey-2 font-bold text-sm">
+                        <Label className="font-bold text-sm">
                           Bantu Lawan 2 Kerusakan Organ
-                        </label>
-                        <label className="text-xs font-medium text-blue-1">
+                        </Label>
+                        <Label className="text-xs font-medium text-blue-1">
                           #Kesehatan
-                        </label>
+                        </Label>
                       </div>
 
                       <div className="flex flex-col gap-2.5 mt-2">
@@ -193,12 +193,12 @@ export default function Home() {
                           <div className="w-1/2 h-1.5 rounded bg-green-1" />
                         </div>
                         <div className="flex flex-col gap-1">
-                          <label className="text-[10px] text-grey-2">
+                          <Label className="text-[10px]">
                             Dana Terkumpul
-                          </label>
-                          <label className="text-xs md:text-sm font-semibold text-green-1">
+                          </Label>
+                          <Label className="text-xs md:text-sm font-semibold text-green-1">
                             Rp50.000.000
-                          </label>
+                          </Label>
                         </div>
                       </div>
                     </div>

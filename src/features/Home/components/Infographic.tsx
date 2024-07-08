@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useMemo } from "react";
 
+import { Label } from "@/components/ui/label";
 import type { IChart, IDashboard } from "@/features/Home/hooks/useLandingPage";
 import { DASHBOARD_DATA } from "@/utils/constant";
 import { delimiter } from "@/utils/string";
@@ -100,8 +101,8 @@ export default function Infographic({ dashboard, chart }: Props) {
           >
             <Image src={el.icon} alt="icon" width={24} height={24} />
             <div className="flex flex-col gap-1">
-              <span className="text-[10px] text-grey-2">{el.title}</span>
-              <span className="font-bold text-grey-2 text-xs md:text-sm">
+              <Label className="text-[10px]">{el.title}</Label>
+              <Label className="font-bold text-xs md:text-sm">
                 {dashboard
                   ? `${
                       el.type === "ledger" || el.type === "total_user"
@@ -109,7 +110,7 @@ export default function Infographic({ dashboard, chart }: Props) {
                         : "Rp "
                     }${delimiter(dashboard[el.type as DashboardType])}`
                   : ""}
-              </span>
+              </Label>
             </div>
           </div>
         ))}

@@ -1,8 +1,9 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 
-import { Button, ButtonProps, buttonVariants } from "@/components/ui/button";
+import { ButtonProps, buttonVariants } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/utils/tailwind";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
@@ -111,7 +112,7 @@ const PaginationEllipsis = ({
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">More pages</span>
+    <Label className="sr-only">More pages</Label>
   </span>
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";

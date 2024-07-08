@@ -23,19 +23,19 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
       <DialogContent className="p-0" close={false}>
         <div>
           <div className="bg-grey-1 px-7 py-5 flex items-center justify-between rounded-tl-sm rounded-tr-sm">
-            <Label className="text-base text-grey-2">Detail Transaksi</Label>
+            <Label className="text-base">Detail Transaksi</Label>
             <X className="h-6 w-6 cursor-pointer" onClick={() => onClose()} />
           </div>
           <div className="p-4 md:p-7 flex flex-col gap-5">
             <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-0">
               <div className="flex flex-col gap-1">
-                <Label className="text-base text-grey-2">
+                <Label className="text-base">
                   NO TRX:{" "}
-                  <span className="font-semibold">
+                  <Label className="font-semibold">
                     {data?.trx_no.slice(0, 8)}
-                  </span>
+                  </Label>
                 </Label>
-                <Label className="text-grey-2">
+                <Label>
                   {format(data?.tanggal || new Date(), "dd/MM/yyy HH:mm")}
                 </Label>
               </div>
@@ -66,14 +66,14 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
                 height={24}
               />
               <div className="flex flex-col gap-1">
-                <Label className="text-grey-2">{data?.tipe_donasi}</Label>
+                <Label>{data?.tipe_donasi}</Label>
                 <Label className="text-xl font-bold text-green-1">
                   Rp {delimiter(data?.amount || 0)}
                 </Label>
               </div>
             </div>
             <div className="flex flex-col md:flex-row gap-1.5 md:gap-1">
-              <Label className="text-grey-2">Metode Pembayaran:</Label>
+              <Label>Metode Pembayaran:</Label>
               <Label className="font-semibold">{data?.ca}</Label>
             </div>
           </div>

@@ -2,18 +2,19 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 
+import { Label } from "@/components/ui/label";
+import WrapperArrow from "@/components/WrapperArrow";
 import {
   useFetchLembagaWakaf,
   useFetchLembagaZakat,
 } from "@/features/Home/hooks/useLandingPage";
-import WrapperArrow from "@/components/WrapperArrow";
 import { delimiter } from "@/utils/string";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useEffect, useState } from "react";
 
 type Props = {
   isOpen: boolean;
@@ -80,9 +81,9 @@ export default function LembagaSlider({ isOpen, type }: Props) {
   return (
     <div className="mb-3 min-w-0">
       <div className="flex justify-between items-center mb-2.5">
-        <label className="text-sm md:text-base font-semibold text-grey-2">
+        <Label className="text-sm md:text-base font-semibold">
           Lembaga {type.toUpperCase()} Pilihan
-        </label>
+        </Label>
 
         <a
           className="text-xs md:text-sm text-blue-1 font-medium cursor-pointer"
@@ -112,7 +113,7 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                     className="rounded-full border border-grey-1"
                   />
                   <a
-                    className="text-sm font-semibold text-grey-2 text-center cursor-pointer hover:text-blue-1"
+                    className="text-sm font-semibold text-center cursor-pointer hover:text-blue-1"
                     onClick={() => router.push(`/lembaga-${type}/${item.kode}`)}
                   >
                     {item.nama}
@@ -127,12 +128,10 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                       height={24}
                     />
                     <div className="flex flex-col gap-1">
-                      <label className="text-[10px] text-grey-2">
-                        Total Himpunan
-                      </label>
-                      <label className="text-xs md:text-sm font-semibold text-green-1">
+                      <Label className="text-[10px]">Total Himpunan</Label>
+                      <Label className="text-xs md:text-sm font-semibold text-green-1">
                         Rp{delimiter(item.total)}
-                      </label>
+                      </Label>
                     </div>
                   </div>
                   <div className="flex gap-2 items-start">
@@ -144,7 +143,7 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                     />
                     <div className="flex flex-col gap-1">
                       <label className="text-[10px] text-grey-2">
-                        Total Transaksi
+                        Total Program
                       </label>
                       <label className="text-xs md:text-sm font-semibold text-grey-2">
                         {item.trx}

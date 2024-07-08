@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { MENU } from "@/utils/constant";
+import { Label } from "./ui/label";
 
 type Props = {
   isOpen: boolean;
@@ -67,27 +68,25 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                 height={24}
               />
               {isOpen && (
-                <span
+                <Label
                   className={clsx({
-                    "font-medium": true,
+                    "font-medium cursor-pointer": true,
                     "text-green-1": isActive(item.path),
-                    "text-grey-2": !isActive(item.path),
                   })}
                 >
                   {item.title}
-                </span>
+                </Label>
               )}
             </Link>
           ))}
         </div>
         <div className="flex flex-col gap-2.5">
           {MENU.others.map((item) =>
-            item.title === "Tunaikan di Masjed" ? (
-              <a
+            item.title === "Tunaikan" ? (
+              <Link
                 key={item.title}
-                className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-2"
+                className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-1"
                 href={item.path}
-                target="_blank"
               >
                 <Image
                   src={`${item.icon}.svg`}
@@ -96,9 +95,11 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                   height={24}
                 />
                 {isOpen && (
-                  <span className="font-medium text-green-1">{item.title}</span>
+                  <Label className="cursor-pointer font-medium text-white">
+                    {item.title}
+                  </Label>
                 )}
-              </a>
+              </Link>
             ) : (
               <Link
                 key={item.title}
@@ -117,15 +118,14 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
                   height={24}
                 />
                 {isOpen && (
-                  <span
+                  <Label
                     className={clsx({
-                      "font-medium": true,
+                      "font-medium cursor-pointer": true,
                       "text-green-1": isActive(item.path),
-                      "text-grey-2": !isActive(item.path),
                     })}
                   >
                     {item.title}
-                  </span>
+                  </Label>
                 )}
               </Link>
             )
