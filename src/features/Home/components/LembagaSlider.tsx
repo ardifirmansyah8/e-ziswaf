@@ -118,22 +118,6 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                     {item.nama}
                   </a>
                 </div>
-<<<<<<< HEAD
-                <div className="flex gap-2 items-start">
-                  <Image
-                    src="/icon/icon-book-check-light.svg"
-                    alt="icon-book-check-light"
-                    width={24}
-                    height={24}
-                  />
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] text-grey-2">
-                      Total Transaksi
-                    </label>
-                    <label className="text-xs md:text-sm font-semibold text-grey-2">
-                      {item.trx}
-                    </label>
-=======
                 <div className="px-4 py-5 flex flex-col gap-5 rounded-bl-[10px] rounded-br-[10px]">
                   <div className="flex gap-2 items-start">
                     <Image
@@ -160,13 +144,12 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                     />
                     <div className="flex flex-col gap-1">
                       <label className="text-[10px] text-grey-2">
-                        Total Program
+                        Total Transaksi
                       </label>
                       <label className="text-xs md:text-sm font-semibold text-grey-2">
                         {item.trx}
                       </label>
                     </div>
->>>>>>> ce568e2118767662a5fec7585dbedcd1675d1cc3
                   </div>
                 </div>
               </div>
