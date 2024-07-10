@@ -16,12 +16,6 @@ export const DonationType: { [key: number]: string } = {
   3: "Wakaf",
 };
 
-export const DonationNiat: { [key: number]: string } = {
-  1: "Nawaitu an ukhriza zakata maali fardhan lillahi ta’aala",
-  2: "Nawaitu taqoruba ilallahi ta'ala, Rabbana taqabbal minna innaka antas sami'ul alim",
-  3: "Saya niat mewakafkan uang ini dengan mengharap ridha Allah SWT",
-};
-
 export default function Donation() {
   const [step, setStep] = useState(1);
   const [payload, setPayload] = useState<IDonationForm | null>(null);

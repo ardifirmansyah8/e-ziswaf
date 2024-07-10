@@ -14,11 +14,16 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
-import { DonationType, DonationNiat } from "..";
-import { usePayment } from "../hooks/useDonation";
 
+import { DonationType } from "..";
+import { usePayment } from "../hooks/useDonation";
 import type { IDonationForm, IPaymentMethod } from "../types";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+
+const DonationNiat: { [key: number]: string } = {
+  1: "Nawaitu an ukhriza zakata maali fardhan lillahi ta’aala",
+  2: "Nawaitu taqoruba ilallahi ta'ala, Rabbana taqabbal minna innaka antas sami'ul alim",
+  3: "Saya niat mewakafkan uang ini dengan mengharap ridha Allah SWT",
+};
 
 const PaymentType: { [key: string]: string } = {
   va: "Transfer Bank (Virtual Account)",
@@ -52,7 +57,10 @@ export default function DetailDonation({
       productDetails: payload?.selectedLembaga?.kode.toString() || "",
       customerVaName: profile?.name || "Hamba Allah",
       email: "payment@eziswaf.net",
-      phoneNumber: (payload?.phone.startsWith("62") ? payload?.phone : "62"+payload?.phone) || "",
+      phoneNumber:
+        (payload?.phone.startsWith("62")
+          ? payload?.phone
+          : "62" + payload?.phone) || "",
       itemDetails: [
         {
           name: payload?.donationType.toUpperCase() || "",

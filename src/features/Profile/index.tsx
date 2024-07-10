@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -20,9 +21,11 @@ import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 
 import Pagination from "@/components/Pagination";
+
 import UserDataDialog from "./components/UserDataDialog";
 import TrxDetailDialog from "./components/TrxDetailDialog";
 import { useFetchUserDashboard, useFetchUserTrx } from "./hooks/useProfile";
+import { TRX_TYPE_ICON } from "../CariTransaksi";
 
 import "chart.js/auto";
 
@@ -34,6 +37,9 @@ const Chart = dynamic(
 );
 
 export default function Profile() {
+  const searchParams = useSearchParams();
+  const trx_id = searchParams.get("trx_id");
+
   const [dialog, setDialog] = useState("");
   const [trxNo, setTrxNo] = useState("");
   const [page, setPage] = useState(0);
@@ -102,6 +108,14 @@ export default function Profile() {
   }, [userDashboard]);
 
   useEffect(() => {
+    if (trx_id) {
+      setDialog("trx-detail");
+      setTrxNo(trx_id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trx_id]);
+
+  useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
@@ -128,12 +142,12 @@ export default function Profile() {
             <Label className="font-bold text-xl">
               {profile?.name || "Hamba Allah"}
             </Label>
-            <Label className="flex gap-1">
+            <Label className="flex gap-1 items-center">
               <Label className="w-6">NIK</Label>
               <Label>:</Label>
               <Label>{profile?.nik || "-"}</Label>
             </Label>
-            <Label className="flex gap-1">
+            <Label className="flex gap-1 items-center">
               <Label className="w-6">ID</Label>
               <Label>:</Label>
               <Label className="flex-1 leading-relaxed">
@@ -302,7 +316,7 @@ export default function Profile() {
                 <div key={i}>
                   <div
                     className={clsx({
-                      "py-2.5 px-4 justify-between hover:bg-grey-1 cursor-pointer hidden md:flex":
+                      "py-2.5 px-4 justify-between gap-1 hover:bg-grey-1 cursor-pointer hidden md:flex":
                         true,
                       "bg-grey-3": i % 2 === 0,
                       "bg-white": i % 2 !== 0,
@@ -312,17 +326,23 @@ export default function Profile() {
                       setTrxNo(data.trx_no);
                     }}
                   >
-                    <div className="flex-1 flex justify-between items-center gap-4">
-                      <Image
-                        src="/icon/icon-wallet.svg"
-                        alt="icon-wallet"
-                        width={24}
-                        height={24}
-                      />
-                      <Label className="text-sm font-semibold">
-                        TRX {data.trx_no.slice(0, 8)}
-                      </Label>
-                      <Label className="text-sm flex-1">{data.jenis}</Label>
+                    <div className="flex-1 flex items-center gap-2.5">
+                      <div className="flex items-center gap-2.5 w-[140px]">
+                        <Image
+                          src={
+                            TRX_TYPE_ICON[
+                              data.jenis as keyof typeof TRX_TYPE_ICON
+                            ]
+                          }
+                          alt={data.jenis}
+                          width={24}
+                          height={24}
+                        />
+                        <Label className="text-sm font-semibold">
+                          TRX {data.trx_no.slice(0, 8)}
+                        </Label>
+                      </div>
+                      <Label className="text-sm w-28">{data.jenis}</Label>
                       <Label className="text-sm flex-1">{data.to}</Label>
                     </div>
                     <div className="flex items-center justify-end gap-4">
@@ -363,8 +383,10 @@ export default function Profile() {
                     }}
                   >
                     <Image
-                      src="/icon/icon-wallet.svg"
-                      alt="icon-wallet"
+                      src={
+                        TRX_TYPE_ICON[data.jenis as keyof typeof TRX_TYPE_ICON]
+                      }
+                      alt={data.jenis}
                       width={24}
                       height={24}
                     />

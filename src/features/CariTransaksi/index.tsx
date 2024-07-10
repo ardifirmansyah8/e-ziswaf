@@ -1,16 +1,22 @@
 "use client";
 
+import clsx from "clsx";
+import { format } from "date-fns";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Pagination from "@/components/Pagination";
-import { delimiter } from "@/utils/string";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import clsx from "clsx";
-import { title } from "process";
+import Pagination from "@/components/Pagination";
+
+import { useFetchTransactions } from "./hooks/useTransactions";
+
+export const TRX_TYPE_ICON = {
+  ZAKAT: "/icon/icon-wallet.svg",
+  "INFAK/SEDEKAH": "/icon/icon-archive.svg",
+  WAKAF: "/icon/icon-gift.svg",
+};
 
 const TABS_DATA = [
   {
@@ -25,13 +31,13 @@ const TABS_DATA = [
   },
   {
     value: "2",
-    title: "Wakaf",
-    icon: "/icon/icon-gift",
+    title: "Infak",
+    icon: "/icon/icon-archive",
   },
   {
     value: "3",
-    title: "Infak",
-    icon: "/icon/icon-archive",
+    title: "Wakaf",
+    icon: "/icon/icon-gift",
   },
 ];
 
@@ -48,6 +54,9 @@ const HEADER_TABLE = [
 export default function CariTransaksi() {
   const [activeTab, setActiveTab] = useState("all");
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const { data: trxData } = useFetchTransactions(page, activeTab, search);
 
   return (
     <div className="flex flex-col gap-5">
@@ -58,6 +67,7 @@ export default function CariTransaksi() {
             defaultValue={activeTab}
             onValueChange={(val: string) => {
               setActiveTab(val);
+              setPage(0);
             }}
           >
             <TabsList className="bg-white p-0">
@@ -93,6 +103,11 @@ export default function CariTransaksi() {
             <Input
               placeholder="No. transaksi"
               className="placeholder:grey-4"
+              value={search}
+              onChange={(e) => {
+                setPage(0);
+                setSearch(e.target.value);
+              }}
               rightIcon={
                 <Image
                   src="/icon/icon-search.svg"
@@ -118,34 +133,40 @@ export default function CariTransaksi() {
             ))}
           </thead>
           <tbody>
-            <tr className="odd:bg-grey-3 even:bg-white">
-              <td className="text-grey-2 p-4 text-center flex gap-2.5">
-                <Image
-                  src={`/icon/icon-wallet.svg`}
-                  alt={"icon-wallet"}
-                  width={24}
-                  height={24}
-                />
-                TRX 0001
-              </td>
-              <td className="text-grey-2 p-4">USR0001</td>
-              <td className="text-grey-2 p-4">Lembaga A</td>
-              <td className="text-grey-2 p-4 text-center">02-07-2024</td>
-              <td className="text-grey-2 p-4 text-right">
-                Rp. {delimiter(100000)}
-              </td>
-            </tr>
+            {trxData?.data.map((item) => (
+              <tr key={item.trx_no} className="odd:bg-grey-3 even:bg-white">
+                <td className="text-grey-2 p-4 text-center flex gap-2.5">
+                  <Image
+                    src={`/icon/icon-wallet.svg`}
+                    alt={"icon-wallet"}
+                    width={24}
+                    height={24}
+                  />
+                  TRX {item.trx_no.slice(0, 8)}
+                </td>
+                <td className="text-grey-2 p-4">
+                  {item.from === "Hamba Allah"
+                    ? "Hamba Allah"
+                    : item.from.slice(0, 8)}
+                </td>
+                <td className="text-grey-2 p-4">{item.to}</td>
+                <td className="text-grey-2 p-4 text-center">
+                  {format(new Date(item.tanggal), "dd MMM yyyy")}
+                </td>
+                <td className="text-grey-2 p-4 text-right">{item.amount}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* {listLembaga && listLembaga?.data.length > 0 && (
+      {trxData && trxData?.data.length > 0 && (
         <Pagination
           page={page}
-          totalPage={listLembaga.metadata.totalPage || 1}
+          totalPage={trxData.metadata.totalPage}
           onPageChange={(page) => setPage(page)}
         />
-      )} */}
+      )}
     </div>
   );
 }

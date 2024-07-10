@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, setIsOpen }: Props) {
             <Link
               key={item.title}
               className={clsx({
-                "p-2.5 flex gap-2 items-center cursor-pointer hover:bg-accent":
+                "p-2.5 flex gap-2 items-center cursor-pointer hover:bg-accent hover:rounded-[10px]":
                   true,
                 "rounded-[10px] bg-green-2": isActive(item.path),
               })}

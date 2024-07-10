@@ -113,7 +113,7 @@ export default function LembagaSlider({ isOpen, type }: Props) {
                     className="rounded-full border border-grey-1"
                   />
                   <a
-                    className="text-sm font-semibold text-center cursor-pointer hover:text-blue-1"
+                    className="text-sm text-grey-2 font-semibold text-center cursor-pointer hover:text-blue-1"
                     onClick={() => router.push(`/lembaga-${type}/${item.kode}`)}
                   >
                     {item.nama}

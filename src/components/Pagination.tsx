@@ -90,7 +90,6 @@ export default function Pagination({ page, totalPage, onPageChange }: Props) {
               href="#"
               isActive={curr === i}
               onClick={(e) => {
-                console.log(i);
                 e.preventDefault();
                 onPageChange(i - 1);
               }}

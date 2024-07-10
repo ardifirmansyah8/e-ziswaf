@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,8 @@ import SuccessRegisterDialog from "@/features/Register/components/SuccessRegiste
 import useAppContext from "@/utils/context";
 import { getInitials } from "@/utils/string";
 
-import { useFetchNotifications } from "./useNotifications";
+import { useFetchNotifications, useUpdateStatus } from "./useNotifications";
+import clsx from "clsx";
 
 type Props = {
   children: React.ReactNode;
@@ -48,8 +50,8 @@ export default function Layout({ children }: Props) {
   } = useAppContext();
 
   const { data } = useFetchNotifications();
+  const { mutateAsync } = useUpdateStatus();
 
-  console.log(data);
   return (
     <div className="bg-white md:flex md:flex-col md:items-center gap-5">
       <div className="md:w-[1280px]">
@@ -99,9 +101,11 @@ export default function Layout({ children }: Props) {
                         height={24}
                         className="cursor-pointer"
                       />
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-600 absolute right-0 top-2" />
+                      {data && data?.length > 0 && (
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-600 absolute right-0 top-2" />
+                      )}
                     </PopoverTrigger>
-                    <PopoverContent className="p-4 pt-5 w-[412px]">
+                    <PopoverContent className="p-4 pt-5 w-[350px]">
                       <div className="flex justify-between mb-5">
                         <Label className="text-base font-semibold">
                           Pemberitahuan Bukti Transaksi
@@ -110,31 +114,49 @@ export default function Layout({ children }: Props) {
                       <Command>
                         <CommandList>
                           <CommandGroup className="p-0">
-                            <CommandItem
-                              className="bg-grey-3 cursor-pointer py-4 flex gap-2.5"
-                              onSelect={(_) => {
-                                // router.push("/profile");
-                                setOpenNotification(false);
-                              }}
-                            >
-                              <Image
-                                src="/icon/icon-wallet.svg"
-                                alt="icon-wallet"
-                                width={24}
-                                height={24}
-                              />
-                              <div className="flex flex-col">
-                                <Label className="text-xs font-semibold">
-                                  {/* TRX {data.trx_no.slice(0, 8)} */}
-                                </Label>
-                                <Label className="text-xs">
-                                  {/* {data.to} */}
-                                </Label>
-                                <Label className="text-green-1 font-semibold">
-                                  {/* {data?.amount} */}
-                                </Label>
-                              </div>
-                            </CommandItem>
+                            {data && data?.length === 0 && (
+                              <CommandItem className="p-0 text-center !bg-white">
+                                <Label>Belum ada notifikasi baru</Label>
+                              </CommandItem>
+                            )}
+                            {data &&
+                              data?.length > 0 &&
+                              data?.map((item, i) => (
+                                <CommandItem
+                                  key={item.id}
+                                  className={clsx({
+                                    "cursor-pointer py-4 flex gap-2.5": true,
+                                    "bg-grey-3": i % 2 === 0,
+                                  })}
+                                  onSelect={(_) => {
+                                    mutateAsync(item.id).then((_) => {
+                                      setOpenNotification(false);
+                                      window.open(
+                                        "/profile?trx_id=" + item.trx_id,
+                                        "_self"
+                                      );
+                                    });
+                                  }}
+                                >
+                                  <Image
+                                    src="/icon/icon-wallet.svg"
+                                    alt="icon-wallet"
+                                    width={24}
+                                    height={24}
+                                  />
+                                  <div className="flex flex-col">
+                                    <Label className="text-xs font-semibold">
+                                      TRX {item.trx_id.slice(0, 8)}
+                                    </Label>
+                                    <Label className="text-xs font-semibold">
+                                      {format(
+                                        new Date(item.tanggal),
+                                        "dd MMMM yyyy"
+                                      )}
+                                    </Label>
+                                  </div>
+                                </CommandItem>
+                              ))}
                           </CommandGroup>
                         </CommandList>
                       </Command>

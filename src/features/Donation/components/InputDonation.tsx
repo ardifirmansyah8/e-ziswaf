@@ -110,7 +110,7 @@ export default function InputDonation({ toDetail }: Props) {
               className="border-grey-5 text-grey-4 justify-between px-3 text-opacity-100 hover:bg-transparent"
             >
               {selectedLembaga
-                ? `${selectedLembaga.nama} - ${selectedLembaga.kode}`
+                ? `${selectedLembaga.kode} - ${selectedLembaga.nama}`
                 : `Pilih lembaga penyalur ${DonationType[
                     Number(activeTab)
                   ].toLowerCase()}`}
