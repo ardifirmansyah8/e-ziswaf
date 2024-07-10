@@ -27,6 +27,7 @@ export interface ILastTrx {
   trx_no: string;
   from: string;
   to: string;
+  jenis: string;
 }
 
 export interface ILandingData {

@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
-import { DonationType } from "..";
+import { DonationType, DonationNiat } from "..";
 import { usePayment } from "../hooks/useDonation";
 
 import type { IDonationForm, IPaymentMethod } from "../types";
@@ -52,7 +52,7 @@ export default function DetailDonation({
       productDetails: payload?.selectedLembaga?.kode.toString() || "",
       customerVaName: profile?.name || "Hamba Allah",
       email: "payment@eziswaf.net",
-      phoneNumber: "0" + payload?.phone || "",
+      phoneNumber: (payload?.phone.startsWith("62") ? payload?.phone : "62"+payload?.phone) || "",
       itemDetails: [
         {
           name: payload?.donationType.toUpperCase() || "",
@@ -64,7 +64,7 @@ export default function DetailDonation({
         firstName: profile?.name || "Hamba Allah",
         lastName: null,
         email: null,
-        phoneNumber: "0" + payload?.phone || "",
+        phoneNumber: payload?.phone || "",
       },
       callbackUrl: "https://api.eziswaf.net/v1/pay/callback",
       expiryPeriod: 60,
@@ -106,18 +106,16 @@ export default function DetailDonation({
         <div className="flex gap-2.5">
           <Label className="w-36 text-grey-4">No. Handphone</Label>
           <Label>:</Label>
-          <Label className="font-semibold">+62{payload?.phone}</Label>
+          <Label className="font-semibold">+{payload?.phone}</Label>
         </div>
       </div>
 
       <div className="bg-green-2 px-5 py-4 flex flex-col gap-1 rounded-[10px]">
         <Label className="text-green-1 text-xs font-medium">
-          Doa {DonationType[Number(payload?.donationType)]}
+          Niat {DonationType[Number(payload?.donationType)]}
         </Label>
         <Label className="font-semibold leading-5">
-          {
-            "Nawaitu an ukhrija zakaatal fithri 'anni wa 'an jamii'i ma yalzamunii nafaqaatuhum syar'an fardhan lillaahi ta'aalaa"
-          }
+          {DonationNiat[Number(payload?.donationType)]}
         </Label>
       </div>
 

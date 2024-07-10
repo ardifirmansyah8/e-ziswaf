@@ -320,6 +320,7 @@ export default function Profile() {
                       <Label className="text-sm font-semibold">
                         TRX {data.trx_no.slice(0, 8)}
                       </Label>
+                      <Label className="text-sm flex-1">{data.jenis}</Label>
                       <Label className="text-sm flex-1">{data.to}</Label>
                     </div>
                     <div className="flex items-center justify-end gap-4">

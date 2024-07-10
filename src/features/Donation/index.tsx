@@ -12,8 +12,14 @@ import DetailDonation from "./components/DetailDonation";
 
 export const DonationType: { [key: number]: string } = {
   1: "Zakat",
-  2: "Wakaf",
-  3: "Infak",
+  2: "Infak/Sedekah",
+  3: "Wakaf",
+};
+
+export const DonationNiat: { [key: number]: string } = {
+  1: "Nawaitu an ukhriza zakata maali fardhan lillahi ta’aala",
+  2: "Nawaitu taqoruba ilallahi ta'ala, Rabbana taqabbal minna innaka antas sami'ul alim",
+  3: "Saya niat mewakafkan uang ini dengan mengharap ridha Allah SWT",
 };
 
 export default function Donation() {

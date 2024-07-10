@@ -82,7 +82,7 @@ export default function Lembaga({ type }: Props) {
                     height={24}
                   />
                   <div className="flex flex-col gap-1">
-                    <Label className="text-[10px]">Total Program</Label>
+                    <Label className="text-[10px]">Total Transaksi</Label>
                     <Label className="text-xs md:text-sm font-semibold">
                       {item.trx}
                     </Label>

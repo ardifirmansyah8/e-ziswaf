@@ -35,6 +35,7 @@ export interface IUserTrx {
   amount: string;
   trx_no: string;
   to: string;
+  jenis: string;
 }
 
 export interface IUserTrxResponse {

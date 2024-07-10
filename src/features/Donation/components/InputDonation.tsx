@@ -92,10 +92,10 @@ export default function InputDonation({ toDetail }: Props) {
             Zakat
           </TabsTrigger>
           <TabsTrigger className="flex-1" value="2">
-            Wakaf
+            Infak
           </TabsTrigger>
           <TabsTrigger className="flex-1" value="3">
-            Infak
+            Wakaf
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -133,7 +133,7 @@ export default function InputDonation({ toDetail }: Props) {
                         setOpen(false);
                       }}
                     >
-                      {lembaga.nama} - {lembaga.kode}
+                      {lembaga.kode} - {lembaga.nama}
                     </CommandItem>
                   ))}
                 </CommandGroup>

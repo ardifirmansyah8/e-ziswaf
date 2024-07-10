@@ -48,7 +48,7 @@ export default function Transactions({ isLoading, trx }: Props) {
                 TRX {data.trx_no.slice(0, 8)}
               </Label>
               <Label className="text-xs">
-                dari <b>{data.from}</b> kepada <b>{data.to}</b>
+              <b>{data.jenis}</b> dari <b>{data.from}</b> kepada <b>{data.to}</b>
               </Label>
               <Label className="text-xs">{data.time}</Label>
             </div>
@@ -80,7 +80,7 @@ export default function Transactions({ isLoading, trx }: Props) {
               </Label>
               <Label className="text-sm w-[100px]">{data.time}</Label>
               <Label className="text-sm flex-1">
-                dari <b>{data.from}</b> kepada <b>{data.to}</b>
+              <b>{data.jenis}</b> dari <b>{data.from}</b> kepada <b>{data.to}</b>
               </Label>
             </div>
             <div className="flex justify-end w-1/4">
