@@ -3,12 +3,10 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -17,15 +15,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 
+import Pagination from "@/components/Pagination";
 import UserDataDialog from "./components/UserDataDialog";
+import TrxDetailDialog from "./components/TrxDetailDialog";
 import { useFetchUserDashboard, useFetchUserTrx } from "./hooks/useProfile";
 
 import "chart.js/auto";
-import Pagination from "@/components/Pagination";
-import TrxDetailDialog from "./components/TrxDetailDialog";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -267,26 +266,29 @@ export default function Profile() {
 
       <Card>
         <div className="flex flex-col gap-4 w-full">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center md:justify-between">
-            <Label className="font-semibold text-base">Transaksi Anda</Label>
-            {userTrx && userTrx?.data.length > 0 && (
-              <div>
-                <Input
-                  placeholder="No. transaksi"
-                  className="placeholder:grey-4"
-                  rightIcon={
-                    <Image
-                      src="/icon/icon-search.svg"
-                      alt="icon-search"
-                      width={24}
-                      height={24}
-                      className="absolute right-3 top-2"
-                    />
-                  }
-                />
+          <div className="flex justify-between items-center">
+            <Label className="font-semibold text-base">
+              Download bukti setor E-Ziswaf Tahunan
+            </Label>
+            <div className="flex gap-2">
+              <div className="flex items-center gap-2.5">
+                <Label>Tahun</Label>
+                <Select value="2024">
+                  <SelectTrigger className="w-[100px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2023">2023</SelectItem>
+                    <SelectItem value="2024">2024</SelectItem>
+                    <SelectItem value="2025">2025</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-            )}
+              <Button>Download SBS</Button>
+            </div>
           </div>
+          <Separator />
+          <Label className="font-semibold text-base">Transaksi Anda</Label>
 
           <div className="mb-2">
             {userTrx && userTrx?.data.length === 0 && (

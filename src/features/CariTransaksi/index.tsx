@@ -41,8 +41,8 @@ const HEADER_TABLE = [
   },
   { title: "User ID", align: "text-left" },
   { title: "Ke Lembaga", align: "text-left" },
+  { title: "Tanggal Transaksi" },
   { title: "Jumlah", align: "text-right" },
-  { title: "Status" },
 ];
 
 export default function CariTransaksi() {
@@ -111,7 +111,7 @@ export default function CariTransaksi() {
             {HEADER_TABLE.map((item) => (
               <th
                 key={item.title}
-                className={clsx("text-grey-4 py-4 font-semibold", item.align)}
+                className={clsx("text-grey-4 p-4 font-semibold", item.align)}
               >
                 {item.title}
               </th>
@@ -128,12 +128,12 @@ export default function CariTransaksi() {
                 />
                 TRX 0001
               </td>
-              <td className="text-grey-2 py-4">USR0001</td>
-              <td className="text-grey-2 py-4">Lembaga A</td>
-              <td className="text-grey-2 py-4 text-right">
+              <td className="text-grey-2 p-4">USR0001</td>
+              <td className="text-grey-2 p-4">Lembaga A</td>
+              <td className="text-grey-2 p-4 text-center">02-07-2024</td>
+              <td className="text-grey-2 p-4 text-right">
                 Rp. {delimiter(100000)}
               </td>
-              <td className="text-grey-2 py-4 text-center">Berhasil</td>
             </tr>
           </tbody>
         </table>
