@@ -42,7 +42,7 @@ export default function HeaderMobile() {
       >
         <div
           className={clsx({
-            "transition-all duration-1000 h-screen fixed z-20 bg-white min-w-[300px] flex flex-col":
+            "transition-all duration-1000 h-dvh fixed z-20 bg-white min-w-[300px] flex flex-col":
               true,
             "-left-80 w-80": !open,
             "left-0 w-80": open,
