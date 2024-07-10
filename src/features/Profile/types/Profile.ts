@@ -33,6 +33,7 @@ export interface IUserDashboard {
 export interface IUserTrx {
   tanggal: string;
   amount: string;
+  from: string;
   trx_no: string;
   to: string;
   jenis: string;

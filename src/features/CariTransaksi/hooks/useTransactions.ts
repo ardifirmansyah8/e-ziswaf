@@ -1,6 +1,8 @@
-import { BASE_API_URL, JWT } from "@/utils/constant";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+import { IUserTrxResponse } from "@/features/Profile/types/Profile";
+import { BASE_API_URL } from "@/utils/constant";
 
 export const useFetchTransactions = (
   page: number,
@@ -9,7 +11,7 @@ export const useFetchTransactions = (
 ) => {
   return useQuery({
     queryKey: ["transactions", page, type, search],
-    queryFn: async (): Promise<any> => {
+    queryFn: async (): Promise<IUserTrxResponse> => {
       let path = "";
       path = !type || type === "all" ? "" : `/${type}`;
       path += `/${page}`;
