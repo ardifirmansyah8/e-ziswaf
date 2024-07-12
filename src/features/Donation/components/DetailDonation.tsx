@@ -92,29 +92,33 @@ export default function DetailDonation({
       </Label>
 
       <div className="flex flex-col gap-5">
-        <div className="flex gap-2.5">
+        <div className="flex flex-col md:flex-row gap-1 md:gap-2.5">
           <Label className="w-36 text-grey-4">Jenis Pembayaran</Label>
-          <Label>:</Label>
+          <Label className="hidden md:block">:</Label>
           <Label className="font-semibold">
             {DonationType[Number(payload?.donationType)]}
           </Label>
         </div>
-        <div className="flex gap-2.5">
+        <div className="flex flex-col md:flex-row gap-1 md:gap-2.5">
           <Label className="w-36 text-grey-4">Lembaga</Label>
-          <Label>:</Label>
+          <Label className="hidden md:block">:</Label>
           <Label className="font-semibold">{`${payload?.selectedLembaga?.kode} - ${payload?.selectedLembaga?.nama}`}</Label>
         </div>
-        <div className="flex gap-2.5">
+        <div className="flex flex-col md:flex-row gap-1 md:gap-2.5">
           <Label className="w-36 text-grey-4">Nominal</Label>
-          <Label>:</Label>
-          <Label className="text-green-1 font-semibold">
+          <Label className="hidden md:block">:</Label>
+          <Label className="text-green-1 text-xl md:text-sm font-semibold">
             Rp. {delimiter(Number(payload?.amount))}
           </Label>
         </div>
-        <div className="flex gap-2.5">
+        <div className="flex flex-col md:flex-row gap-1 md:gap-2.5">
           <Label className="w-36 text-grey-4">No. Handphone</Label>
-          <Label>:</Label>
-          <Label className="font-semibold">+{payload?.phone}</Label>
+          <Label className="hidden md:block">:</Label>
+          <Label className="font-semibold">
+            {payload?.phone.startsWith("62")
+              ? payload?.phone
+              : "62" + payload?.phone}
+          </Label>
         </div>
       </div>
 

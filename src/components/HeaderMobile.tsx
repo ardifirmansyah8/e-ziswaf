@@ -76,7 +76,9 @@ export default function HeaderMobile() {
                   href={item.path}
                 >
                   <Image
-                    src={`${item.icon}.svg`}
+                    src={`${
+                      isActive(item.path) ? `${item.icon}-light` : item.icon
+                    }.svg`}
                     alt={item.title}
                     width={24}
                     height={24}
@@ -99,7 +101,6 @@ export default function HeaderMobile() {
                     key={item.title}
                     className="p-2.5 flex gap-2 items-center cursor-pointer rounded-[10px] bg-green-1"
                     href={item.path}
-                    target="_blank"
                   >
                     <Image
                       src={`${item.icon}.svg`}
@@ -121,7 +122,9 @@ export default function HeaderMobile() {
                     href={item.path}
                   >
                     <Image
-                      src={`${item.icon}.svg`}
+                      src={`${
+                        isActive(item.path) ? `${item.icon}-light` : item.icon
+                      }.svg`}
                       alt={item.title}
                       width={24}
                       height={24}

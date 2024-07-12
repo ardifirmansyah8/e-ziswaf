@@ -59,13 +59,13 @@ export default function Donation() {
         src="/banner-donation.png"
         alt="banner-donation"
         width="0"
-        height={317}
+        height="0"
         sizes="100%"
-        className="w-full mb-5"
+        className="w-full h-[125px] md:h-[200px] md:mb-5 rounded-lg"
       />
 
-      <div className="flex flex-col items-center gap-10 px-[176px]">
-        <Label className="text-2xl">
+      <div className="flex flex-col items-center gap-4 md:gap-10 md:px-[176px]">
+        <Label className="text-base md:text-2xl font-semibold w-[229px] md:w-full text-center md:text-left">
           Tunaikan Segala Donasi Anda Bersama Kami
         </Label>
         {step === 1 && <InputDonation toDetail={goToDetail} />}
