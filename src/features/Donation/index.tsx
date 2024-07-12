@@ -65,7 +65,7 @@ export default function Donation() {
       />
 
       <div className="flex flex-col items-center gap-4 md:gap-10 md:px-[176px]">
-        <Label className="text-base md:text-2xl font-semibold w-[229px] md:w-full text-center md:text-left">
+        <Label className="text-base md:text-2xl font-semibold w-[229px] md:w-full text-center">
           Tunaikan Segala Donasi Anda Bersama Kami
         </Label>
         {step === 1 && <InputDonation toDetail={goToDetail} />}

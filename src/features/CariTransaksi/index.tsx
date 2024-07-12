@@ -99,36 +99,40 @@ export default function CariTransaksi() {
               ))}
             </TabsList>
           </Tabs>
-          <Input
-            placeholder="No. transaksi"
-            className="placeholder:grey-4"
-            value={search}
-            onChange={(e) => {
-              setPage(0);
-              setSearch(e.target.value);
-            }}
-            rightIcon={
-              <Image
-                src="/icon/icon-search.svg"
-                alt="icon-search"
-                width={24}
-                height={24}
-                className="absolute right-3 top-2"
-              />
-            }
-          />
+          <div>
+            <Input
+              placeholder="No. transaksi"
+              className="placeholder:grey-4"
+              value={search}
+              onChange={(e) => {
+                setPage(0);
+                setSearch(e.target.value);
+              }}
+              rightIcon={
+                <Image
+                  src="/icon/icon-search.svg"
+                  alt="icon-search"
+                  width={24}
+                  height={24}
+                  className="absolute right-3 top-2"
+                />
+              }
+            />
+          </div>
         </div>
 
-        <table className="md:block hidden">
+        <table className="md:table hidden">
           <thead className="bg-grey-1 py-4">
-            {HEADER_TABLE.map((item) => (
-              <th
-                key={item.title}
-                className={clsx("text-grey-4 p-4 font-semibold", item.align)}
-              >
-                {item.title}
-              </th>
-            ))}
+            <tr>
+              {HEADER_TABLE.map((item) => (
+                <th
+                  key={item.title}
+                  className={clsx("text-grey-4 p-4 font-semibold", item.align)}
+                >
+                  {item.title}
+                </th>
+              ))}
+            </tr>
           </thead>
           <tbody>
             {trxData?.data.map((item) => (
