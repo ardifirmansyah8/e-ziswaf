@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
