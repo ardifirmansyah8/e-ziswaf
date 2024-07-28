@@ -63,8 +63,8 @@ export default function Layout({ children }: Props) {
           <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
           <section className="min-w-0 flex flex-col p-4 flex-1 gap-4 md:gap-5">
-            <div className="pt-1 pb-5 hidden md:flex justify-between border-b border-grey-1">
-              <Input
+            <div className="pt-1 pb-5 hidden md:flex justify-end border-b border-grey-1">
+              {/* <Input
                 className="w-2/3"
                 placeholder="Cari di Ziswaf"
                 leftIcon={
@@ -76,7 +76,7 @@ export default function Layout({ children }: Props) {
                     className="absolute left-3 top-2"
                   />
                 }
-              />
+              /> */}
               {!profile?.id ? (
                 <div className="flex gap-2.5">
                   <Button onClick={() => setDialogType("login")}>Masuk</Button>
@@ -138,12 +138,12 @@ export default function Layout({ children }: Props) {
                                     });
                                   }}
                                 >
-                                  <Image
+                                  {/* <Image
                                     src="/icon/icon-wallet.svg"
                                     alt="icon-wallet"
                                     width={24}
                                     height={24}
-                                  />
+                                  /> */}
                                   <div className="flex flex-col">
                                     <Label className="text-xs font-semibold">
                                       TRX {item.trx_id.slice(0, 8)}

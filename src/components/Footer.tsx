@@ -32,12 +32,12 @@ export default function Footer({ isOpen }: Props) {
             />
 
             <div className="flex gap-2 items-start">
-              {/* <Image
+              <Image
                 src="/icon/icon-pin-light.svg"
                 alt="icon-pin-light"
                 width={24}
                 height={24}
-              /> */}
+              />
 
               <Label className="text-xs">
                 DIGITALISASI & DATABASE TERINTEGRASI KEUANGAN SOSIAL SYARIAH

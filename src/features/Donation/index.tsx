@@ -10,12 +10,6 @@ import { usePaymentMethods } from "./hooks/useDonation";
 import type { IDonationForm, IPaymentMethod, IPaymentFee } from "./types";
 import DetailDonation from "./components/DetailDonation";
 
-export const DonationType: { [key: number]: string } = {
-  1: "Zakat",
-  2: "Infak/Sedekah",
-  3: "Wakaf",
-};
-
 export default function Donation() {
   const [step, setStep] = useState(1);
   const [payload, setPayload] = useState<IDonationForm | null>(null);

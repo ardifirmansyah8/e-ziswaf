@@ -121,3 +121,30 @@ export const useFetchTrxDetail = (trxNo: string) => {
     enabled: !!JWT && !!trxNo,
   });
 };
+
+export const useDownloadPayslip = () => {
+  return useMutation({
+    mutationKey: ["yearly-payslip"],
+    mutationFn: ({
+      year,
+      type,
+      userId,
+    }: {
+      year: string;
+      type: number;
+      userId: string;
+    }) =>
+      axios({
+        method: "get",
+        url: `${BASE_API_URL}/app/user/download/all/${userId}.pdf?year=${year}&type=${type}`,
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+        },
+        responseType: "blob",
+      }).catch((error: any) => {
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
+      }),
+  });
+};

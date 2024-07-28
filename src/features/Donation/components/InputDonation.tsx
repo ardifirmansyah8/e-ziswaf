@@ -23,11 +23,11 @@ import {
 } from "@/components/ui/popover";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IProfileLembaga } from "@/features/Lembaga/types";
+import { TRANSACTION_TYPE } from "@/utils/constant";
 import useAppContext from "@/utils/context";
 
 import { useFetchLembaga } from "../hooks/useDonation";
 import type { IDonationForm } from "../types";
-import { DonationType } from "..";
 
 const DonationSchema = z.object({
   lembaga: z.string(),
@@ -111,7 +111,7 @@ export default function InputDonation({ toDetail }: Props) {
             >
               {selectedLembaga
                 ? `${selectedLembaga.kode} - ${selectedLembaga.nama}`
-                : `Pilih lembaga penyalur ${DonationType[
+                : `Pilih lembaga penyalur ${TRANSACTION_TYPE[
                     Number(activeTab)
                   ].toLowerCase()}`}
               <ChevronDown className="ml-2 h-4 w-4 shrink-0" />

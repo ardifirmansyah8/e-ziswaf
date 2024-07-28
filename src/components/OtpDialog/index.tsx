@@ -11,6 +11,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useVerifyOtp } from "./useOtp";
+import { useReqOtpLogin } from "@/features/Login/hooks/useLogin";
 
 type Props = {
   isOpen: boolean;
@@ -31,6 +32,7 @@ export default function OtpDialog({
 
   const [otp, setOtp] = useState("");
 
+  const reqOtp = useReqOtpLogin();
   const verifyOtp = useVerifyOtp();
 
   return (
@@ -94,6 +96,20 @@ export default function OtpDialog({
             <Button
               variant={"ghost"}
               className="p-0 h-auto hover:bg-transparent text-blue-1 font-bold"
+              onClick={() => {
+                reqOtp.mutate(phone, {
+                  onSuccess: (resp) => {
+                    if (resp.data.status === "100") {
+                      toast({
+                        duration: 1000,
+                        description: resp.data.message,
+                      });
+                    } else {
+                      throw new Error(resp.data.message);
+                    }
+                  },
+                });
+              }}
             >
               Minta kembali
             </Button>

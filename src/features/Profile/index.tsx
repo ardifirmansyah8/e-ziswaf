@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -17,15 +18,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import useAppContext from "@/utils/context";
-import { delimiter } from "@/utils/string";
-
 import Pagination from "@/components/Pagination";
+import { TRANSACTION_TYPE, TRX_TYPE_ICON } from "@/utils/constant";
+import useAppContext from "@/utils/context";
+import { currentYear, getRangeYears } from "@/utils/date";
+import { delimiter } from "@/utils/string";
 
 import UserDataDialog from "./components/UserDataDialog";
 import TrxDetailDialog from "./components/TrxDetailDialog";
-import { useFetchUserDashboard, useFetchUserTrx } from "./hooks/useProfile";
-import { TRX_TYPE_ICON } from "../CariTransaksi";
+import {
+  useDownloadPayslip,
+  useFetchUserDashboard,
+  useFetchUserTrx,
+} from "./hooks/useProfile";
 
 import "chart.js/auto";
 
@@ -43,10 +48,13 @@ export default function Profile() {
   const [dialog, setDialog] = useState("");
   const [trxNo, setTrxNo] = useState("");
   const [page, setPage] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(currentYear.toString());
+  const [selectedType, setSelectedType] = useState(1);
 
   const { profile } = useAppContext();
   const { data: userDashboard } = useFetchUserDashboard();
   const { data: userTrx, refetch } = useFetchUserTrx(page);
+  const downloadPayslip = useDownloadPayslip();
 
   const chartData = useMemo(() => {
     const data = {
@@ -178,7 +186,7 @@ export default function Profile() {
         <div className="flex flex-col gap-4 md:gap-7 w-full">
           <div className="flex items-center justify-between">
             <Label className="font-semibold text-base">Donasi Anda</Label>
-            <div className="flex items-center gap-2.5">
+            {/* <div className="flex items-center gap-2.5">
               <Label>Tahun</Label>
               <Select value="2024">
                 <SelectTrigger className="w-[100px]">
@@ -188,7 +196,7 @@ export default function Profile() {
                   <SelectItem value="2024">2024</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col md:flex-row gap-4">
@@ -196,7 +204,7 @@ export default function Profile() {
               className={`rounded-[10px] p-2 flex-1 flex items-center gap-2.5 bg-[#DEEFFC]`}
             >
               <Image
-                src={"/icon/icon-wallet.svg"}
+                src={"/icon/total-zakat.svg"}
                 alt="icon"
                 width={24}
                 height={24}
@@ -213,7 +221,7 @@ export default function Profile() {
               className={`rounded-[10px] p-4 flex-1 flex items-center gap-2.5 bg-[#FCE3DE]`}
             >
               <Image
-                src={"/icon/icon-gift.svg"}
+                src={"/icon/total-wakaf.svg"}
                 alt="icon"
                 width={24}
                 height={24}
@@ -230,7 +238,7 @@ export default function Profile() {
               className={`rounded-[10px] p-4 flex-1 flex items-center gap-2.5 bg-[#F5F2B1]`}
             >
               <Image
-                src={"/icon/icon-archive.svg"}
+                src={"/icon/total-infaq.svg"}
                 alt="icon"
                 width={24}
                 height={24}
@@ -280,26 +288,70 @@ export default function Profile() {
 
       <Card>
         <div className="flex flex-col gap-4 w-full">
-          <div className="flex justify-between items-center">
-            <Label className="font-semibold text-base">
-              Download bukti setor E-Ziswaf Tahunan
-            </Label>
-            <div className="flex gap-2">
-              <div className="flex items-center gap-2.5">
-                <Label>Tahun</Label>
-                <Select value="2024">
-                  <SelectTrigger className="w-[100px]">
+          <Label className="font-semibold text-base">
+            Download bukti setor E-Ziswaf Tahunan
+          </Label>
+          <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex justify-between gap-2">
+              <div className="flex flex-1 flex-col md:flex-row md:items-center gap-2.5">
+                <Label>Jenis</Label>
+                <Select
+                  value={selectedType.toString()}
+                  onValueChange={(val) => setSelectedType(Number(val))}
+                >
+                  <SelectTrigger className="md:w-[150px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="2023">2023</SelectItem>
-                    <SelectItem value="2024">2024</SelectItem>
-                    <SelectItem value="2025">2025</SelectItem>
+                    {Object.keys(TRANSACTION_TYPE).map((keys) => (
+                      <SelectItem
+                        key={TRANSACTION_TYPE[Number(keys)]}
+                        value={keys}
+                      >
+                        {TRANSACTION_TYPE[Number(keys)]}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-              <Button>Download SBS</Button>
+              <div className="flex flex-1 flex-col md:flex-row md:items-center gap-2.5">
+                <Label>Tahun</Label>
+                <Select
+                  value={selectedYear}
+                  onValueChange={(val) => setSelectedYear(val)}
+                >
+                  <SelectTrigger className="md:w-[100px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {getRangeYears().map((year) => (
+                      <SelectItem key={year} value={year.toString()}>
+                        {year}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+            <Button
+              onClick={() => {
+                downloadPayslip.mutate(
+                  {
+                    year: selectedYear,
+                    type: selectedType,
+                    userId: profile?.id || "",
+                  },
+                  {
+                    onSuccess: (resp) => {
+                      const url = window.URL.createObjectURL(resp.data);
+                      window.open(url);
+                    },
+                  }
+                );
+              }}
+            >
+              Download SBS
+            </Button>
           </div>
           <Separator />
           <Label className="font-semibold text-base">Transaksi Anda</Label>

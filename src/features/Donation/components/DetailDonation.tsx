@@ -12,10 +12,10 @@ import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { TRANSACTION_TYPE } from "@/utils/constant";
 import useAppContext from "@/utils/context";
 import { delimiter } from "@/utils/string";
 
-import { DonationType } from "..";
 import { usePayment } from "../hooks/useDonation";
 import type { IDonationForm, IPaymentMethod } from "../types";
 
@@ -96,7 +96,7 @@ export default function DetailDonation({
           <Label className="w-36 text-grey-4">Jenis Pembayaran</Label>
           <Label className="hidden md:block">:</Label>
           <Label className="font-semibold">
-            {DonationType[Number(payload?.donationType)]}
+            {TRANSACTION_TYPE[Number(payload?.donationType)]}
           </Label>
         </div>
         <div className="flex flex-col md:flex-row gap-1 md:gap-2.5">
@@ -124,7 +124,7 @@ export default function DetailDonation({
 
       <div className="bg-green-2 px-5 py-4 flex flex-col gap-1 rounded-[10px]">
         <Label className="text-green-1 text-xs font-medium">
-          Niat {DonationType[Number(payload?.donationType)]}
+          Niat {TRANSACTION_TYPE[Number(payload?.donationType)]}
         </Label>
         <Label className="font-semibold leading-5">
           {DonationNiat[Number(payload?.donationType)]}

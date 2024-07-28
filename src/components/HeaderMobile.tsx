@@ -77,7 +77,7 @@ export default function HeaderMobile() {
                 >
                   <Image
                     src={`${
-                      isActive(item.path) ? `${item.icon}-light` : item.icon
+                      isActive(item.path) ? `${item.icon}-green` : item.icon
                     }.svg`}
                     alt={item.title}
                     width={24}
@@ -123,7 +123,7 @@ export default function HeaderMobile() {
                   >
                     <Image
                       src={`${
-                        isActive(item.path) ? `${item.icon}-light` : item.icon
+                        isActive(item.path) ? `${item.icon}-green` : item.icon
                       }.svg`}
                       alt={item.title}
                       width={24}

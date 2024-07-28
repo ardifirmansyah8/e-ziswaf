@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 
 import { useFetchTrxDetail } from "../hooks/useProfile";
 import { delimiter } from "@/utils/string";
+import { TRX_TYPE_ICON } from "@/utils/constant";
 
 type Props = {
   isOpen: boolean;
@@ -60,7 +61,9 @@ export default function TrxDetailDialog({ isOpen, trxNo, onClose }: Props) {
             </div>
             <div className="flex gap-2.5 items-center">
               <Image
-                src="/icon/icon-archive.svg"
+                src={
+                  TRX_TYPE_ICON[data?.tipe_donasi as keyof typeof TRX_TYPE_ICON]
+                }
                 alt="icon-archive"
                 width={24}
                 height={24}

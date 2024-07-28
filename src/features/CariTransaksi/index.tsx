@@ -9,14 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Pagination from "@/components/Pagination";
+import { TRX_TYPE_ICON } from "@/utils/constant";
 
 import { useFetchTransactions } from "./hooks/useTransactions";
-
-export const TRX_TYPE_ICON = {
-  ZAKAT: "/icon/icon-wallet.svg",
-  "INFAK/SEDEKAH": "/icon/icon-archive.svg",
-  WAKAF: "/icon/icon-gift.svg",
-};
 
 const TABS_DATA = [
   {
@@ -27,17 +22,17 @@ const TABS_DATA = [
   {
     value: "1",
     title: "Zakat",
-    icon: "/icon/icon-wallet",
+    icon: "/icon/zakat",
   },
   {
     value: "2",
     title: "Infak",
-    icon: "/icon/icon-archive",
+    icon: "/icon/infaq",
   },
   {
     value: "3",
     title: "Wakaf",
-    icon: "/icon/icon-gift",
+    icon: "/icon/wakaf",
   },
 ];
 
@@ -86,7 +81,7 @@ export default function CariTransaksi() {
                     <Image
                       src={`${
                         activeTab === item.value
-                          ? `${item.icon}-light`
+                          ? `${item.icon}-green`
                           : item.icon
                       }.svg`}
                       alt={item.title}

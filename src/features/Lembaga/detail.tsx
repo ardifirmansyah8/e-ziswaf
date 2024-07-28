@@ -210,7 +210,7 @@ export default function DetailLembaga({ code }: Props) {
               <div className="flex flex-col gap-5">
                 <div className="flex gap-2">
                   <Image
-                    src="/icon/icon-wallet-white.svg"
+                    src="/icon/zakat-white.svg"
                     alt="icon"
                     width={24}
                     height={24}
@@ -225,7 +225,7 @@ export default function DetailLembaga({ code }: Props) {
 
                 <div className="flex gap-2">
                   <Image
-                    src="/icon/icon-wallet-white.svg"
+                    src="/icon/wakaf-white.svg"
                     alt="icon"
                     width={24}
                     height={24}
@@ -240,7 +240,7 @@ export default function DetailLembaga({ code }: Props) {
 
                 <div className="flex gap-2">
                   <Image
-                    src="/icon/icon-wallet-white.svg"
+                    src="/icon/infaq-white.svg"
                     alt="icon"
                     width={24}
                     height={24}

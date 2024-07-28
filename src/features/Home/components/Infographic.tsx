@@ -99,7 +99,7 @@ export default function Infographic({ dashboard, chart }: Props) {
             key={el.title}
             className={`rounded-[10px] p-2 md:p-5 flex items-center gap-2.5 md:gap-5 ${el.color}`}
           >
-            <Image src={el.icon} alt="icon" width={24} height={24} />
+            <Image src={el.icon} alt="icon" width={26} height={30} />
             <div className="flex flex-col gap-1">
               <Label className="text-[10px]">{el.title}</Label>
               <Label className="font-bold text-xs md:text-sm">

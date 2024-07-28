@@ -11,23 +11,15 @@ export const MENU = {
       path: "/",
     },
     {
-      icon: "/icon/icon-wallet",
+      icon: "/icon/menu-zakat",
       title: "Zakat",
       path: "/lembaga-zakat",
     },
     {
-      icon: "/icon/icon-gift",
+      icon: "/icon/menu-wakaf",
       title: "Wakaf",
       path: "/lembaga-wakaf",
     },
-    // {
-    //   icon: "/icon/icon-masjid",
-    //   title: "Masjid",
-    // },
-    // {
-    //   icon: "/icon/icon-book-check",
-    //   title: "Program",
-    // },
   ],
   others: [
     {
@@ -51,37 +43,37 @@ export const MENU = {
 export const DASHBOARD_DATA = [
   {
     title: "Total Himpunan",
-    icon: "/icon/icon-basket.svg",
+    icon: "/icon/total-himpunan.svg",
     color: "bg-green-2",
     type: "total_trx",
   },
   {
     title: "Total Transaksi",
-    icon: "/icon/icon-paper.svg",
+    icon: "/icon/total-transaksi.svg",
     color: "bg-[#ECD5EE]",
     type: "ledger",
   },
   {
     title: "Total Donatur",
-    icon: "/icon/icon-scan.svg",
+    icon: "/icon/total-donatur.svg",
     color: "bg-[#BDE9F3]",
     type: "total_user",
   },
   {
     title: "Total Zakat",
-    icon: "/icon/icon-wallet.svg",
+    icon: "/icon/total-zakat.svg",
     color: "bg-[#DEEFFC]",
     type: "zakat",
   },
   {
     title: "Total Wakaf",
-    icon: "/icon/icon-gift.svg",
+    icon: "/icon/total-wakaf.svg",
     color: "bg-[#FCE3DE]",
     type: "wakaf",
   },
   {
     title: "Total Infak",
-    icon: "/icon/icon-archive.svg",
+    icon: "/icon/total-infaq.svg",
     color: "bg-[#F5F2B1]",
     type: "infak",
   },
@@ -89,3 +81,15 @@ export const DASHBOARD_DATA = [
 
 export const JWT =
   typeof window !== "undefined" ? localStorage.getItem("jwt") : "";
+
+export const TRANSACTION_TYPE: { [key: number]: string } = {
+  1: "Zakat",
+  2: "Infak/Sedekah",
+  3: "Wakaf",
+};
+
+export const TRX_TYPE_ICON = {
+  ZAKAT: "/icon/zakat.svg",
+  "INFAK/SEDEKAH": "/icon/infaq.svg",
+  WAKAF: "/icon/wakaf.svg",
+};

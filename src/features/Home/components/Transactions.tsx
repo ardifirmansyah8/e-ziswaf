@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { ILastTrx } from "@/features/Home/hooks/useLandingPage";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TRX_TYPE_ICON } from "@/utils/constant";
 
 type Props = {
   isLoading: boolean;
@@ -48,7 +49,8 @@ export default function Transactions({ isLoading, trx }: Props) {
                 TRX {data.trx_no.slice(0, 8)}
               </Label>
               <Label className="text-xs">
-              <b>{data.jenis}</b> dari <b>{data.from}</b> kepada <b>{data.to}</b>
+                <b>{data.jenis}</b> dari <b>{data.from}</b> kepada{" "}
+                <b>{data.to}</b>
               </Label>
               <Label className="text-xs">{data.time}</Label>
             </div>
@@ -70,7 +72,7 @@ export default function Transactions({ isLoading, trx }: Props) {
           >
             <div className="flex items-center gap-4 w-3/4">
               <Image
-                src="/icon/icon-wallet.svg"
+                src={TRX_TYPE_ICON[data.jenis as keyof typeof TRX_TYPE_ICON]}
                 alt="icon-wallet"
                 width={24}
                 height={24}
@@ -80,7 +82,8 @@ export default function Transactions({ isLoading, trx }: Props) {
               </Label>
               <Label className="text-sm w-[100px]">{data.time}</Label>
               <Label className="text-sm flex-1">
-              <b>{data.jenis}</b> dari <b>{data.from}</b> kepada <b>{data.to}</b>
+                <b>{data.jenis}</b> dari <b>{data.from}</b> kepada{" "}
+                <b>{data.to}</b>
               </Label>
             </div>
             <div className="flex justify-end w-1/4">
