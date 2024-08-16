@@ -212,7 +212,7 @@ export default function Layout({ children }: Props) {
           </section>
         </main>
       </div>
-      <Footer isOpen={isOpen} />
+      <Footer />
 
       <LoginDialog
         isOpen={dialogType === "login"}
