@@ -18,37 +18,41 @@ export default function Footer() {
           />
           <div
             className={clsx({
-              "flex-1 flex flex-col md:flex-row gap-7 md:justify-between": true,
+              "flex-1 flex flex-col md:flex-row gap-6 md:gap-7 md:justify-between":
+                true,
             })}
           >
             <div className="flex flex-col gap-2.5 md:gap-5">
-              <Label className="text-xs md:text-sm">Powered by:</Label>
+              <Label>Powered by:</Label>
               <div className="flex items-center gap-4">
                 <Image
                   src="/footer/icon-artajasa.svg"
                   alt="icon-artajasa"
-                  width={68}
-                  height={68}
+                  width={36}
+                  height={36}
+                  className="md:w-[68px] md:h-[68px]"
                 />
                 <Image
                   src="/footer/icon-masjed.svg"
                   alt="icon-masjed"
-                  width={80}
-                  height={80}
+                  width={40}
+                  height={40}
+                  className="md:w-[80px] md:h-[80px]"
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-2.5 md:gap-5">
-              <Label className="text-xs md:text-sm">License:</Label>
+              <Label>License:</Label>
               <div className="flex items-center gap-4">
                 <Image
                   src="/footer/icon-laz.svg"
                   alt="icon-laz"
-                  width={60}
-                  height={60}
+                  width={40}
+                  height={40}
+                  className="md:w-[60px] md:h-[60px]"
                 />
-                <Label className="text-xs">
+                <Label className="text-[10px] md:text-xs">
                   Lembaga Amil Zakat
                   <br />
                   SK Menteri Agama RI
@@ -60,10 +64,11 @@ export default function Footer() {
                 <Image
                   src="/footer/icon-ymid.svg"
                   alt="icon-ymid"
-                  width={60}
-                  height={60}
+                  width={40}
+                  height={40}
+                  className="md:w-[60px] md:h-[60px]"
                 />
-                <Label className="text-xs">
+                <Label className="text-[10px] md:text-xs">
                   Lembaga Nadzir Wakaf
                   <br />
                   SK BWI Nomor 3.3.300384
@@ -74,25 +79,27 @@ export default function Footer() {
                   <Image
                     src="/footer/icon-kemenkumham.svg"
                     alt="icon-kemenkumham"
-                    width={36}
-                    height={40}
+                    width={27}
+                    height={30}
+                    className="md:w-[36px] md:h-[40px]"
                   />
                   <Image
                     src="/footer/icon-kominfo.svg"
                     alt="icon-kominfo"
-                    width={36}
-                    height={40}
+                    width={27}
+                    height={30}
+                    className="md:w-[36px] md:h-[40px]"
                   />
                   <Image
                     src="/footer/icon-bnpb.svg"
                     alt="icon-bnpb"
-                    width={36}
-                    height={40}
+                    width={27}
+                    height={30}
+                    className="md:w-[36px] md:h-[40px]"
                   />
                 </div>
-                <Label className="text-xs">
-                  Nomor TD-PSE:
-                  <br />
+                <Label className="text-[10px] md:text-xs">
+                  Nomor TD-PSE: <br className="hidden md:block" />
                   281221002470600000001
                 </Label>
               </div>
@@ -100,33 +107,38 @@ export default function Footer() {
 
             <div className="flex flex-col">
               <div className="flex flex-col gap-2.5 md:gap-4 mb-2.5 md:mb-7">
-                <Label className="text-xs md:text-sm">Hubungi kami:</Label>
+                <Label>Hubungi kami:</Label>
                 <div className="flex items-center gap-4">
                   <Image
                     src="/footer/icon-phone.svg"
                     alt="icon-phone"
-                    width={25}
-                    height={25}
+                    width={20}
+                    height={20}
+                    className="md:w-[25px] md:h-[25px]"
                   />
-                  <Label className="text-xs">08139999001</Label>
+                  <Label className="text-[10px] md:text-xs">08139999001</Label>
                 </div>
                 <div className="flex items-center gap-4">
                   <Image
                     src="/footer/icon-email.svg"
                     alt="icon-phone"
-                    width={25}
-                    height={25}
+                    width={20}
+                    height={20}
+                    className="md:w-[25px] md:h-[25px]"
                   />
-                  <Label className="text-xs">admin@bersamakami.id</Label>
+                  <Label className="text-[10px] md:text-xs">
+                    admin@bersamakami.id
+                  </Label>
                 </div>
               </div>
 
               <Label className="text-base md:text-xl">
-                Tetap
+                <span className="font-bold">
+                  Tetap <br className="hidden md:block" />
+                  terhubung
+                </span>
                 <br />
-                terhubung
-                <br />
-                #BersamaKami
+                <span className="font-black">#BersamaKami</span>
               </Label>
 
               <div className="flex items-center gap-2.5 md:gap-4 mt-2.5 md:mt-4">
@@ -183,26 +195,23 @@ export default function Footer() {
         </div>
       </div>
 
-      <div
-        className="flex justify-center w-full h-[117px] bg-no-repeat bg-cover px-4 py-5"
-        style={{ backgroundImage: "url('./footer/footer-bg.png')" }}
-      >
-        <div className="md:w-[1280px] h-full flex flex-col-reverse justify-center md:flex-row md:items-end md:justify-between gap-2.5 md:gap-0">
-          <Label className="md:text-lg text-white flex gap-4">
+      <div className="flex md:justify-center w-full h-[117px] bg-footer-bg-mobile md:bg-footer-bg bg-no-repeat bg-cover px-4 py-5 ">
+        <div className="md:w-[1280px] h-full flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-2.5 md:gap-0">
+          <Label className="text-xs md:text-lg text-white flex gap-4">
             <span>©</span>
             <span>2024 Masjed Indonesia Digital</span>
           </Label>
 
           <div className="flex items-center gap-2.5">
-            <Link className="md:text-lg text-white" href={"google.com"}>
+            <Link className="text-xs md:text-lg text-white" href={"google.com"}>
               Kebijakan Privasi
             </Link>
-            <Label className="md:text-lg text-white">|</Label>
-            <Link className="md:text-lg text-white" href={"google.com"}>
+            <Label className="text-xs md:text-lg text-white">|</Label>
+            <Link className="text-xs md:text-lg text-white" href={"google.com"}>
               Syarat & Ketentuan
             </Link>
-            <Label className="md:text-lg text-white">|</Label>
-            <Link className="md:text-lg text-white" href={"google.com"}>
+            <Label className="text-xs md:text-lg text-white">|</Label>
+            <Link className="text-xs md:text-lg text-white" href={"google.com"}>
               FAQ
             </Link>
           </div>

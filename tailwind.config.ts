@@ -13,6 +13,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "footer-bg": "url('/footer/footer-bg.png')",
+        "footer-bg-mobile": "url('/footer/footer-bg-mobile.png')",
+      },
       colors: {
         "grey-1": "#E4E4E4",
         "grey-2": "#4E4E4E",
